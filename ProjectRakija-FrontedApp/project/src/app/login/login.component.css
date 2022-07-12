@@ -1,0 +1,38 @@
+p{
+    color: red;
+}
+form,h2,p{
+    margin-left: 30%;
+}
+input, button{
+    margin: 10px;
+}
+h2{
+    color: rgb(58, 114, 219);
+    font-style: italic;
+    font-weight: bold;
+    font-family:  Georgia, 'Times New Roman', Times, serif;
+    padding: 10px;
+}
+.login{
+    background-color: green;
+    color: white;
+}
+.container{
+    padding: 40px;
+    margin-right: 45%;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px #000;
+    background-color: rgb(170, 219, 252);
+}  
+mat-label{
+    color: rgba(255, 255, 255, 0.889);
+} 
+.slika{
+    background-image:url(./../../assets/img/wallpaper.jpg);
+    height:100%;
+}
+    
+
+  
+

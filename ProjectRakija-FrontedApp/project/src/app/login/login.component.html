@@ -1,0 +1,26 @@
+<div class="slika">
+    <p>Ulogovan: {{loginService.validateRoles(['ROLE_ADMIN', 'ROLE_NASTAVNIK', 'ROLE_STUDENT'])}}</p>
+    
+  
+  <form (ngSubmit)="login()" [formGroup]="loginForma" class="container" ngNativeValidate>
+    <h2>{{title}}</h2>
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label> <mat-icon>account_circle</mat-icon>Username</mat-label>
+          <input matInput name="korisnickoIme" formControlName="korisnickoIme" type="text" required>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label><mat-icon>lock</mat-icon>Password</mat-label>
+          <input matInput name="lozinka" formControlName="lozinka" type="password" required>
+        </mat-form-field>
+      </div>
+      <div>
+        <button type="submit" mat-raised-button class="login"><mat-icon>done_all</mat-icon>Login</button>
+        <button *ngIf="loginService.user" (click)="loginService.logout()"  mat-raised-button color="warn"><mat-icon>exit_to_app</mat-icon>Logout</button>
+      </div>
+      <p *ngIf="loginFailed"><mat-icon>error</mat-icon>Login failed!</p>
+      <p *ngIf="loginService.loggedOut"><mat-icon>warning</mat-icon>Successfully logged out!</p>
+    </form>
+  </div>

@@ -1,0 +1,36 @@
+.meni {
+    display:block;
+    justify-content: space-around;
+    background-color: rgb(211, 211, 243);
+
+}
+.mat-toolbar {
+  background-color: rgb(14, 140, 198);
+  padding: 0 5px;
+}
+button{
+    margin-left: 20px;
+    outline: none;
+    border: 0;
+    background: transparent;
+    font-size: 100%;
+    /* color:rgb(72, 72, 228); */
+}
+
+mat-icon{
+  color: aliceblue;
+}
+
+user {
+    font-size: 14px;
+  }
+
+  .user-image {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+
+  }
+.example-spacer{
+    flex: 1 1 auto;
+  }
