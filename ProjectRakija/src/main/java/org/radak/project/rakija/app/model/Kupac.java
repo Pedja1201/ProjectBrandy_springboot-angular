@@ -15,6 +15,10 @@ public class Kupac extends Korisnik{
     @Column(nullable = false, unique = true)
     private String email;
 
+    @OneToMany(mappedBy = "kupac")
+    private Set<Porudzbina> porudzbine = new HashSet<Porudzbina>();
+
+
 
     public Kupac() {super();
     }
@@ -50,5 +54,11 @@ public class Kupac extends Korisnik{
         this.email = email;
     }
 
+    public Set<Porudzbina> getPorudzbine() {
+        return porudzbine;
+    }
 
+    public void setPorudzbine(Set<Porudzbina> porudzbine) {
+        this.porudzbine = porudzbine;
+    }
 }

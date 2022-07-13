@@ -7,11 +7,19 @@ public class KupacDTO extends KorisnikDTO{
     private String prezime;
     private String email;
 
+    private ArrayList<PorudzbinaDTO> porudzbine = new ArrayList<PorudzbinaDTO>();
 
     public KupacDTO() {super();
 
     }
 
+    public KupacDTO(Long id, String korisnickoIme, String lozinka, String ime, String prezime, String email,  ArrayList<PorudzbinaDTO> porudzbine) {
+        super(id, korisnickoIme, lozinka);
+        this.ime = ime;
+        this.prezime = prezime;
+        this.email = email;
+        this.porudzbine = porudzbine;
+    }
 
     //Register controller
     public KupacDTO(Long id, String korisnickoIme, String lozinka, String ime, String prezime, String email) {
@@ -45,4 +53,11 @@ public class KupacDTO extends KorisnikDTO{
         this.email = email;
     }
 
+    public ArrayList<PorudzbinaDTO> getPorudzbine() {
+        return porudzbine;
+    }
+
+    public void setPorudzbine(ArrayList<PorudzbinaDTO> porudzbine) {
+        this.porudzbine = porudzbine;
+    }
 }
