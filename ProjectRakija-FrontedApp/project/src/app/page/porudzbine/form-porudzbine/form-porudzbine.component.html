@@ -1,1 +1,54 @@
-<p>form-porudzbine works!</p>
+<h2><i>{{title}}</i></h2>
+<mat-stepper [linear]="isLinear" #stepper>
+  <form [formGroup]="forma" ngNativeValidate>
+    <mat-step [stepControl]="firstFormGroup">
+      <ng-template matStepLabel>Primery data</ng-template>
+      <mat-form-field appearance="outline">
+        <mat-label>Datum kupovine:</mat-label>
+        <input matInput formControlName="datumKupovine" name="datumKupovine" [matDatepicker]="picker" required>
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Kolicina:</mat-label>
+        <input matInput formControlName="kolicina" name="kolicina" type="number" step="0,1" required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup" label="Secondary data">
+      <mat-form-field appearance="fill">
+        <mat-label>Rakija:</mat-label>
+        <mat-select name="rakija" formControlName="rakija" [compareWith]="comparator1" required>
+          <mat-option *ngFor="let rakija of rakije" [value]="rakija">
+            {{rakija.naziv}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Kupac:</mat-label>
+        <mat-select name="kupac" formControlName="kupac" [compareWith]="comparator2" required>
+          <mat-option *ngFor="let kupac of kupci" [value]="kupac">
+            {{kupac.email}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      <p>You are now done.</p>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)="stepper.reset()">Reset</button>
+        <button mat-raised-button color="primary" (click)="create()">Dodaj</button>
+      </div>
+    </mat-step>
+  </form>
+</mat-stepper>

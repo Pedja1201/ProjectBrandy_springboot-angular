@@ -11,7 +11,7 @@ public class Admin extends Korisnik{
     private String prezime;
     @Column(nullable = false, unique = true)
     private String email;
-    @Column(nullable = false, unique = true)
+    @Column(nullable = true, unique = true)
     private String jmbg;
 
     public Admin() {super();

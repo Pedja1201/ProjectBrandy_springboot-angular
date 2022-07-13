@@ -34,7 +34,7 @@ export class LoginService {
   }
 
   registerKupac(kupac:Kupac){
-    return this.client.post<Token>(`${this.baseUrl}/registerNastavnik`, kupac).pipe(
+    return this.client.post<Token>(`${this.baseUrl}/registerKupac`, kupac).pipe(
       tap(token => {
         this.token = token.token;
         this.user = JSON.parse(atob(token.token.split(".")[1]));

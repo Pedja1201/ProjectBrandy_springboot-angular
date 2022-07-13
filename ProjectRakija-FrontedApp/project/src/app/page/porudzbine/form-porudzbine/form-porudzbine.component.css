@@ -1,0 +1,18 @@
+form, h2{
+    margin-left: 10%;
+    padding: 30px;
+}
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-flex {
+    background-color: #fff;
+  }
+  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-flex {
+    border-radius: 4px;
+    padding: 0.75em 0.75em 0 0.75em;
+    border: 1px solid #3a4dcd;
+  }
+div{
+    padding: 10px;
+}
+form {
+    display: flex;
+}

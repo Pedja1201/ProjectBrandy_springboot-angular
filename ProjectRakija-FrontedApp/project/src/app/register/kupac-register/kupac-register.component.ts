@@ -65,7 +65,7 @@ export class KupacRegisterComponent implements OnInit {
   create() {
     if(this.forma.valid) {
       this.createEvent.emit(this.forma.value);
-      let snackBarRef = this.snackBar.open('Registered as a Admin', 'OK!',  {duration: 3000 });
+      let snackBarRef = this.snackBar.open('Registered as a Kupac', 'OK!',  {duration: 3000 });
       this.router.navigate(["login"]);
   }
 }
