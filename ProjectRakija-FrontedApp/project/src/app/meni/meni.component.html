@@ -1,1 +1,35 @@
-<p>meni works!</p>
+<mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="space-between center">
+    <button  [routerLink]="['/']" aria-label="Example icon button with a home icon">
+      <mat-icon>home</mat-icon>
+    </button>
+  
+    <button mat-button  [matMenuTriggerFor]="menu"><mat-icon>menu</mat-icon></button>
+    <mat-menu #menu="matMenu">
+      <a href="https://singidunum.ac.rs/page/biblioteka" target="_blank"><button mat-menu-item><mat-icon>library_books</mat-icon><i>Biblioteka</i></button></a> 
+      <a href="https://singidunum.ac.rs/news/besplatni-kursevi-i-sertifikati-na-univerzitetu-singidunum" target="_blank"><button mat-menu-item><mat-icon>school</mat-icon><i>Kursevi i Sertifikati</i></button></a>
+      <a href="https://singidunum.ac.rs/page/studentska-praksa" target="_blank"><button mat-menu-item><mat-icon>work</mat-icon><i>Kako do prakse?</i></button></a>
+      <a href="https://singidunum.ac.rs/internationalcooperation" target="_blank"><button mat-menu-item>	<mat-icon>group</mat-icon><i>Međunarodno partnerstvo</i></button></a>
+      <a href="https://singidunum.ac.rs/internationalcooperation" target="_blank"><button mat-menu-item><mat-icon>games</mat-icon><i>Takmičenje za srednjoškolce</i></button></a>
+      <a href="https://singipedia.singidunum.ac.rs/strana/radovi" target="_blank"><button mat-menu-item><mat-icon>public</mat-icon><i>Objavljeni radovi</i></button></a>
+    </mat-menu>
+  
+    <button mat-button  [matMenuTriggerFor]="menu1">	<mat-icon>question_answer</mat-icon><i>O Nama</i></button>
+    <mat-menu #menu1="matMenu">
+      <button mat-menu-item [routerLink]="['/kupci']"><mat-icon>search</mat-icon>Podaci o Kupcima</button>
+      <button mat-menu-item [routerLink]="['/rakije']">		<mat-icon>library_books</mat-icon>Rakija u prodaji</button>
+      <button mat-menu-item [routerLink]="['/porudzbine']">		<mat-icon>library_books</mat-icon>Poručeno</button>
+    </mat-menu>
+  
+  
+  
+    <span class="example-spacer"></span>
+    <button mat-button  [matMenuTriggerFor]="menuPrijava"  class="user mt-2 d-flex align-items-right">
+      <img src="./assets/img/user.jpg" alt="user" class="user-image mr-1 p-2" /> User Name  <mat-icon>power_settings_new</mat-icon></button>	
+    <mat-menu #menuPrijava="matMenu">
+      <button mat-menu-item  [routerLink]="['/login']"><mat-icon>add_circle</mat-icon>Login</button>
+      <button mat-menu-item *ngIf="loginService.validateRoles(['ROLE_ADMIN', 'ROLE_NASTAVNIK'])" [routerLink]="['/register']"><mat-icon>create</mat-icon>Sign in</button>
+      <button mat-menu-item style="color: red;" *ngIf="loginService.user" (click)="loginService.logout()" [routerLink]="['/login']"><mat-icon>exit_to_app</mat-icon>Logout</button>
+    </mat-menu>
+  </mat-toolbar>
+  
+  

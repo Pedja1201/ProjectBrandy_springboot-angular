@@ -1,0 +1,16 @@
+<div>
+    <h2>{{title}}</h2>
+
+    <mat-tab-group>
+        <mat-tab label="Table Kupci">
+            <app-table-kupci [elementi]="kupci" (uklanjanje)="delete($event)" (izmena)="setUpdate($event)">
+            </app-table-kupci>
+
+            <app-form-kupci *ngIf="prikaz" [kupac]="kupacUpdate" (createEvent)="update($event)">
+            </app-form-kupci>
+        </mat-tab>
+        <mat-tab label="Add Predmet" *ngIf="loginService.validateRoles(['ROLE_ADMIN', 'ROLE_KUPAC'])">
+            <app-form-kupci (createEvent)="create($event)"></app-form-kupci>
+        </mat-tab>
+    </mat-tab-group>
+</div>

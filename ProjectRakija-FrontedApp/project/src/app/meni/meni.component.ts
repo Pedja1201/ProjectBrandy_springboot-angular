@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginService } from '../service/login.service';
 
 @Component({
   selector: 'app-meni',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MeniComponent implements OnInit {
 
-  constructor() { }
+  constructor(public loginService : LoginService) { }
 
   ngOnInit(): void {
   }
