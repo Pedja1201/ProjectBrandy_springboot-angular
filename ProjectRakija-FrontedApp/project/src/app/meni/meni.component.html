@@ -15,7 +15,7 @@
       <img src="./assets/img/user.jpg" alt="user" class="user-image mr-1 p-2" /> User Name  <mat-icon>power_settings_new</mat-icon></button>	
     <mat-menu #menuPrijava="matMenu">
       <button mat-menu-item  [routerLink]="['/login']"><mat-icon>add_circle</mat-icon>Login</button>
-      <button mat-menu-item *ngIf="loginService.validateRoles(['ROLE_ADMIN', 'ROLE_NASTAVNIK'])" [routerLink]="['/register']"><mat-icon>create</mat-icon>Sign in</button>
+      <button mat-menu-item *ngIf="loginService.validateRoles(['ROLE_ADMIN', 'ROLE_KUPAC'])" [routerLink]="['/register']"><mat-icon>create</mat-icon>Sign in</button>
       <button mat-menu-item style="color: red;" *ngIf="loginService.user" (click)="loginService.logout()" [routerLink]="['/login']"><mat-icon>exit_to_app</mat-icon>Logout</button>
     </mat-menu>
   </mat-toolbar>

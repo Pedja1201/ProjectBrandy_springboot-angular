@@ -2,7 +2,7 @@
     <h2>{{title}}</h2>
     <mat-tab-group>
 
-        <mat-tab label="Register Kupac" *ngIf="loginService.validateRoles(['ROLE_ADMIN'])">
+        <mat-tab label="Register Kupac" *ngIf="loginService.validateRoles(['ROLE_ADMIN','ROLE_KUPAC'])">
             <app-kupac-register (createEvent)="createKupac($event)"></app-kupac-register>
         </mat-tab>
         <mat-tab label="Register Administrator"  *ngIf="loginService.validateRoles(['ROLE_ADMIN'])">
