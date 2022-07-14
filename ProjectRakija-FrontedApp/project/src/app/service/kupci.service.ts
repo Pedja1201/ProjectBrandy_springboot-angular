@@ -52,4 +52,8 @@ export class KupciService {
       })
     );
   }
+
+  exportPdf(){
+    return this.client.get(`${this.baseUrl}/kupci/export`, {responseType:'blob'})
+  }
 }

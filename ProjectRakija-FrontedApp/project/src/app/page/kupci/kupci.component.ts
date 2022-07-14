@@ -23,6 +23,16 @@ export class KupciComponent implements OnInit {
     })
   }
 
+  export(){
+    this.service.exportPdf().subscribe((data) => {
+      let downloadURL = window.URL.createObjectURL(data);
+      let link = document.createElement('a');
+      link.href=downloadURL;
+      link.download = 'kupciList.pdf';
+      link.click()
+    })
+  }
+
   ngOnInit(): void {
     this.getAll();
   }

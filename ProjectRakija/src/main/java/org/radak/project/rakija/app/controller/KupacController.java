@@ -3,6 +3,7 @@ package org.radak.project.rakija.app.controller;
 import org.radak.project.rakija.app.dto.KupacDTO;
 import org.radak.project.rakija.app.model.Kupac;
 import org.radak.project.rakija.app.service.KupacService;
+import org.radak.project.rakija.app.service.PdfService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,6 +13,10 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -21,6 +26,8 @@ import java.util.function.Function;
 public class KupacController {
     @Autowired
     private KupacService kupacService;
+    @Autowired
+    private PdfService pdfService;
 
     @RequestMapping(path = "", method = RequestMethod.GET)
     @Secured({"ROLE_ADMIN"})
@@ -88,5 +95,21 @@ public class KupacController {
             return new ResponseEntity<Kupac>(HttpStatus.OK);
         }
         return new ResponseEntity<Kupac>(HttpStatus.NOT_FOUND);
+    }
+
+    //Metoda za preuzimanje PDF dokumenta - Potrebno (PdfService, pom.xml, resources)
+    @RequestMapping(path = "/export", method = RequestMethod.GET)
+    public void downloadPdf(HttpServletResponse response){
+        try{
+            Path file = Paths.get(pdfService.generateKupciPdf().getAbsolutePath());
+            if (Files.exists(file)){
+                response.setContentType("application/pdf");
+                response.addHeader("Content-Disposition", "attachment; filename"+ file.getFileName());
+                Files.copy(file, response.getOutputStream());
+                response.getOutputStream().flush();
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

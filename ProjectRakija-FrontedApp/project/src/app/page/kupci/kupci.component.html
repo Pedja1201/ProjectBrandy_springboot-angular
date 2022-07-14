@@ -3,6 +3,7 @@
 
     <mat-tab-group>
         <mat-tab label="Table Kupci">
+            <button (click)="export()" mat-icon-button color="warn" ><mat-icon>picture_as_pdf</mat-icon>Export To PDF</button>
             <app-table-kupci [elementi]="kupci" (uklanjanje)="delete($event)" (izmena)="setUpdate($event)">
             </app-table-kupci>
 
