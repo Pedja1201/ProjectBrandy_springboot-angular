@@ -12,7 +12,7 @@ public class Porudzbina {
     @Column(nullable = false)
     private String kolicina;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date datumKupovine;
 
     @ManyToOne(optional = false)
