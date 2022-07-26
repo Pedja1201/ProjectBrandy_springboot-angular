@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { KupacPage, Kupac } from 'src/app/model/kupac';
-import { Rakija } from 'src/app/model/rakija';
+import { Rakija, RakijaPage } from 'src/app/model/rakija';
 import { LoginService } from 'src/app/service/login.service';
 
 @Component({
@@ -12,7 +12,7 @@ import { LoginService } from 'src/app/service/login.service';
 export class TableRakijeComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'naziv', 'sorta','cena', 'godina',"akcije"];
-  dataSource : KupacPage<Kupac> |undefined;
+  dataSource : RakijaPage<Rakija> |undefined;
   title="Tabela Rakije";
 
   @Input()
