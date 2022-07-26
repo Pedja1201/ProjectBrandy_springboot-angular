@@ -18,6 +18,8 @@ public class Rakija {
     private double cena;
     @Column(nullable = false)
     private int godina;
+    @Column(nullable = false)
+    private String jacina;
 
     @OneToMany(mappedBy = "rakija")
     private Set<Porudzbina> porudzbine = new HashSet<Porudzbina>();
@@ -25,12 +27,13 @@ public class Rakija {
     public Rakija() {super();
     }
 
-    public Rakija(Long id, String naziv, String sorta, double cena, int godina) {
+    public Rakija(Long id, String naziv, String sorta, double cena, int godina, String jacina) {
         this.id = id;
         this.naziv = naziv;
         this.sorta = sorta;
         this.cena = cena;
         this.godina = godina;
+        this.jacina = jacina;
     }
 
     public Long getId() {
@@ -71,6 +74,14 @@ public class Rakija {
 
     public void setGodina(int godina) {
         this.godina = godina;
+    }
+
+    public String getJacina() {
+        return jacina;
+    }
+
+    public void setJacina(String jacina) {
+        this.jacina = jacina;
     }
 
     public Set<Porudzbina> getPorudzbine() {

@@ -35,7 +35,7 @@ public class PorudzbinaController {
             public PorudzbinaDTO apply(Porudzbina porudzbina) {
                 PorudzbinaDTO porudzbinaDTO = new PorudzbinaDTO(porudzbina.getId(), porudzbina.getKolicina(), porudzbina.getDatumKupovine(),
                         new RakijaDTO(porudzbina.getRakija().getId(), porudzbina.getRakija().getNaziv(),
-                                porudzbina.getRakija().getSorta(),porudzbina.getRakija().getCena(),porudzbina.getRakija().getGodina()),
+                                porudzbina.getRakija().getSorta(),porudzbina.getRakija().getCena(),porudzbina.getRakija().getGodina(),porudzbina.getRakija().getJacina()),
                         new KupacDTO(porudzbina.getKupac().getId(), porudzbina.getKupac().getKorisnickoIme(),null,
                                 porudzbina.getKupac().getIme(),porudzbina.getKupac().getPrezime(),porudzbina.getKupac().getEmail())
                 );
@@ -55,7 +55,7 @@ public class PorudzbinaController {
             PorudzbinaDTO porudzbinaDTO = new PorudzbinaDTO(porudzbina.get().getId(),porudzbina.get().getKolicina(),
                     porudzbina.get().getDatumKupovine(),
                     new RakijaDTO(porudzbina.get().getRakija().getId(),porudzbina.get().getRakija().getNaziv(),
-                            porudzbina.get().getRakija().getSorta(), porudzbina.get().getRakija().getCena(), porudzbina.get().getRakija().getGodina()),
+                            porudzbina.get().getRakija().getSorta(), porudzbina.get().getRakija().getCena(), porudzbina.get().getRakija().getGodina(),porudzbina.get().getRakija().getJacina()),
                     new KupacDTO(porudzbina.get().getKupac().getId(), porudzbina.get().getKupac().getKorisnickoIme(),
                             porudzbina.get().getKupac().getLozinka(),porudzbina.get().getKupac().getIme(),
                             porudzbina.get().getKupac().getPrezime(), porudzbina.get().getKupac().getEmail()) );
@@ -70,7 +70,7 @@ public class PorudzbinaController {
         try {
             porudzbinaService.save(porudzbina);
             RakijaDTO rakijaDTO =  new RakijaDTO(porudzbina.getRakija().getId(), porudzbina.getRakija().getNaziv(), porudzbina.getRakija().getSorta(),
-                    porudzbina.getRakija().getCena(), porudzbina.getRakija().getGodina());
+                    porudzbina.getRakija().getCena(), porudzbina.getRakija().getGodina(),  porudzbina.getRakija().getJacina());
             KupacDTO kupacDTO =  new KupacDTO(porudzbina.getKupac().getId(), porudzbina.getKupac().getKorisnickoIme(),null,
                     porudzbina.getKupac().getIme(),porudzbina.getKupac().getPrezime(),porudzbina.getKupac().getEmail());
 
@@ -92,7 +92,7 @@ public class PorudzbinaController {
             izmenjenaPorudzbina.setId(porudzbinaId);
             porudzbinaService.save(izmenjenaPorudzbina);
             RakijaDTO rakijaDTO =  new RakijaDTO(izmenjenaPorudzbina.getRakija().getId(), izmenjenaPorudzbina.getRakija().getNaziv(), izmenjenaPorudzbina.getRakija().getSorta(),
-                    izmenjenaPorudzbina.getRakija().getCena(), izmenjenaPorudzbina.getRakija().getGodina());
+                    izmenjenaPorudzbina.getRakija().getCena(), izmenjenaPorudzbina.getRakija().getGodina(), izmenjenaPorudzbina.getRakija().getJacina());
             KupacDTO kupacDTO =  new KupacDTO(izmenjenaPorudzbina.getKupac().getId(), izmenjenaPorudzbina.getKupac().getKorisnickoIme(),null,
                     izmenjenaPorudzbina.getKupac().getIme(),izmenjenaPorudzbina.getKupac().getPrezime(),izmenjenaPorudzbina.getKupac().getEmail());
 

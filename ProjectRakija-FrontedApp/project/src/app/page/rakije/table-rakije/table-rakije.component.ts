@@ -11,7 +11,7 @@ import { LoginService } from 'src/app/service/login.service';
 })
 export class TableRakijeComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'naziv', 'sorta','cena', 'godina',"akcije"];
+  displayedColumns: string[] = ['id', 'naziv', 'sorta','cena', 'godina', 'jacina',"akcije"];
   dataSource : RakijaPage<Rakija> |undefined;
   title="Tabela Rakije";
 

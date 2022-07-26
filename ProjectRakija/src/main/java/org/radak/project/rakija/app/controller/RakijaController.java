@@ -39,7 +39,7 @@ public class RakijaController {
         Page<RakijaDTO> rakije = rakija.map(new Function<Rakija, RakijaDTO>() {
             public RakijaDTO apply(Rakija rakija) {
                 RakijaDTO rakijaDTO = new RakijaDTO(rakija.getId(), rakija.getNaziv(), rakija.getSorta(),
-                        rakija.getCena(), rakija.getGodina()
+                        rakija.getCena(), rakija.getGodina(),rakija.getJacina()
                 );
                 // Conversion logic
 
@@ -55,7 +55,7 @@ public class RakijaController {
         Optional<Rakija> rakija = rakijaService.findOne(rakijaId);
         if (rakija.isPresent()) {
             RakijaDTO rakijaDTO = new RakijaDTO(rakija.get().getId(),rakija.get().getNaziv(),rakija.get().getSorta(),
-                    rakija.get().getCena(),rakija.get().getGodina());
+                    rakija.get().getCena(),rakija.get().getGodina(), rakija.get().getJacina());
             return new ResponseEntity<RakijaDTO>(rakijaDTO, HttpStatus.OK);
         }
         return new ResponseEntity<RakijaDTO>(HttpStatus.NOT_FOUND);
@@ -67,7 +67,7 @@ public class RakijaController {
         try {
             rakijaService.save(rakija);
             RakijaDTO rakijaDTO = new RakijaDTO(rakija.getId(), rakija.getNaziv(), rakija.getSorta(),
-                    rakija.getCena(), rakija.getGodina());
+                    rakija.getCena(), rakija.getGodina(), rakija.getJacina());
 
             return new ResponseEntity<RakijaDTO>(rakijaDTO, HttpStatus.CREATED);
         } catch (Exception e) {
@@ -85,7 +85,7 @@ public class RakijaController {
             izmenjenaRakija.setId(rakijaId);
             izmenjenaRakija = rakijaService.save(izmenjenaRakija);
             RakijaDTO rakijaDTO = new RakijaDTO(izmenjenaRakija.getId(), izmenjenaRakija.getNaziv(),izmenjenaRakija.getSorta(),
-                    izmenjenaRakija.getCena(), izmenjenaRakija.getGodina() );
+                    izmenjenaRakija.getCena(), izmenjenaRakija.getGodina(), izmenjenaRakija.getJacina());
             return new ResponseEntity<RakijaDTO>(rakijaDTO, HttpStatus.OK);
         }
         return new ResponseEntity<RakijaDTO>(HttpStatus.NOT_FOUND);

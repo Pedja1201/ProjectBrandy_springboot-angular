@@ -13,27 +13,30 @@ public class RakijaDTO {
     private String sorta;
     private double cena;
     private int godina;
+    private String jacina;
 
     private ArrayList<PorudzbinaDTO> porudzbine = new ArrayList<PorudzbinaDTO>();
 
     public RakijaDTO() {super();
     }
 
-    public RakijaDTO(Long id, String naziv, String sorta, double cena, int godina, ArrayList<PorudzbinaDTO> porudzbine) {
+    public RakijaDTO(Long id, String naziv, String sorta, double cena, int godina, String jacina, ArrayList<PorudzbinaDTO> porudzbine) {
         this.id = id;
         this.naziv = naziv;
         this.sorta = sorta;
         this.cena = cena;
         this.godina = godina;
+        this.jacina = jacina;
         this.porudzbine = porudzbine;
     }
 
-    public RakijaDTO(Long id, String naziv, String sorta, double cena, int godina) {
+    public RakijaDTO(Long id, String naziv, String sorta, double cena, int godina, String jacina) {
         this.id = id;
         this.naziv = naziv;
         this.sorta = sorta;
         this.cena = cena;
         this.godina = godina;
+        this.jacina = jacina;
     }
 
     public Long getId() {
@@ -74,6 +77,14 @@ public class RakijaDTO {
 
     public void setGodina(int godina) {
         this.godina = godina;
+    }
+
+    public String getJacina() {
+        return jacina;
+    }
+
+    public void setJacina(String jacina) {
+        this.jacina = jacina;
     }
 
     public ArrayList<PorudzbinaDTO> getPorudzbine() {

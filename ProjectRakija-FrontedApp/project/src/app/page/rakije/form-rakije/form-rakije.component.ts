@@ -24,6 +24,7 @@ export class FormRakijeComponent implements OnInit {
     "sorta": new FormControl(null, [Validators.required]),
     "cena": new FormControl(null, [Validators.required]),
     "godina": new FormControl(null, [Validators.required]),
+    "jacina": new FormControl(null, [Validators.required]),
   })
   
   @Input()
@@ -42,6 +43,7 @@ export class FormRakijeComponent implements OnInit {
     this.forma.get("sorta")?.setValue(this.rakija?.sorta);
     this.forma.get("cena")?.setValue(this.rakija?.cena) ; 
     this.forma.get("godina")?.setValue(this.rakija?.godina);    
+    this.forma.get("jacina")?.setValue(this.rakija?.jacina);    
   }
 
   ngOnInit(): void {
@@ -50,6 +52,7 @@ export class FormRakijeComponent implements OnInit {
     this.forma.get("sorta")?.setValue(this.rakija?.id);
     this.forma.get("cena")?.setValue(this.rakija?.id);
     this.forma.get("godina")?.setValue(this.rakija?.id);
+    this.forma.get("jacina")?.setValue(this.rakija?.id);
   }
 
   create() {

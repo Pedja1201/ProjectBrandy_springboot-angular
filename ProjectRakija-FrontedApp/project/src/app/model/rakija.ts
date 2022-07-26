@@ -8,4 +8,5 @@ export interface Rakija {
     sorta:String;
     cena:number;
     godina:number
+    jacina:String
 }
