@@ -2,7 +2,7 @@
     <h2>{{title}}</h2>
 
     <mat-tab-group>
-        <mat-tab label="Table Porudzbine">
+        <mat-tab label="Table Porudzbine" *ngIf="loginService.validateRoles(['ROLE_ADMIN'])">
             <app-table-porudzbine [elementi]="porudzbine" (uklanjanje)="delete($event)" (izmena)="setUpdate($event)">
             </app-table-porudzbine>
 

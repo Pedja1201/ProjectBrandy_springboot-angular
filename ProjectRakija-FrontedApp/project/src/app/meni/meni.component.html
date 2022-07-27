@@ -3,13 +3,10 @@
       <mat-icon>home</mat-icon>
     </button>
   
-    <button mat-button  [matMenuTriggerFor]="menu"><mat-icon>menu</mat-icon></button>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item [routerLink]="['/kupci']"><mat-icon>perm_contact_calendar</mat-icon>Podaci o Kupcima</button>
-      <button mat-menu-item [routerLink]="['/rakije']">		<mat-icon>filter_list</mat-icon> Rakija u prodaji</button>
-      <button mat-menu-item [routerLink]="['/porudzbine']">		<mat-icon>add_shopping_cart</mat-icon> Poručiti</button>
-    </mat-menu>
-  
+    <button mat-button *ngIf="loginService.validateRoles(['ROLE_ADMIN'])"   [routerLink]="['/kupci']"><mat-icon>perm_contact_calendar</mat-icon>Podaci o Kupcima</button>
+    <button mat-button  [routerLink]="['/rakije']">		<mat-icon>filter_list</mat-icon> Rakija u ponudi</button>
+    <button mat-button *ngIf="loginService.validateRoles(['ROLE_ADMIN', 'ROLE_KUPAC'])"  [routerLink]="['/porudzbine']">		<mat-icon>add_shopping_cart</mat-icon> Porudžbina</button>
+
     <span class="example-spacer"></span>
     <button mat-button  [matMenuTriggerFor]="menuPrijava"  class="user mt-2 d-flex align-items-right">
       <img src="./assets/img/user.jpg" alt="user" class="user-image mr-1 p-2" /> User Name  <mat-icon>power_settings_new</mat-icon></button>	
