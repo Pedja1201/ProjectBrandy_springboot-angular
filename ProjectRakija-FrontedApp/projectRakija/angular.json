@@ -3,13 +3,9 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "project": {
+    "projectRakija": {
       "projectType": "application",
-      "schematics": {
-        "@schematics/angular:application": {
-          "strict": true
-        }
-      },
+      "schematics": {},
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -17,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/project",
+            "outputPath": "dist/project-rakija",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -69,10 +65,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "project:build:production"
+              "browserTarget": "projectRakija:build:production"
             },
             "development": {
-              "browserTarget": "project:build:development"
+              "browserTarget": "projectRakija:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -80,7 +76,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "project:build"
+            "browserTarget": "projectRakija:build"
           }
         },
         "test": {
@@ -104,5 +100,7 @@
       }
     }
   },
-  "defaultProject": "project"
+  "cli": {
+    "analytics": "d0d0b2e9-cc03-4a29-85f7-332c9d7f6cd4"
+  }
 }
