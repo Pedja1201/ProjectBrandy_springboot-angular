@@ -12,7 +12,7 @@
             <app-form-rakije *ngIf="prikaz" [rakija]="rakijaUpdate" (createEvent)="update($event)">
             </app-form-rakije>
         </mat-tab>
-        <mat-tab label="Add Rakija" *ngIf="loginService.validateRoles(['ROLE_ADMIN', 'ROLE_KUPAC'])">
+        <mat-tab label="Add Rakija" *ngIf="loginService.validateRoles(['ROLE_ADMIN'])">
             <app-form-rakije (createEvent)="create($event)"></app-form-rakije>
         </mat-tab>
     </mat-tab-group>
