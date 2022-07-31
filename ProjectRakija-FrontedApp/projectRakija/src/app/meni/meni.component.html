@@ -7,6 +7,8 @@
     <button mat-button  [routerLink]="['/rakije']">		<mat-icon>filter_list</mat-icon> Rakija u ponudi</button>
     <button mat-button *ngIf="loginService.validateRoles(['ROLE_ADMIN', 'ROLE_KUPAC'])"  [routerLink]="['/porudzbine']">		<mat-icon>add_shopping_cart</mat-icon> Porudžbina</button>
 
+    <button mat-button  [routerLink]="['/about']">	<mat-icon> live_help</mat-icon> O nama</button>
+
     <span class="example-spacer"></span>
     <button mat-button  [matMenuTriggerFor]="menuPrijava"  class="user mt-2 d-flex align-items-right">
       <img src="./assets/img/user.jpg" alt="user" class="user-image mr-1 p-2" /> User Name  <mat-icon>power_settings_new</mat-icon></button>	
