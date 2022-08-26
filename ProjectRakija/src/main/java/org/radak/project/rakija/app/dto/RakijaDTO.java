@@ -6,8 +6,6 @@ import javax.persistence.Id;
 import java.util.ArrayList;
 
 public class RakijaDTO {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String naziv;
     private String sorta;
