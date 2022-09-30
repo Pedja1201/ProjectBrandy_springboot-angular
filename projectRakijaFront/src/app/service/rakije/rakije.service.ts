@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Rakija, RakijaPage } from '../model/rakija';
-import { LoginService } from './login.service';
+import { Rakija, RakijaPage } from '../../model/rakija';
+import { LoginService } from '.././auth/login.service';
 
 @Injectable({
   providedIn: 'root'

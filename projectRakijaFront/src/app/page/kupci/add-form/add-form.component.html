@@ -1,0 +1,48 @@
+<h2><i>Add Form</i></h2>
+<mat-stepper [linear]="isLinear" #stepper>
+  <form  ngNativeValidate>
+    <mat-step [stepControl]="firstFormGroup">
+      <ng-template matStepLabel>Primary data</ng-template>
+      <mat-form-field appearance="outline">
+        <mat-label>Korisnicko ime:</mat-label>
+        <input matInput [(ngModel)]="kupac.korisnickoIme" name="korisnickoIme" type="text" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Lozinka:</mat-label>
+        <input matInput [(ngModel)]="kupac.lozinka" name="lozinka" type="password" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Ime: </mat-label>
+        <input matInput [(ngModel)]="kupac.ime" name="ime" type="text" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Prezime: </mat-label>
+        <input matInput [(ngModel)]="kupac.prezime" name="prezime" type="text" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>E-mail: </mat-label>
+        <input matInput [(ngModel)]="kupac.email" name="email" type="email" required>
+      </mat-form-field>
+
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      <p>You are now done.</p>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)="stepper.reset()">Reset</button>
+        <button mat-raised-button color="primary" (click)="create(kupac)">Submit</button>
+      </div>
+    </mat-step>
+    <div>
+      <button (click)="goBack()" type="submit" class="btn btn-secondary m-2">Cancel</button>
+  </div>
+  </form>
+</mat-stepper>

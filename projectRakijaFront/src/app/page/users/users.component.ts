@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { User, UserPage } from 'src/app/model/user';
-import { UsersService } from 'src/app/service/users.service';
+import { UsersService } from 'src/app/service/users/users.service';
 
 @Component({
   selector: 'app-users',

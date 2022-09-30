@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RakijeService } from 'src/app/service/rakije.service';
+import { RakijeService } from 'src/app/service/rakije/rakije.service';
 import { Location } from '@angular/common';
 
 @Component({

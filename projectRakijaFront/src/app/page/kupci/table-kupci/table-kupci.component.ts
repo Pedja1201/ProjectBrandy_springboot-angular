@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Kupac, KupacPage } from 'src/app/model/kupac';
-import { LoginService } from 'src/app/service/login.service';
+import { LoginService } from 'src/app/service/auth/login.service';
 
 @Component({
   selector: 'app-table-kupci',

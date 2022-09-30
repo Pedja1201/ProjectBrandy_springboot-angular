@@ -31,7 +31,7 @@ import { WelcomeComponent } from './page/welcome/welcome.component';
 import { NotFoundComponent } from './page/not-found/not-found.component';
 import { MeniComponent } from './meni/meni.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AdminRegisterComponent } from './register/admin-register/admin-register.component';
 import { KupacRegisterComponent } from './register/kupac-register/kupac-register.component';

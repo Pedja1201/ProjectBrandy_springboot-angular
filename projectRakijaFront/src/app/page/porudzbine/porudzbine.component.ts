@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Porudzbina, PorudzbinaPage } from 'src/app/model/porudzbina';
-import { LoginService } from 'src/app/service/login.service';
-import { PorudzbineService } from 'src/app/service/porudzbine.service';
+import { LoginService } from 'src/app/service/auth/login.service';
+import { PorudzbineService } from 'src/app/service/porudzbine/porudzbine.service';
 
 @Component({
   selector: 'app-porudzbine',

@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Kupac, KupacPage } from '../model/kupac';
-import { LoginService } from './login.service';
+import { Kupac, KupacPage } from '../../model/kupac';
+import { LoginService } from '../auth/login.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,20 +18,20 @@ export class KupciService {
     return this.client.get<KupacPage<Kupac>>(`${this.baseUrl}/kupci`)
   }
 
-  getOne(id : number){
+  getOne(id : number): Observable<Kupac[]>{
     return this.client.get<Kupac[]>(`${this.baseUrl}/kupci/${id}`)
   }
 
-  create(student : Kupac){
-    return this.client.post(`${this.baseUrl}/kupci`, student)
+  create(student : Kupac):Observable<string>{
+    return this.client.post<string>(`${this.baseUrl}/kupci`, student)
   }
 
   update(id:number, student : Kupac){
     return this.client.put<Kupac[]>(`${this.baseUrl}/kupci/${id}`, student)
   }
 
-  delete(id:number){
-    return this.client.delete<Kupac[]>(`${this.baseUrl}/kupci/${id}`)
+  delete(kupac:Kupac){
+    return this.client.delete<string>(this.baseUrl + "?id=" + kupac.id)
   }
   pretrazi(parametri: any = undefined) {
     if (parametri == undefined) {

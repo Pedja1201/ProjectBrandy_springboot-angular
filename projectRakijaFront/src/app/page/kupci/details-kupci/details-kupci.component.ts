@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { KupciService } from 'src/app/service/kupci.service';
+import { KupciService } from 'src/app/service/kupci/kupci.service';
 import { Location } from '@angular/common';
 
 @Component({

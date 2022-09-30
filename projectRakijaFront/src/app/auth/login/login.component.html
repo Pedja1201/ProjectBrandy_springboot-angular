@@ -21,6 +21,6 @@
         <button *ngIf="loginService.user" (click)="loginService.logout()"  mat-raised-button color="warn"><mat-icon>exit_to_app</mat-icon>Logout</button>
       </div>
       <p *ngIf="loginFailed"><mat-icon>error</mat-icon>Login failed!</p>
-      <p *ngIf="loginService.loggedOut"><mat-icon>warning</mat-icon>Successfully logged out!</p>
+      <p *ngIf="!loginService.isLoggedIn"><mat-icon>warning</mat-icon>Successfully logged out!</p>
     </form>
   </div>

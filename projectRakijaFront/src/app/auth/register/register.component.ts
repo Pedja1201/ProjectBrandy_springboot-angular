@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Admin } from '../model/admin';
-import { Kupac } from '../model/kupac';
-import { LoginService } from '../service/auth/login.service';
+import { Admin } from '../../model/admin';
+import { Kupac } from '../../model/kupac';
+import { LoginService } from '../../service/auth/login.service';
 
 @Component({
   selector: 'app-register',

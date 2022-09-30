@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Rakija, RakijaPage } from 'src/app/model/rakija';
-import { LoginService } from 'src/app/service/login.service';
-import { RakijeService } from 'src/app/service/rakije.service';
+import { LoginService } from 'src/app/service/auth/login.service';
+import { RakijeService } from 'src/app/service/rakije/rakije.service';
 
 @Component({
   selector: 'app-rakije',

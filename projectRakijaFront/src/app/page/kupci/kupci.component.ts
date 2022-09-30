@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Kupac, KupacPage } from 'src/app/model/kupac';
-import { KupciService } from 'src/app/service/kupci.service';
-import { LoginService } from 'src/app/service/login.service';
+import { KupciService } from 'src/app/service/kupci/kupci.service';
+import { LoginService } from 'src/app/service/auth/login.service';
 
 @Component({
   selector: 'app-kupci',

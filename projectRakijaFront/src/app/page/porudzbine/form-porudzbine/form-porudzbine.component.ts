@@ -3,8 +3,8 @@ import { FormGroupDirective, FormGroup, FormControl, Validators, FormBuilder } f
 import { Porudzbina } from 'src/app/model/porudzbina';
 import { Kupac, KupacPage } from 'src/app/model/kupac';
 import { Rakija, RakijaPage } from 'src/app/model/rakija';
-import { KupciService } from 'src/app/service/kupci.service';
-import { RakijeService } from 'src/app/service/rakije.service';
+import { KupciService } from 'src/app/service/kupci/kupci.service';
+import { RakijeService } from 'src/app/service/rakije/rakije.service';
 
 @Component({
   selector: 'app-form-porudzbine',

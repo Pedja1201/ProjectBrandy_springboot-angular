@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Porudzbina, PorudzbinaPage } from '../model/porudzbina';
-import { LoginService } from './login.service';
+import { Porudzbina, PorudzbinaPage } from '../../model/porudzbina';
+import { LoginService } from '../auth/login.service';
 
 @Injectable({
   providedIn: 'root'

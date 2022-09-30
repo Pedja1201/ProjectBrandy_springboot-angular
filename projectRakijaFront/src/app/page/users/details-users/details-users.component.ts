@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UsersService } from 'src/app/service/users.service';
+import { UsersService } from 'src/app/service/users/users.service';
 import { Location } from '@angular/common';
 
 @Component({

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PorudzbineService } from 'src/app/service/porudzbine.service';
+import { PorudzbineService } from 'src/app/service/porudzbine/porudzbine.service';
 
 @Component({
   selector: 'app-details-porudzbine',
