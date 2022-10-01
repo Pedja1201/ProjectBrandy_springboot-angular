@@ -1,36 +1,33 @@
-p{
-    color: red;
-}
-form,h2,p{
+
+form,p{
     margin-left: 30%;
-    padding: 40px;
+    padding: 4%;
 }
 input, button{
     margin: 10px;
 }
 h2{
-    color: rgb(26, 86, 39);
+    margin-left: 10%;
+    margin-bottom: 10%;
+    color: rgb(250, 251, 254);
     font-style: italic;
     font-weight: bold;
     font-family:  Georgia, 'Times New Roman', Times, serif;
-    padding: 10px;
 }
 .login{
     background-color: green;
     color: white;
 }
 .container{
-    padding: 50px;
     margin-right: 45%;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px #000;
+    border-radius: 10%;
     background-color: rgb(122, 147, 94);
 }  
 mat-label{
     color: rgba(255, 255, 255, 0.889);
 } 
 .slika{
-    background-image:url(./../../assets/img/wallpaper.jpg);
+    background-image:url(./../../../assets/img/wallpaper.jpg);
      /* Full height */
   height: 100%; 
 

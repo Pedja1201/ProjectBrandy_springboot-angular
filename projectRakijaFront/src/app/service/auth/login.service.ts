@@ -15,21 +15,25 @@ import { User } from '../../model/user';
 export class LoginService {
   private baseUrl = environment.baseUrl //Dobavljanje url adrese da ne kucamo rucno
 
-  token : null | string = null;
-  user : any = null;
+  token : Token = new Token()
+  user : User = new User()
   rolesSubject: BehaviorSubject<Set<string>> = new BehaviorSubject<Set<string>>(new Set([]));
-  loggedOut = false;  //Ispis da je uspesno izlogovan
-  loggedIn = false;  //Za prikaz dugmica nakkon Login-a
+
 
   constructor(private client : HttpClient, public snackBar : MatSnackBar) { }
 
+  isLoggedIn(){
+    if (localStorage.getItem('Token')) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   login(user:User){
     return this.client.post<Token>(`${this.baseUrl}/login`, user).pipe(
-      tap(token => {
-        this.token = token.token;
-        this.user = JSON.parse(atob(token.token.split(".")[1]));
-        console.log(this.user)
-        this.loggedIn=true; //Za prikaz dugmica nakon Login-a
+      map(user => {
+        localStorage.setItem('Token', JSON.stringify(user));
       })
     );
   }
@@ -37,9 +41,8 @@ export class LoginService {
   registerKupac(kupac:Kupac){
     return this.client.post<Token>(`${this.baseUrl}/registerKupac`, kupac).pipe(
       tap(token => {
-        this.token = token.token;
+        this.token = token;
         this.user = JSON.parse(atob(token.token.split(".")[1]));
-        this.loggedIn=true; //Za prikaz dugmica nakon Login-a
       })
     );
   }
@@ -48,19 +51,14 @@ export class LoginService {
   registerAdmin(admin:Admin){
     return this.client.post<Token>(`${this.baseUrl}/registerAdministrator`, admin).pipe(
       tap(token => {
-        this.token = token.token;
+        this.token = token;
         this.user = JSON.parse(atob(token.token.split(".")[1]));
-        this.loggedIn=true; //Za prikaz dugmica nakon Login-a
       })
     );
   }
 
   logout(): void {
-    this.token = null;
-    this.user = null;
-    this.rolesSubject.next(new Set<string>([]));
-    this.loggedOut = true;  //Ispis da je uspesno izlogovan
-    this.loggedIn=false; //Za sklanjanje dugmica nakon logout-a
+    localStorage.removeItem("Token");
     let snackBarRef = this.snackBar.open('Successfully logged out!', 'Confrim', {duration: 3000 });
   }
 

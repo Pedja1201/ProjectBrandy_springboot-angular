@@ -18,9 +18,9 @@ export class KupciComponent implements OnInit {
   kupacUpdate: Kupac | null = null;
 
   constructor(private service : KupciService, public snackBar:MatSnackBar, public loginService : LoginService) {
-    service.getAll().subscribe((kupci : KupacPage<Kupac>) => {
-      this.kupci = kupci.content;
-    })
+    // service.getAll().subscribe((kupci : KupacPage<Kupac>) => {
+    //   this.kupci = kupci.content;
+    // })
   }
 
   export(){

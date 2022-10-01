@@ -22,9 +22,9 @@ export class RakijeComponent implements OnInit {
 
 
   constructor(private service : RakijeService, public snackBar:MatSnackBar, public loginService : LoginService) {
-    service.getAll().subscribe((rakije : RakijaPage<Rakija>) => {
-      this.rakije = rakije.content;
-    })
+    // service.getAll().subscribe((rakije : RakijaPage<Rakija>) => {
+    //   this.rakije = rakije.content;
+    // })
   }
 
   open(){

@@ -11,36 +11,29 @@ import { PorudzbineComponent } from './page/porudzbine/porudzbine.component';
 import { DetailsRakijeComponent } from './page/rakije/details-rakije/details-rakije.component';
 import { RakijeComponent } from './page/rakije/rakije.component';
 import { DetailsUsersComponent } from './page/users/details-users/details-users.component';
-import { FormUsersComponent } from './page/users/form-users/form-users.component';
-import { TableUsersComponent } from './page/users/table-users/table-users.component';
 import { UsersComponent } from './page/users/users.component';
 import { WelcomeComponent } from './page/welcome/welcome.component';
 import { RegisterComponent } from './register/register.component';
+import { FormRakijeComponent } from './page/rakije/form-rakije/form-rakije.component';
 
 const routes: Routes = [
   {path: "", component: WelcomeComponent},
   {path:"", redirectTo: "", pathMatch:"full"}, ///Vraca na korensku rutu
     //Users
-    {path: 'korisnici',component: UsersComponent, data: { allowedRoles: ['ROLE_ADMIN']}, canActivate: [AuthGuard],
-    children: [
-        {component: TableUsersComponent, path: '', data: {allowedRoles: ['ROLE_ADMIN']}, canActivate: [AuthGuard]},
-        {component: FormUsersComponent, path: 'create', data: {allowedRoles: ['ROLE_ADMIN']}, canActivate: [AuthGuard]},
-        {component: FormUsersComponent, path: ':id/update', data: {allowedRoles: ['ROLE_ADMIN']}, canActivate: [AuthGuard]},
-      ]},{path: 'users/:id',component: DetailsUsersComponent},
+    {path: 'users',component: UsersComponent, canActivate: [AuthGuard]},
+       {path: 'users/:id',component: DetailsUsersComponent},
       
   //Kupci
-  {path: "kupci", component: KupciComponent, 
-        data: { allowedRoles: ['ROLE_ADMIN']},canActivate: [AuthGuard]}, //Login pre otvaranja
+  {path: "kupci", component: KupciComponent, canActivate: [AuthGuard]}, //Login pre otvaranja
   {path: "kupci/:id", component: DetailsKupciComponent},
 
   //Rakije
-  {path: 'rakije', component: RakijeComponent, 
-        data: {allowedRoles: ['ROLE_ADMIN', 'ROLE_KUPAC']},canActivate: [AuthGuard]},//Login pre otvaranja
+  {path: 'rakije', component: RakijeComponent,   canActivate: [AuthGuard]},//Login pre otvaranja
   {path: "rakije/:id", component: DetailsRakijeComponent},
+  {path: 'add-rakija', component: FormRakijeComponent}, 
 
   //Porudzbine
-  {path: 'porudzbine', component: PorudzbineComponent, 
-        data: {allowedRoles: ['ROLE_ADMIN','ROLE_KUPAC']}},//Login pre otvaranja
+  {path: 'porudzbine', component: PorudzbineComponent},
   {path: "porudzbine/:id", component: DetailsPorudzbineComponent},
 
 

@@ -10,7 +10,7 @@
             <app-form-kupci *ngIf="prikaz" [kupac]="kupacUpdate" (createEvent)="update($event)">
             </app-form-kupci>
         </mat-tab>
-        <mat-tab label="Add Kupac" *ngIf="loginService.validateRoles(['ROLE_ADMIN', 'ROLE_KUPAC'])">
+        <mat-tab label="Add Kupac" *ngIf="loginService.isLoggedIn()">
             <app-form-kupci (createEvent)="create($event)"></app-form-kupci>
         </mat-tab>
     </mat-tab-group>

@@ -54,12 +54,12 @@ export class FormPorudzbineComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.rakijeService.getAll().subscribe((rakije : RakijaPage<Rakija>)=>{
-      this.rakije = rakije.content;
-    });
-    this.kupciService.getAll().subscribe((kupci : KupacPage<Kupac>)=>{
-      this.kupci = kupci.content;
-    });
+    // this.rakijeService.getAll().subscribe((rakije : RakijaPage<Rakija>)=>{
+    //   this.rakije = rakije.content;
+    // });
+    // this.kupciService.getAll().subscribe((kupci : KupacPage<Kupac>)=>{
+    //   this.kupci = kupci.content;
+    // });
     this.forma.get("id")?.setValue(this.porudzbina?.id);
     this.forma.get("datumKupovine")?.setValue(this.porudzbina?.id);
     this.forma.get("kolicina")?.setValue(this.porudzbina?.id);

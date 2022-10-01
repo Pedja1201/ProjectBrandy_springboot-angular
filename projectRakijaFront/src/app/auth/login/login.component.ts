@@ -11,8 +11,6 @@ import { LoginService } from '../../service/auth/login.service';
 })
 export class LoginComponent implements OnInit {
 
-  title = "Login page"
-
   loginForma : FormGroup = new FormGroup({
     "korisnickoIme": new FormControl(null, Validators.required),
     "lozinka": new FormControl(null, Validators.required),
