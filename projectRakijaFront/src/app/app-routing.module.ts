@@ -13,7 +13,7 @@ import { RakijeComponent } from './page/rakije/rakije.component';
 import { DetailsUsersComponent } from './page/users/details-users/details-users.component';
 import { UsersComponent } from './page/users/users.component';
 import { WelcomeComponent } from './page/welcome/welcome.component';
-import { RegisterComponent } from './register/register.component';
+import { RegisterComponent } from './auth/register/register.component';
 import { FormRakijeComponent } from './page/rakije/form-rakije/form-rakije.component';
 
 const routes: Routes = [
