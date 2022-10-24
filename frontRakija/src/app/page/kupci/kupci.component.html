@@ -1,0 +1,17 @@
+<div>
+    <h2>{{title}}</h2>
+
+    <mat-tab-group>
+        <mat-tab label="Table Kupci">
+            <button (click)="export()" mat-icon-button color="warn" ><mat-icon>picture_as_pdf</mat-icon>Export To PDF</button>
+            <app-table-kupci [elementi]="kupci" (uklanjanje)="delete($event)" (izmena)="setUpdate($event)">
+            </app-table-kupci>
+
+            <app-form-kupci *ngIf="prikaz" [customer]="kupacUpdate" (createEvent)="update($event)">
+            </app-form-kupci>
+        </mat-tab>
+        <mat-tab label="Add Kupac" *ngIf="loginService.isLoggedIn()">
+            <app-form-kupci (createEvent)="create($event)"></app-form-kupci>
+        </mat-tab>
+    </mat-tab-group>
+</div>

@@ -1,0 +1,13 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light row-justify-between nav">
+  <a class="navbar-brand" routerLink="/libraries">Home Made Rakija</a>
+  <button *ngIf="loginService.isLoggedIn()" [routerLink]="['/users']" type="button"  class="btn btn-light"><i>Users</i></button>
+  <button *ngIf="loginService.isLoggedIn()" [routerLink]="['/kupci']" type="button"  class="btn btn-light"><i>Kupci</i></button>
+  <button *ngIf="loginService.isLoggedIn()" [routerLink]="['/rakije']" type="button"  class="btn btn-light"><i>Rakija</i></button>
+  <button *ngIf="loginService.isLoggedIn()" [routerLink]="['/porudzbine']" type="button"  class="btn btn-light"><i>Porudzbina</i></button>
+
+  <button [routerLink]="['/register']" type="button"  class="btn btn-outline-primary"  id="signuP">Sign up</button>
+  <button *ngIf="!loginService.isLoggedIn()" [routerLink]="['/login']" type="button"  class="btn btn-outline-info m-1">Login</button>
+  <button *ngIf="loginService.isLoggedIn()" (click)="loginService.logout()" type="button"  class="btn btn-outline-danger m-1">Logout</button>
+</nav>
+<router-outlet></router-outlet>
+

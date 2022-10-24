@@ -1,0 +1,16 @@
+<div>
+    <h2>{{title}}</h2>
+
+    <mat-tab-group>
+        <mat-tab label="Table Porudzbine" *ngIf="loginService.isLoggedIn()">
+            <app-table-porudzbine [elementi]="porudzbine" (uklanjanje)="delete($event)" (izmena)="setUpdate($event)">
+            </app-table-porudzbine>
+
+            <app-form-porudzbine *ngIf="prikaz" [porudzbina]="porudzbinaUpdate" (createEvent)="update($event)">
+            </app-form-porudzbine>
+        </mat-tab>
+        <mat-tab label="Add Porudzbina" *ngIf="loginService.isLoggedIn()">
+            <app-form-porudzbine (createEvent)="create($event)"></app-form-porudzbine>
+        </mat-tab>
+    </mat-tab-group>
+</div>

@@ -1,0 +1,110 @@
+<mat-tab-group preserveContent>
+  <mat-tab label="Main page">
+    <div class="container portfolio-card">
+
+      <div class="portfolio-section portfolio-heading mat-typography" fxLayout="column" fxLayoutAlign="center center">
+        <div>
+          <h2>Dobrodošli u našu kuću domaćeg pića!</h2>
+        </div>
+        <div>
+          <h3>Kroz svoju dugu istoriju, čovek je uvek težio uživanju.
+            Jedno od najstarijih sredstava za to su svakako opojna pića u koje spada i brandy.
+            Ne postoji osoba sa ovih prostora koja ne zna sta je brandy.
+            Mada malo ko zna da se otkriće destilacije se pripisuje starim Egipćanima, a konzumiranje jakih
+            alkoholnih pića na ovim prostorima datira još od VII veka, od dolaska Slovena.</h3>
+        </div>
+      </div>
+
+      <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="nowrap" fxLayoutGap="30px" fxLayoutGap.sm="8px">
+        <div fxFlex="33.33">
+          <mat-card class="p-0 m-0">
+            <div class="row">
+              <div class="cell">
+                <img mat-card-image src="assets/img/loza.webp">
+              </div>
+              <div class="cell">
+                <img mat-card-image src="assets/img/kruska.webp">
+              </div>
+              <div class="cell">
+                <img mat-card-image src="assets/img/jabuka.webp">
+              </div>
+              <div class="cell">
+                <img mat-card-image src="assets/img/sljiva.webp">
+              </div>
+            </div>
+            <mat-card-content>
+              <h5 class="mat-headline">Domaća brandy od domaćih proizvoda</h5>
+              <p class="mat-subheading-2">
+                Mnogo, mnogo godina pre nego što su počela da se vrše ozbiljna naučna istraživanja, u Srbiji se s kolena na koleno prenosila priča o blagodetima rakije. Bilo da je u pitanju dezinfikovanje rana, skidanje povišene telesne temperature, zubobolja, loša cirkulacija ili nešto drugo.
+                 Danas već postoje i činjenice koje govore u prilog tezama naših baka i deka.
+                  Neka ispitivanja su pokazala da oni koji umereno piju alkohol, u poređenju sa onima koji ne piju uopšte
+                 ili onima koji preteruju u konzumaciji alkohola, smanjuju rizik da smrtno stradaju od bolesti srca, šloga ili kancera. U prilog tome govori podatak da takvi ljudi ređe obolevaju od kardiovaskularnih bolesti i povišenog krvnog pritiska.
+              </p>
+              <mat-divider class="mb-1"></mat-divider>
+              <a href="https://sh.wikipedia.org/wiki/Rakija" target="_blank" class="portfolio-button" mat-icon-button>
+                <mat-icon class="text-muted">link1</mat-icon>
+                See more details
+              </a>
+            </mat-card-content>
+          </mat-card>
+        </div>
+
+      </div>
+    </div>
+  </mat-tab>
+  <mat-tab label="Contact">
+
+    <mat-chip-list aria-label="Fish selection">
+      <mat-chip color="primary" selected>
+        Adresa
+      </mat-chip>
+
+      <mat-chip color="accent" selected>
+        Telefon
+      </mat-chip>
+
+      <mat-chip color="warn" selected>
+        Email
+      </mat-chip>
+
+      <mat-chip>Radno vreme </mat-chip>
+    </mat-chip-list>
+    <br><br><br>
+
+    <h3>Osnovni podaci</h3>
+
+    <mat-chip-list class="mat-chip-list-stacked" aria-label="Fish selection">
+
+      <mat-chip color="primary" selected>
+        <mat-icon> location_on</mat-icon> ul. Prvomajska 4, 26333 Pavliš
+      </mat-chip>
+
+      <mat-chip color="accent" selected>
+        <mat-icon> contact_phone</mat-icon> 011/2891-573
+      </mat-chip>
+
+      <mat-chip color="warn" selected>
+        <mat-icon> contact_mail</mat-icon> duleradak@gmail.com
+      </mat-chip>
+      <br>
+      <mat-chip>
+        <mat-icon>access_time</mat-icon>pon.-pet.: od 8.00 do 18.00 časova
+      </mat-chip>
+      <mat-chip>
+        <mat-icon>access_time</mat-icon>sub.: od 9.00 do 14.00 časova
+      </mat-chip>
+    </mat-chip-list>
+  </mat-tab>
+  <mat-tab label="Video of Rakija">
+    <div style="margin:50px">
+
+      <iframe frameborder="0"
+              scrolling="no"
+              marginheight="0"
+              marginwidth="0"width="788.54" height="443" type="text/html"
+        src="https://www.youtube.com/embed/https://www.youtube.com/watch?v=1_tlgYiapOE">
+      </iframe>
+
+    </div>
+  </mat-tab>
+</mat-tab-group>

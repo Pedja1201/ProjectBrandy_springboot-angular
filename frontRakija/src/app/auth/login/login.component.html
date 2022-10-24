@@ -1,0 +1,36 @@
+<div class="position">
+  <form (ngSubmit)="login()" [formGroup]="loginForma" class="container" ngNativeValidate>
+
+    <h2>Login Page</h2>
+
+    <div class=" col-sm-6">
+      <!-- <label>Username</label> -->
+      <input class="form-control" name="korisnickoIme" formControlName="korisnickoIme" placeholder="Username" type="text"
+        required>
+    </div>
+    <div class=" col-sm-6">
+      <!-- <label>Password</label> -->
+      <input class="form-control" name="lozinka" formControlName="lozinka" placeholder="Password" type="password"
+        required>
+    </div>
+
+    <div class=" col-sm-6">
+      <button type="submit" class="btn btn-success btn-lg btn-block">Login</button>
+      <button class="btn btn-danger" *ngIf="loginService.isLoggedIn()" (click)="loginService.logout()">Logout</button>
+    </div>
+
+    <div class="form-check d-flex justify-content-left mb-5">
+      <label class="form-check-label" for="form2Example3">
+        Don't have an account? <a href="#!" [routerLink]="['/signup']" >Register</a>
+      </label>
+    </div>
+
+    <div *ngIf="errorMessage != ''" class="alert-message w-100 m-2">
+      <div class="alert-message-row w-100 m-2">
+        {{errorMessage}}
+      </div>
+    </div>
+
+  </form>
+
+</div>

@@ -1,0 +1,48 @@
+<h1>{{title}}</h1>
+<table mat-table [dataSource]="elementi" class="mat-elevation-z8">
+
+  <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+  <!-- Id Column -->
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef> <mat-icon> format_list_numbered</mat-icon> </th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-stroked-button  (click)="prikaziDetalje(element)">{{element["id"]}}</button>
+    </td>
+  </ng-container>
+
+  <!-- datumKupovine Column -->
+  <ng-container matColumnDef="datumKupovine">
+    <th mat-header-cell *matHeaderCellDef> Datum Kupovine </th>
+    <td mat-cell *matCellDef="let element"> {{element.datumKupovine}} </td>
+  </ng-container>
+
+  <!-- kolicina Column -->
+  <ng-container matColumnDef="kolicina">
+    <th mat-header-cell *matHeaderCellDef> Količina </th>
+    <td mat-cell *matCellDef="let element"> {{element.kolicina}} </td>
+  </ng-container>
+
+  <!-- brandy Column -->
+  <ng-container matColumnDef="brandy">
+    <th mat-header-cell *matHeaderCellDef style="text-align:center;"> Rakija </th>
+    <td mat-cell *matCellDef="let element"><span *ngIf="element['brandy']">{{element["brandy"]["naziv"]}}</span></td>
+  </ng-container>
+
+  <!-- customer Column -->
+  <ng-container matColumnDef="customer">
+    <th mat-header-cell *matHeaderCellDef> Kupac </th>
+    <td mat-cell *matCellDef="let element"><span *ngIf="element['customer']">{{element["customer"]["email"]}}</span></td>
+  </ng-container>
+
+  <ng-container matColumnDef="akcije">
+    <th mat-header-cell *matHeaderCellDef> Akcija </th>
+    <td mat-cell *matCellDef="let element"> {{element.akcije}}
+      <button mat-icon-button color="warn" (click)="ukloni(element['id'])"><mat-icon>delete</mat-icon></button>
+          <button mat-icon-button class="izmena" (click)="izmeni(element)"><mat-icon>edit</mat-icon></button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

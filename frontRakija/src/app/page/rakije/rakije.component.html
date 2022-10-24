@@ -1,0 +1,19 @@
+<div>
+    <h2>{{title}}</h2>
+
+    <mat-tab-group>
+        <mat-tab label="Table Rakije">
+            <button mat-mini-fab color="link"    (click)="open()"> <mat-icon>search</mat-icon> Pretrazi Rakiju </button>
+            <app-search-rakije *ngIf="prikazPretrage" (pretraga)="search($event)"></app-search-rakije>
+
+            <app-table-rakije [elementi]="rakije" (uklanjanje)="delete($event)" (izmena)="setUpdate($event)">
+            </app-table-rakije>
+
+            <app-form-rakije *ngIf="prikaz" [brandy]="rakijaUpdate" (createEvent)="update($event)">
+            </app-form-rakije>
+        </mat-tab>
+        <mat-tab label="Add Rakija" *ngIf="loginService.isLoggedIn()">
+            <app-form-rakije (createEvent)="create($event)"></app-form-rakije>
+        </mat-tab>
+    </mat-tab-group>
+</div>
