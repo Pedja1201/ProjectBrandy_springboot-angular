@@ -1,0 +1,38 @@
+version: '3.9'
+services:
+  mongo:
+    container_name: mongo
+    image: mongo
+    restart: always
+    command: mongod --auth
+    environment:
+      MONGO_INITDB_DATABASE: library_springboot
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    networks: 
+      - net_mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - type: volume
+        source: data_db
+        target: /data/conf
+
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongo
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: root
+    networks:
+      - net_mongo
+      
+networks:
+    net_mongo:
+
+volumes: 
+    data_db:

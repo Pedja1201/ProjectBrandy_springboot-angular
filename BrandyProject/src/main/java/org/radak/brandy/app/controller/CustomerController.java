@@ -1,5 +1,9 @@
-package org.radak.project.rakija.app.controller;
+package org.radak.brandy.app.controller;
 
+import org.radak.brandy.app.dto.CustomerDTO;
+import org.radak.brandy.app.model.Customer;
+import org.radak.brandy.app.service.CustomerService;
+import org.radak.brandy.app.service.PdfService;
 import org.radak.project.rakija.app.dto.KupacDTO;
 import org.radak.project.rakija.app.model.Kupac;
 import org.radak.project.rakija.app.service.KupacService;
@@ -22,26 +26,26 @@ import java.util.function.Function;
 
 @Controller
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping(path = "/api/kupci")
+@RequestMapping(path = "/api/customers")
 public class KupacController {
     @Autowired
-    private KupacService kupacService;
+    private CustomerService customerService;
     @Autowired
     private PdfService pdfService;
 
     @RequestMapping(path = "", method = RequestMethod.GET)
     @Secured({"ROLE_ADMIN"})
-    public ResponseEntity<Page<KupacDTO>> getAll(Pageable pageable) {
-        Page<Kupac> kupac = kupacService.findAll(pageable);
-        Page<KupacDTO> kupci = kupac.map(new Function<Kupac, KupacDTO>() {
-            public KupacDTO apply(Kupac kupac) {
-                KupacDTO kupacDTO = new KupacDTO(kupac.getId(), kupac.getKorisnickoIme(),
-                        kupac.getLozinka(), kupac.getIme(), kupac.getPrezime(), kupac.getEmail());
+    public ResponseEntity<Page<CustomerDTO>> getAll(Pageable pageable) {
+        Page<Customer> customer = customerService.findAll(pageable);
+        Page<CustomerDTO> customers = customer.map(new Function<Customer, CustomerDTO>() {
+            public CustomerDTO apply(Customer customer) {
+                CustomerDTO customerDTO = new CustomerDTO(customer.getId(), customer.getUsername(),
+                        customer.getPassword(), customer.getFirstName(), customer.getLastName(), customer.getEmail());
                 // Conversion logic
-                return kupacDTO;
+                return customerDTO;
             }
         });
-        return new ResponseEntity<Page<KupacDTO>>(kupci, HttpStatus.OK);
+        return new ResponseEntity<Page<CustomerDTO>>(customers, HttpStatus.OK);
     }
 
     @RequestMapping(path = "/{kupacId}", method = RequestMethod.GET)

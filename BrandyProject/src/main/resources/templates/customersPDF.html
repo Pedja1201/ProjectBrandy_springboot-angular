@@ -55,16 +55,16 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="kupac: ${kupci}">
-        <td th:text="${kupac.getId()}">
+    <tr th:each="customer: ${kupci}">
+        <td th:text="${customer.getId()}">
         </td>
-        <td th:text="${kupac.getKorisnickoIme()}">
+        <td th:text="${customer.getKorisnickoIme()}">
         </td>
-        <td th:text="${kupac.getIme()}">
+        <td th:text="${customer.getIme()}">
         </td>
-        <td th:text="${kupac.getPrezime()}">
+        <td th:text="${customer.getPrezime()}">
         </td>
-        <td th:text="${kupac.getEmail()}">
+        <td th:text="${customer.getEmail()}">
         </td>
 
     </tr>
