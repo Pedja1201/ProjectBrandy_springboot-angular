@@ -2,36 +2,36 @@ package org.radak.brandy.app.dto;
 
 import java.util.ArrayList;
 
-public class RakijaDTO {
+public class BrandyDTO {
     private Long id;
-    private String naziv;
-    private String sorta;
-    private double cena;
-    private int godina;
-    private String jacina;
+    private String name;
+    private String type;
+    private double price;
+    private int year;
+    private String strength;
 
-    private ArrayList<PorudzbinaDTO> porudzbine = new ArrayList<PorudzbinaDTO>();
+    private ArrayList<OrderDTO> orders = new ArrayList<OrderDTO>();
 
-    public RakijaDTO() {super();
+    public BrandyDTO() {super();
     }
 
-    public RakijaDTO(Long id, String naziv, String sorta, double cena, int godina, String jacina, ArrayList<PorudzbinaDTO> porudzbine) {
+    public BrandyDTO(Long id, String name, String type, double price, int year, String strength, ArrayList<OrderDTO> orders) {
         this.id = id;
-        this.naziv = naziv;
-        this.sorta = sorta;
-        this.cena = cena;
-        this.godina = godina;
-        this.jacina = jacina;
-        this.porudzbine = porudzbine;
+        this.name = name;
+        this.type = type;
+        this.price = price;
+        this.year = year;
+        this.strength = strength;
+        this.orders = orders;
     }
 
-    public RakijaDTO(Long id, String naziv, String sorta, double cena, int godina, String jacina) {
+    public BrandyDTO(Long id, String name, String type, double price, int year, String strength) {
         this.id = id;
-        this.naziv = naziv;
-        this.sorta = sorta;
-        this.cena = cena;
-        this.godina = godina;
-        this.jacina = jacina;
+        this.name = name;
+        this.type = type;
+        this.price = price;
+        this.year = year;
+        this.strength = strength;
     }
 
     public Long getId() {
@@ -42,51 +42,51 @@ public class RakijaDTO {
         this.id = id;
     }
 
-    public String getNaziv() {
-        return naziv;
+    public String getName() {
+        return name;
     }
 
-    public void setNaziv(String naziv) {
-        this.naziv = naziv;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getSorta() {
-        return sorta;
+    public String getType() {
+        return type;
     }
 
-    public void setSorta(String sorta) {
-        this.sorta = sorta;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public double getCena() {
-        return cena;
+    public double getPrice() {
+        return price;
     }
 
-    public void setCena(double cena) {
-        this.cena = cena;
+    public void setPrice(double price) {
+        this.price = price;
     }
 
-    public int getGodina() {
-        return godina;
+    public int getYear() {
+        return year;
     }
 
-    public void setGodina(int godina) {
-        this.godina = godina;
+    public void setYear(int year) {
+        this.year = year;
     }
 
-    public String getJacina() {
-        return jacina;
+    public String getStrength() {
+        return strength;
     }
 
-    public void setJacina(String jacina) {
-        this.jacina = jacina;
+    public void setStrength(String strength) {
+        this.strength = strength;
     }
 
-    public ArrayList<PorudzbinaDTO> getPorudzbine() {
-        return porudzbine;
+    public ArrayList<OrderDTO> getOrders() {
+        return orders;
     }
 
-    public void setPorudzbine(ArrayList<PorudzbinaDTO> porudzbine) {
-        this.porudzbine = porudzbine;
+    public void setOrders(ArrayList<OrderDTO> orders) {
+        this.orders = orders;
     }
 }

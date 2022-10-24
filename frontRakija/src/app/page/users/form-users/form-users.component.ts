@@ -35,14 +35,14 @@ export class FormUsersComponent implements OnInit {
     console.log(changes);
     console.log(this.user);
     this.forma.get("id")?.setValue(this.user?.id);
-    this.forma.get("korisnickoIme")?.setValue(this.user?.korisnickoIme);
-    this.forma.get("lozinka")?.setValue(this.user?.lozinka)  
+    this.forma.get("username")?.setValue(this.user?.username);
+    this.forma.get("password")?.setValue(this.user?.password)  
   }
 
   ngOnInit(): void {
     this.forma.get("id")?.setValue(this.user?.id);
-    this.forma.get("korisnickoIme")?.setValue(this.user?.id);
-    this.forma.get("lozinka")?.setValue(this.user?.id);
+    this.forma.get("username")?.setValue(this.user?.id);
+    this.forma.get("password")?.setValue(this.user?.id);
   }
 
   create() {

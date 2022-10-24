@@ -1,19 +1,19 @@
 package org.radak.brandy.app.dto;
 
-public class KorisnikDTO {
+public class UserDTO {
     private Long id;
-    private String korisnickoIme;
-    private String lozinka;
+    private String username;
+    private String password;
 
-    public KorisnikDTO() {
+    public UserDTO() {
         super();
     }
 
-    public KorisnikDTO(Long id, String korisnickoIme, String lozinka) {
+    public UserDTO(Long id, String username, String password) {
         super();
         this.id = id;
-        this.korisnickoIme = korisnickoIme;
-        this.lozinka = lozinka;
+        this.username = username;
+        this.password = password;
 
     }
 
@@ -25,22 +25,19 @@ public class KorisnikDTO {
         this.id = id;
     }
 
-    public String getKorisnickoIme() {
-        return korisnickoIme;
+    public String getUsername() {
+        return username;
     }
 
-    public void setKorisnickoIme(String korisnickoIme) {
-        this.korisnickoIme = korisnickoIme;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getLozinka() {
-        return lozinka;
+    public String getPassword() {
+        return password;
     }
 
-    public void setLozinka(String lozinka) {
-        this.lozinka = lozinka;
+    public void setPassword(String password) {
+        this.password = password;
     }
-
-
-
 }

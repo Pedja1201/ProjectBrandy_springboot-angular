@@ -3,12 +3,12 @@ export interface UserPage<User> {
   }
 export class User {
     id:number;
-    korisnickoIme:String;
-    lozinka:String;
+    username:String;
+    password:String;
 
     constructor(){
       this.id=0;
-      this.korisnickoIme='';
-      this.lozinka=''
+      this.username='';
+      this.password=''
     }
 }

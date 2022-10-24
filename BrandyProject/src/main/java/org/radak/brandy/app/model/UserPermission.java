@@ -1,4 +1,4 @@
-package org.radak.project.rakija.app.model;
+package org.radak.brandy.app.model;
 
 import javax.persistence.*;
 
@@ -8,11 +8,11 @@ public class UserPermission {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    private Korisnik user;
+    private User user;
     @ManyToOne
     private Permission permission;
 
-    public UserPermission(Long id, Korisnik user, Permission permission) {
+    public UserPermission(Long id, User user, Permission permission) {
         this.id = id;
         this.user = user;
         this.permission = permission;
@@ -30,11 +30,11 @@ public class UserPermission {
         this.id = id;
     }
 
-    public Korisnik getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(Korisnik user) {
+    public void setUser(User user) {
         this.user = user;
     }
 

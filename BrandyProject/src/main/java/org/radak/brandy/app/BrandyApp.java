@@ -1,14 +1,13 @@
-package org.radak.project.rakija.app;
+package org.radak.brandy.app;
 
-import com.mysql.cj.x.protobuf.MysqlxDatatypes;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.jms.annotation.EnableJms;
 
 @SpringBootApplication
 @EnableJms
-public class RakijaApp {
-    public static void main(MysqlxDatatypes.Scalar.String[] args){
-        SpringApplication.run(RakijaApp.class, args);
+public class BrandyApp {
+    public static void main(String[] args){
+        SpringApplication.run(BrandyApp.class, args);
     }
 }

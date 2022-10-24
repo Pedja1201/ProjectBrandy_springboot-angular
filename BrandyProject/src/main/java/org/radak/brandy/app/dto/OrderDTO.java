@@ -2,22 +2,22 @@ package org.radak.brandy.app.dto;
 
 import java.util.Date;
 
-public class PorudzbinaDTO {
+public class OrderDTO {
     private Long id;
-    private String kolicina;
-    private Date datumKupovine;
-    private RakijaDTO rakija;
-    private KupacDTO kupac;
+    private String quantity;
+    private Date dateOfPurchase;
+    private BrandyDTO brandy;
+    private CustomerDTO customer;
 
-    public PorudzbinaDTO() {super();
+    public OrderDTO() {super();
     }
 
-    public PorudzbinaDTO(Long id, String kolicina, Date datumKupovine, RakijaDTO rakija, KupacDTO kupac) {
+    public OrderDTO(Long id, String quantity, Date dateOfPurchase, BrandyDTO brandy, CustomerDTO customer) {
         this.id = id;
-        this.kolicina = kolicina;
-        this.datumKupovine = datumKupovine;
-        this.rakija = rakija;
-        this.kupac = kupac;
+        this.quantity = quantity;
+        this.dateOfPurchase = dateOfPurchase;
+        this.brandy = brandy;
+        this.customer = customer;
     }
 
     public Long getId() {
@@ -28,35 +28,35 @@ public class PorudzbinaDTO {
         this.id = id;
     }
 
-    public String getKolicina() {
-        return kolicina;
+    public String getQuantity() {
+        return quantity;
     }
 
-    public void setKolicina(String kolicina) {
-        this.kolicina = kolicina;
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
     }
 
-    public Date getDatumKupovine() {
-        return datumKupovine;
+    public Date getDateOfPurchase() {
+        return dateOfPurchase;
     }
 
-    public void setDatumKupovine(Date datumKupovine) {
-        this.datumKupovine = datumKupovine;
+    public void setDateOfPurchase(Date dateOfPurchase) {
+        this.dateOfPurchase = dateOfPurchase;
     }
 
-    public RakijaDTO getRakija() {
-        return rakija;
+    public BrandyDTO getBrandy() {
+        return brandy;
     }
 
-    public void setRakija(RakijaDTO rakija) {
-        this.rakija = rakija;
+    public void setBrandy(BrandyDTO brandy) {
+        this.brandy = brandy;
     }
 
-    public KupacDTO getKupac() {
-        return kupac;
+    public CustomerDTO getCustomer() {
+        return customer;
     }
 
-    public void setKupac(KupacDTO kupac) {
-        this.kupac = kupac;
+    public void setCustomer(CustomerDTO customer) {
+        this.customer = customer;
     }
 }

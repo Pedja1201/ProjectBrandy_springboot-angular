@@ -1,4 +1,4 @@
-package org.radak.project.rakija.app.model;
+package org.radak.brandy.app.model;
 
 import javax.persistence.*;
 import java.util.HashSet;

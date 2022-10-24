@@ -1,4 +1,4 @@
-package org.radak.project.rakija.app.dto;
+package org.radak.brandy.app.dto;
 
 public class TokenDTO {
     private String token;

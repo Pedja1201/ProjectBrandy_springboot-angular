@@ -1,7 +1,7 @@
 package org.radak.brandy.app.service;
 
-import org.radak.project.rakija.app.model.Kupac;
-import org.radak.project.rakija.app.repository.KupacRepository;
+import org.radak.brandy.app.model.Customer;
+import org.radak.brandy.app.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,32 +11,32 @@ import java.util.Optional;
 
 
 @Service
-public class KupacService {
+public class CustomerService {
     @Autowired
-    private KupacRepository kupacRepository;
+    private CustomerRepository customerRepository;
 
-    public Iterable<Kupac> findAll() {
-        return kupacRepository.findAll();
+    public Iterable<Customer> findAll() {
+        return customerRepository.findAll();
     }
 
-    public Page<Kupac> findAll(Pageable pageable) {
-        return kupacRepository.findAll(pageable);
+    public Page<Customer> findAll(Pageable pageable) {
+        return customerRepository.findAll(pageable);
     }
 
 
-    public Optional<Kupac> findOne(Long id) {
-        return kupacRepository.findById(id);
+    public Optional<Customer> findOne(Long id) {
+        return customerRepository.findById(id);
     }
 
-    public Kupac save(Kupac kupac) {
-        return kupacRepository.save(kupac);
+    public Customer save(Customer customer) {
+        return customerRepository.save(customer);
     }
 
     public void delete(Long id) {
-        kupacRepository.deleteById(id);
+        customerRepository.deleteById(id);
     }
 
-    public void delete(Kupac kupac) {
-        kupacRepository.delete(kupac);
+    public void delete(Customer customer) {
+        customerRepository.delete(customer);
     }
 }

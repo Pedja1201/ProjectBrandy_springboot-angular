@@ -7,43 +7,43 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Kupac extends Korisnik {
+public class Customer extends User {
     @Column(nullable = false)
-    private String ime;
+    private String firstName;
     @Column(nullable = false)
-    private String prezime;
+    private String lastName;
     @Column(nullable = false, unique = true)
     private String email;
 
-    @OneToMany(mappedBy = "kupac")
-    private Set<Porudzbina> porudzbine = new HashSet<Porudzbina>();
+    @OneToMany(mappedBy = "customer")
+    private Set<Order> orders = new HashSet<Order>();
 
 
 
-    public Kupac() {super();
+    public Customer() {super();
     }
 
-    public Kupac(Long id, String korisnickoIme, String lozinka, String ime, String prezime, String email) {
-        super(id, korisnickoIme, lozinka);
-        this.ime = ime;
-        this.prezime = prezime;
+    public Customer(Long id, String username, String password, String firstName, String lastName, String email) {
+        super(id, username, password);
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
     }
 
-    public String getIme() {
-        return ime;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setIme(String ime) {
-        this.ime = ime;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getPrezime() {
-        return prezime;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setPrezime(String prezime) {
-        this.prezime = prezime;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -54,11 +54,11 @@ public class Kupac extends Korisnik {
         this.email = email;
     }
 
-    public Set<Porudzbina> getPorudzbine() {
-        return porudzbine;
+    public Set<Order> getOrders() {
+        return orders;
     }
 
-    public void setPorudzbine(Set<Porudzbina> porudzbine) {
-        this.porudzbine = porudzbine;
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
     }
 }

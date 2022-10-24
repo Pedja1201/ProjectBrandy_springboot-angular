@@ -1,20 +1,20 @@
 export class Admin {
     id:number;
-    korisnickoIme:String;
-    lozinka:String;
-    ime:String;
-    prezime:String;
+    username:String;
+    password:String;
+    firstName:String;
+    lastName:String;
     email:String;
-    jmbg:String;
+    upin:String;
 
     constructor(){
         this.id=0;
-        this.korisnickoIme='';
-        this.lozinka='',
-        this.ime='',
-        this.prezime='',
+        this.username='';
+        this.password='',
+        this.firstName='',
+        this.lastName='',
         this.email='',
-        this.jmbg=''
+        this.upin=''
       }
 }
 

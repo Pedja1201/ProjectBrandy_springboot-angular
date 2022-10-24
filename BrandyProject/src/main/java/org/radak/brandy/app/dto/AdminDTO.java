@@ -1,36 +1,36 @@
-package org.radak.project.rakija.app.dto;
+package org.radak.brandy.app.dto;
 
-public class AdminDTO extends KorisnikDTO{
-    private String ime;
-    private String prezime;
+public class AdminDTO extends UserDTO {
+    private String firstName;
+    private String lastName;
     private String email;
-    private String jmbg;
+    private String upin;  //Unique Personal Identification Number
 
     public AdminDTO() {super();
     }
 
-    public AdminDTO(Long id, String korisnickoIme, String lozinka, String ime, String prezime, String email, String jmbg) {
-        super(id, korisnickoIme, lozinka);
-        this.ime = ime;
-        this.prezime = prezime;
+    public AdminDTO(Long id, String username, String password, String firstName, String lastName, String email, String upin) {
+        super(id, username, password);
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
-        this.jmbg = jmbg;
+        this.upin = upin;
     }
 
-    public String getIme() {
-        return ime;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setIme(String ime) {
-        this.ime = ime;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getPrezime() {
-        return prezime;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setPrezime(String prezime) {
-        this.prezime = prezime;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -41,11 +41,11 @@ public class AdminDTO extends KorisnikDTO{
         this.email = email;
     }
 
-    public String getJmbg() {
-        return jmbg;
+    public String getUpin() {
+        return upin;
     }
 
-    public void setJmbg(String jmbg) {
-        this.jmbg = jmbg;
+    public void setUpin(String upin) {
+        this.upin = upin;
     }
 }

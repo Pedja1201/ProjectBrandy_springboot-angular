@@ -1,4 +1,4 @@
-package org.radak.project.rakija.app.security;
+package org.radak.brandy.app.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

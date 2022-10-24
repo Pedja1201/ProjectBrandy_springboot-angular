@@ -6,7 +6,7 @@ services:
     restart: always
     command: mongod --auth
     environment:
-      MONGO_INITDB_DATABASE: library_springboot
+      MONGO_INITDB_DATABASE: brandy_springboot
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: root
     networks: 

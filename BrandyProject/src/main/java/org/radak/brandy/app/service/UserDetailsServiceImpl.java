@@ -1,11 +1,10 @@
-package org.radak.project.rakija.app.service;
+package org.radak.brandy.app.service;
 
-import org.radak.project.rakija.app.model.Korisnik;
-import org.radak.project.rakija.app.model.UserPermission;
+import org.radak.brandy.app.model.User;
+import org.radak.brandy.app.model.UserPermission;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -18,18 +17,18 @@ import java.util.Optional;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
-    KorisnikService korisnikService;
+    UserService userService;
 
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // Dobavljanje korisnika po korisnickom imenu.
-        Optional<Korisnik> korisnik = korisnikService.findByKorisnickoIme(username);
+        Optional<User> user = userService.findByUsername(username);
 
-        if(korisnik.isPresent()) {
+        if(user.isPresent()) {
             // Formiranje liste dodeljenih prava pristupa.
             ArrayList<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
-            for(UserPermission userPermission : korisnik.get().getUserPermissions()) {
+            for(UserPermission userPermission : user.get().getUserPermissions()) {
                 grantedAuthorities.add(new SimpleGrantedAuthority(userPermission.getPermission().getTitle()));
             }
                 ///Ispis Usera u konzoli.
@@ -39,7 +38,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             }
 
             // Kreiranje korisnika na osnovu korisnickog imena, lozinke i dodeljenih prava pristupa.
-            return new User(korisnik.get().getKorisnickoIme(), korisnik.get().getLozinka(), grantedAuthorities);
+            return new org.springframework.security.core.userdetails.User(user.get().getUsername(), user.get().getPassword(), grantedAuthorities);
         }
         return null;
     }

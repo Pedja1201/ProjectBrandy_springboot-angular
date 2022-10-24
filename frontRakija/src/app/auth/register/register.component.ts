@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Admin } from '../../model/admin';
-import { Kupac } from '../../model/kupac';
+import { Kupac } from '../../model/customer';
 import { LoginService } from '../../service/auth/login.service';
 
 @Component({

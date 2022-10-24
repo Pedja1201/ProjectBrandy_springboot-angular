@@ -1,10 +1,10 @@
-package org.radak.project.rakija.app.aspect;
+package org.radak.brandy.app.aspect;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
-import org.radak.project.rakija.app.model.AdministratorLog;
-import org.radak.project.rakija.app.service.AdministratorLogsService;
+import org.radak.brandy.app.model.AdministratorLog;
+import org.radak.brandy.app.service.AdministratorLogsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,7 +25,7 @@ public class AdministratorLogger {
     public void logujAkcijeAdministratora(JoinPoint jp){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
-        administratorLogService.save(new AdministratorLog(null, username, jp.getSignature().toLongString(), "Administratorska akcija", LocalDateTime.now()));
+        administratorLogService.save(new AdministratorLog(null, username, jp.getSignature().toLongString(), "Administrators action", LocalDateTime.now()));
     }
 
 }

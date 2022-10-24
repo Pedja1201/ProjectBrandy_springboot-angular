@@ -5,35 +5,35 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Rakija {
+public class Brandy {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String naziv;
+    private String name;
     @Column(nullable = false)
-    private String sorta;
+    private String type;
     @Column(nullable = false)
-    private double cena;
+    private double price;
     @Column(nullable = false)
-    private int godina;
+    private int year;
     @Column(nullable = false)
-    private String jacina;
+    private String strength;
 
-    @OneToMany(mappedBy = "rakija")
-    private Set<Porudzbina> porudzbine = new HashSet<Porudzbina>();
+    @OneToMany(mappedBy = "brandy")
+    private Set<Order> orders = new HashSet<Order>();
 
-    public Rakija() {super();
+    public Brandy() {super();
     }
 
-    public Rakija(Long id, String naziv, String sorta, double cena, int godina, String jacina) {
+    public Brandy(Long id, String name, String type, double price, int year, String strength) {
         this.id = id;
-        this.naziv = naziv;
-        this.sorta = sorta;
-        this.cena = cena;
-        this.godina = godina;
-        this.jacina = jacina;
+        this.name = name;
+        this.type = type;
+        this.price = price;
+        this.year = year;
+        this.strength = strength;
     }
 
     public Long getId() {
@@ -44,51 +44,51 @@ public class Rakija {
         this.id = id;
     }
 
-    public String getNaziv() {
-        return naziv;
+    public String getName() {
+        return name;
     }
 
-    public void setNaziv(String naziv) {
-        this.naziv = naziv;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getSorta() {
-        return sorta;
+    public String getType() {
+        return type;
     }
 
-    public void setSorta(String sorta) {
-        this.sorta = sorta;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public double getCena() {
-        return cena;
+    public double getPrice() {
+        return price;
     }
 
-    public void setCena(double cena) {
-        this.cena = cena;
+    public void setPrice(double price) {
+        this.price = price;
     }
 
-    public int getGodina() {
-        return godina;
+    public int getYear() {
+        return year;
     }
 
-    public void setGodina(int godina) {
-        this.godina = godina;
+    public void setYear(int year) {
+        this.year = year;
     }
 
-    public String getJacina() {
-        return jacina;
+    public String getStrength() {
+        return strength;
     }
 
-    public void setJacina(String jacina) {
-        this.jacina = jacina;
+    public void setStrength(String strength) {
+        this.strength = strength;
     }
 
-    public Set<Porudzbina> getPorudzbine() {
-        return porudzbine;
+    public Set<Order> getOrders() {
+        return orders;
     }
 
-    public void setPorudzbine(Set<Porudzbina> porudzbine) {
-        this.porudzbine = porudzbine;
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
     }
 }

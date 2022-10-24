@@ -2,47 +2,46 @@ package org.radak.brandy.app.dto;
 
 import java.util.ArrayList;
 
-public class KupacDTO extends UserDTO {
-    private String ime;
-    private String prezime;
+public class CustomerDTO extends UserDTO {
+    private String firstName;
+    private String lastName;
     private String email;
 
-    private ArrayList<PorudzbinaDTO> porudzbine = new ArrayList<PorudzbinaDTO>();
+    private ArrayList<OrderDTO> orders = new ArrayList<OrderDTO>();
 
-    public KupacDTO() {super();
+    public CustomerDTO() {super();
 
     }
 
-    public KupacDTO(Long id, String korisnickoIme, String lozinka, String ime, String prezime, String email,  ArrayList<PorudzbinaDTO> porudzbine) {
-        super(id, korisnickoIme, lozinka);
-        this.ime = ime;
-        this.prezime = prezime;
-        this.email = email;
-        this.porudzbine = porudzbine;
-    }
-
-    //Register controller
-    public KupacDTO(Long id, String korisnickoIme, String lozinka, String ime, String prezime, String email) {
-        super(id, korisnickoIme, lozinka);
-        this.ime = ime;
-        this.prezime = prezime;
+    public CustomerDTO(Long id, String username, String password, String firstName, String lastName, String email) {
+        super(id, username, password);
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
     }
 
-    public String getIme() {
-        return ime;
+    public CustomerDTO(Long id, String username, String password, String firstName, String lastName, String email, ArrayList<OrderDTO> orders) {
+        super(id, username, password);
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.orders = orders;
     }
 
-    public void setIme(String ime) {
-        this.ime = ime;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public String getPrezime() {
-        return prezime;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public void setPrezime(String prezime) {
-        this.prezime = prezime;
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -53,11 +52,11 @@ public class KupacDTO extends UserDTO {
         this.email = email;
     }
 
-    public ArrayList<PorudzbinaDTO> getPorudzbine() {
-        return porudzbine;
+    public ArrayList<OrderDTO> getOrders() {
+        return orders;
     }
 
-    public void setPorudzbine(ArrayList<PorudzbinaDTO> porudzbine) {
-        this.porudzbine = porudzbine;
+    public void setOrders(ArrayList<OrderDTO> orders) {
+        this.orders = orders;
     }
 }

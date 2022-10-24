@@ -1,6 +1,6 @@
-package org.radak.project.rakija.app.service;
+package org.radak.brandy.app.service;
 
-import org.radak.project.rakija.app.model.Kupac;
+import org.radak.brandy.app.model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
@@ -18,18 +18,18 @@ public class PdfService {
     private static final String PDF_RESOURCES = "/pdf-resources/";
 
     private SpringTemplateEngine springTemplateEngine;
-    private KupacService kupacService;
+    private CustomerService customerService;
 
     @Autowired
-    public PdfService(SpringTemplateEngine springTemplateEngine, KupacService kupacService) {
+    public PdfService(SpringTemplateEngine springTemplateEngine, CustomerService customerService) {
         this.springTemplateEngine = springTemplateEngine;
-        this.kupacService = kupacService;
+        this.customerService = customerService;
     }
     public File generateKupciPdf() throws Exception{
-        Context context = getContextKupacListPdf();
+        Context context = getContextCustomerListPdf();
         String html = loadAndFillTemplate(context);
         String xhtml = convertToXhtml(html);
-        return renderKupacListPdf(xhtml);
+        return renderCustomerListPdf(xhtml);
     }
     private String convertToXhtml(String html) throws UnsupportedEncodingException {
         Tidy tidy = new Tidy();
@@ -49,8 +49,8 @@ public class PdfService {
         tidy.pprint(htmlDOM, out);
         return out.toString();
     }
-    private File renderKupacListPdf(String html) throws Exception {
-        File file = File.createTempFile("kupci", ".pdf");
+    private File renderCustomerListPdf(String html) throws Exception {
+        File file = File.createTempFile("customers", ".pdf");
         OutputStream outputStream = new FileOutputStream(file);
         ITextRenderer renderer = new ITextRenderer(20f * 4f / 3f, 20);
         renderer.setDocumentFromString(html, new ClassPathResource(PDF_RESOURCES).getURL().toExternalForm());
@@ -60,13 +60,13 @@ public class PdfService {
         file.deleteOnExit();
         return file;
     }
-    private Context getContextKupacListPdf() {
-        Iterable<Kupac> kupacList = this.kupacService.findAll();
+    private Context getContextCustomerListPdf() {
+        Iterable<Customer> customerList = this.customerService.findAll();
         Context context = new Context();
-        context.setVariable("kupci", kupacList);
+        context.setVariable("customers", customerList);
         return context;
     }
     private String loadAndFillTemplate(Context context) {
-        return springTemplateEngine.process("kupciPDF", context);
+        return springTemplateEngine.process("customersPDF", context);
     }
 }

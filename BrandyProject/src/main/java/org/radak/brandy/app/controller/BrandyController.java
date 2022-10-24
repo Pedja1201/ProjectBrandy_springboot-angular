@@ -1,8 +1,8 @@
 package org.radak.brandy.app.controller;
 
-import org.radak.project.rakija.app.dto.RakijaDTO;
-import org.radak.project.rakija.app.model.Rakija;
-import org.radak.project.rakija.app.service.RakijaService;
+import org.radak.brandy.app.dto.BrandyDTO;
+import org.radak.brandy.app.model.Brandy;
+import org.radak.brandy.app.service.BrandyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,16 +17,16 @@ import java.util.function.Function;
 
 @Controller
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping(path = "/api/rakije")
-public class RakijaController {
+@RequestMapping(path = "/api/brandies")
+public class BrandyController {
     @Autowired
-    private RakijaService rakijaService;
+    private BrandyService brandyService;
 
     @RequestMapping(path = "", method = RequestMethod.GET)
-    @Secured({"ROLE_ADMIN", "ROLE_KUPAC"})
-    public ResponseEntity<Page<RakijaDTO>> getAllRakija(@RequestParam(name = "min", required = false) Double min,
-                                                        @RequestParam(name = "max", required = false) Double max,
-                                                        Pageable pageable) {
+    @Secured({"ROLE_ADMIN", "ROLE_CUSTOMER"})
+    public ResponseEntity<Page<BrandyDTO>> getAll(@RequestParam(name = "min", required = false) Double min,
+                                                  @RequestParam(name = "max", required = false) Double max,
+                                                  Pageable pageable) {
         if (min == null) {
             min = -Double.MAX_VALUE;
         }
@@ -34,69 +34,68 @@ public class RakijaController {
         if (max == null) {
             max = Double.MAX_VALUE;
         }
-        Page<Rakija> rakija = rakijaService.findAll(pageable);
-        Page<RakijaDTO> rakije = rakija.map(new Function<Rakija, RakijaDTO>() {
-            public RakijaDTO apply(Rakija rakija) {
-                RakijaDTO rakijaDTO = new RakijaDTO(rakija.getId(), rakija.getNaziv(), rakija.getSorta(),
-                        rakija.getCena(), rakija.getGodina(),rakija.getJacina()
+        Page<Brandy> brandy = brandyService.findAll(pageable);
+        Page<BrandyDTO> brandies = brandy.map(new Function<Brandy, BrandyDTO>() {
+            public BrandyDTO apply(Brandy brandy) {
+                BrandyDTO brandyDTO = new BrandyDTO(brandy.getId(), brandy.getName(), brandy.getType(),
+                        brandy.getPrice(), brandy.getYear(),brandy.getStrength()
                 );
                 // Conversion logic
-
-                return rakijaDTO;
+                return brandyDTO;
             }
         });
-        return new ResponseEntity<Page<RakijaDTO>>(rakije, HttpStatus.OK);
+        return new ResponseEntity<Page<BrandyDTO>>(brandies, HttpStatus.OK);
     }
 
-    @RequestMapping(path = "/{rakijaId}", method = RequestMethod.GET)
+    @RequestMapping(path = "/{brandyId}", method = RequestMethod.GET)
     @Secured({"ROLE_ADMIN"})
-    public ResponseEntity<RakijaDTO> getRakija(@PathVariable("rakijaId") Long rakijaId) {
-        Optional<Rakija> rakija = rakijaService.findOne(rakijaId);
-        if (rakija.isPresent()) {
-            RakijaDTO rakijaDTO = new RakijaDTO(rakija.get().getId(),rakija.get().getNaziv(),rakija.get().getSorta(),
-                    rakija.get().getCena(),rakija.get().getGodina(), rakija.get().getJacina());
-            return new ResponseEntity<RakijaDTO>(rakijaDTO, HttpStatus.OK);
+    public ResponseEntity<BrandyDTO> get(@PathVariable("brandyId") Long brandyId) {
+        Optional<Brandy> brandy = brandyService.findOne(brandyId);
+        if (brandy.isPresent()) {
+            BrandyDTO brandyDTO = new BrandyDTO(brandy.get().getId(),brandy.get().getName(),brandy.get().getType(),
+                    brandy.get().getPrice(),brandy.get().getYear(), brandy.get().getStrength());
+            return new ResponseEntity<BrandyDTO>(brandyDTO, HttpStatus.OK);
         }
-        return new ResponseEntity<RakijaDTO>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<BrandyDTO>(HttpStatus.NOT_FOUND);
     }
 
     @RequestMapping(path = "", method = RequestMethod.POST)
     @Secured({"ROLE_ADMIN"})
-    public ResponseEntity<RakijaDTO> create(@RequestBody Rakija rakija) {
+    public ResponseEntity<BrandyDTO> create(@RequestBody Brandy brandy) {
         try {
-            rakijaService.save(rakija);
-            RakijaDTO rakijaDTO = new RakijaDTO(rakija.getId(), rakija.getNaziv(), rakija.getSorta(),
-                    rakija.getCena(), rakija.getGodina(), rakija.getJacina());
+            brandyService.save(brandy);
+            BrandyDTO brandyDTO = new BrandyDTO(brandy.getId(), brandy.getName(), brandy.getType(),
+                    brandy.getPrice(), brandy.getYear(), brandy.getStrength());
 
-            return new ResponseEntity<RakijaDTO>(rakijaDTO, HttpStatus.CREATED);
+            return new ResponseEntity<BrandyDTO>(brandyDTO, HttpStatus.CREATED);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new ResponseEntity<RakijaDTO>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<BrandyDTO>(HttpStatus.BAD_REQUEST);
     }
 
-    @RequestMapping(path = "/{rakijaId}", method = RequestMethod.PUT)
+    @RequestMapping(path = "/{brandyId}", method = RequestMethod.PUT)
     @Secured({"ROLE_ADMIN"})
-    public ResponseEntity<RakijaDTO> updateRakija(@PathVariable("rakijaId") Long rakijaId,
-                                                  @RequestBody Rakija izmenjenaRakija) {
-        Rakija rakija = rakijaService.findOne(rakijaId).orElse(null);
-        if (rakija != null) {
-            izmenjenaRakija.setId(rakijaId);
-            izmenjenaRakija = rakijaService.save(izmenjenaRakija);
-            RakijaDTO rakijaDTO = new RakijaDTO(izmenjenaRakija.getId(), izmenjenaRakija.getNaziv(),izmenjenaRakija.getSorta(),
-                    izmenjenaRakija.getCena(), izmenjenaRakija.getGodina(), izmenjenaRakija.getJacina());
-            return new ResponseEntity<RakijaDTO>(rakijaDTO, HttpStatus.OK);
+    public ResponseEntity<BrandyDTO> update(@PathVariable("brandyId") Long brandyId,
+                                                  @RequestBody Brandy updatedBrandy) {
+        Brandy brandy = brandyService.findOne(brandyId).orElse(null);
+        if (brandy != null) {
+            updatedBrandy.setId(brandyId);
+            updatedBrandy = brandyService.save(updatedBrandy);
+            BrandyDTO rakijaDTO = new BrandyDTO(updatedBrandy.getId(), updatedBrandy.getName(),updatedBrandy.getType(),
+                    updatedBrandy.getPrice(), updatedBrandy.getYear(), updatedBrandy.getStrength());
+            return new ResponseEntity<BrandyDTO>(rakijaDTO, HttpStatus.OK);
         }
-        return new ResponseEntity<RakijaDTO>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<BrandyDTO>(HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(path = "/{rakijaId}", method = RequestMethod.DELETE)
+    @RequestMapping(path = "/{brandyId}", method = RequestMethod.DELETE)
     @Secured({"ROLE_ADMIN"})
-    public ResponseEntity<RakijaDTO> deleteRakija(@PathVariable("rakijaId") Long rakijaId) {
-        if (rakijaService.findOne(rakijaId).isPresent()) {
-            rakijaService.delete(rakijaId);
-            return new ResponseEntity<RakijaDTO>(HttpStatus.OK);
+    public ResponseEntity<BrandyDTO> delete(@PathVariable("brandyId") Long brandyId) {
+        if (brandyService.findOne(brandyId).isPresent()) {
+            brandyService.delete(brandyId);
+            return new ResponseEntity<BrandyDTO>(HttpStatus.OK);
         }
-        return new ResponseEntity<RakijaDTO>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<BrandyDTO>(HttpStatus.NOT_FOUND);
     }
 }

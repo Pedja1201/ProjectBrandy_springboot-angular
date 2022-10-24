@@ -1,4 +1,4 @@
-package org.radak.project.rakija.app.aspect;
+package org.radak.brandy.app.aspect;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class Logger {
     @Before("@annotation(Logged)")  //Jednostavniji nacin sa anotacijom '@logged'
-    public void logPocetakIzvrsavanjaAnotacija(JoinPoint jp){
+    public void logStartedExecution(JoinPoint jp){
         System.out.println("Pre izvršavanja metode. [LOGGED]. ");
         System.out.println(jp.getSignature());
         //Ispis argumenata u konzoli sa vrednostima
@@ -24,8 +24,8 @@ public class Logger {
 
     }
 
-    @Around("execution(* org.radak.project.rakija.app.controller.AdminController.*(Long))")
-    public ResponseEntity<Object> logOkoIzvrsavanja(ProceedingJoinPoint jp){
+    @Around("execution(* org.radak.brandy.app.controller.AdminController.*(Long))")
+    public ResponseEntity<Object> logAroundExecution(ProceedingJoinPoint jp){
         System.out.println("Pre izvršavanja metode. [AROUND].");
         System.out.println(jp.getSignature());
         try {
@@ -43,8 +43,8 @@ public class Logger {
     }
 
     //Nakon izvrsavanja ispisuje metode u konzoli
-    @After("execution(* org.radak.project.rakija.app.controller.AdminController.*(Long)) && args(id,..)")
-    public void logKrajIzvrsavanja(Long id){
+    @After("execution(* org.radak.brandy.app.controller.AdminController.*(Long)) && args(id,..)")
+    public void logOverExecution(Long id){
         System.out.println("Nakon izvršavanja metode.");
         System.out.println(id);
     }

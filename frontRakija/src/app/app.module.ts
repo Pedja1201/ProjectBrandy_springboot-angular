@@ -41,19 +41,19 @@ import { DetailsUsersComponent } from './page/users/details-users/details-users.
 import { TableUsersComponent } from './page/users/table-users/table-users.component';
 import { FormUsersComponent } from './page/users/form-users/form-users.component';
 import { AboutComponent } from './page/about/about.component';
-import { RakijeComponent } from './page/rakije/rakije.component';
-import { TableRakijeComponent } from './page/rakije/table-rakije/table-rakije.component';
-import { FormRakijeComponent } from './page/rakije/form-rakije/form-rakije.component';
-import { SearchRakijeComponent } from './page/rakije/search-rakije/search-rakije.component';
-import { DetailsRakijeComponent } from './page/rakije/details-rakije/details-rakije.component';
-import { PorudzbineComponent } from './page/porudzbine/porudzbine.component';
-import { TablePorudzbineComponent } from './page/porudzbine/table-porudzbine/table-porudzbine.component';
-import { FormPorudzbineComponent } from './page/porudzbine/form-porudzbine/form-porudzbine.component';
-import { DetailsPorudzbineComponent } from './page/porudzbine/details-porudzbine/details-porudzbine.component';
-import { KupciComponent } from './page/kupci/kupci.component';
-import { TableKupciComponent } from './page/kupci/table-kupci/table-kupci.component';
-import { FormKupciComponent } from './page/kupci/form-kupci/form-kupci.component';
-import { DetailsKupciComponent } from './page/kupci/details-kupci/details-kupci.component';
+import { RakijeComponent } from './page/brandies/rakije.component';
+import { TableRakijeComponent } from './page/brandies/table-rakije/table-rakije.component';
+import { FormRakijeComponent } from './page/brandies/form-rakije/form-rakije.component';
+import { SearchRakijeComponent } from './page/brandies/search-rakije/search-rakije.component';
+import { DetailsRakijeComponent } from './page/brandies/details-rakije/details-rakije.component';
+import { PorudzbineComponent } from './page/orders/porudzbine.component';
+import { TablePorudzbineComponent } from './page/orders/table-porudzbine/table-porudzbine.component';
+import { FormPorudzbineComponent } from './page/orders/form-porudzbine/form-porudzbine.component';
+import { DetailsPorudzbineComponent } from './page/orders/details-porudzbine/details-porudzbine.component';
+import { KupciComponent } from './page/customers/kupci.component';
+import { TableKupciComponent } from './page/customers/table-kupci/table-kupci.component';
+import { FormKupciComponent } from './page/customers/form-kupci/form-kupci.component';
+import { DetailsKupciComponent } from './page/customers/details-kupci/details-kupci.component';
 
 @NgModule({
   declarations: [

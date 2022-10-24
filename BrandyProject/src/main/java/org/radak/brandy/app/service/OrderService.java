@@ -1,7 +1,7 @@
 package org.radak.brandy.app.service;
 
-import org.radak.project.rakija.app.model.Porudzbina;
-import org.radak.project.rakija.app.repository.PorudzbinaRepository;
+import org.radak.brandy.app.model.Order;
+import org.radak.brandy.app.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,31 +10,31 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class PorudzbinaService {
+public class OrderService {
     @Autowired
-    private PorudzbinaRepository porudzbinaRepository;
+    private OrderRepository orderRepository;
 
-    public Iterable<Porudzbina> findAll() {
-        return porudzbinaRepository.findAll();
+    public Iterable<Order> findAll() {
+        return orderRepository.findAll();
     }
 
-    public Page<Porudzbina> findAll(Pageable pageable) {
-        return porudzbinaRepository.findAll(pageable);
+    public Page<Order> findAll(Pageable pageable) {
+        return orderRepository.findAll(pageable);
     }
 
-    public Optional<Porudzbina> findOne(Long id) {
-        return porudzbinaRepository.findById(id);
+    public Optional<Order> findOne(Long id) {
+        return orderRepository.findById(id);
     }
 
-    public Porudzbina save(Porudzbina porudzbina) {
-        return porudzbinaRepository.save(porudzbina);
+    public Order save(Order order) {
+        return orderRepository.save(order);
     }
 
     public void delete(Long id) {
-        porudzbinaRepository.deleteById(id);
+        orderRepository.deleteById(id);
     }
 
-    public void delete(Porudzbina porudzbina) {
-        porudzbinaRepository.delete(porudzbina);
+    public void delete(Order order) {
+        orderRepository.delete(order);
     }
 }

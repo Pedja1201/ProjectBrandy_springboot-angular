@@ -1,4 +1,4 @@
-package org.radak.project.rakija.app.model;
+package org.radak.brandy.app.model;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -7,20 +7,20 @@ import java.time.LocalDateTime;
 @Document(collection = "administratorLogs")
 public class AdministratorLog {
     private String id;
-    private String ime;
+    private String name;
     private String signature;
-    private String poruka;
+    private String message;
     private LocalDateTime dateTime;
 
     public AdministratorLog() {
         super();
     }
 
-    public AdministratorLog(String id, String ime, String signature, String poruka, LocalDateTime dateTime) {
+    public AdministratorLog(String id, String name, String signature, String poruka, LocalDateTime dateTime) {
         this.id = id;
-        this.ime = ime;
+        this.name = name;
         this.signature = signature;
-        this.poruka = poruka;
+        this.message = message;
         this.dateTime = dateTime;
     }
 
@@ -32,12 +32,12 @@ public class AdministratorLog {
         this.id = id;
     }
 
-    public String getIme() {
-        return ime;
+    public String getName() {
+        return name;
     }
 
-    public void setIme(String ime) {
-        this.ime = ime;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getSignature() {
@@ -48,12 +48,12 @@ public class AdministratorLog {
         this.signature = signature;
     }
 
-    public String getPoruka() {
-        return poruka;
+    public String getMessage() {
+        return message;
     }
 
-    public void setPoruka(String poruka) {
-        this.poruka = poruka;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public LocalDateTime getDateTime() {

@@ -1,8 +1,9 @@
-package org.radak.project.rakija.app.controller;
+package org.radak.brandy.app.controller;
 
-import org.radak.project.rakija.app.dto.AdminDTO;
-import org.radak.project.rakija.app.model.Admin;
-import org.radak.project.rakija.app.service.AdminService;
+
+import org.radak.brandy.app.dto.AdminDTO;
+import org.radak.brandy.app.model.Admin;
+import org.radak.brandy.app.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,7 +18,7 @@ import java.util.function.Function;
 
 @Controller
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping(path = "api/admini")
+@RequestMapping(path = "api/admins")
 public class AdminController {
     @Autowired
     private AdminService adminService;
@@ -29,8 +30,8 @@ public class AdminController {
         Page<Admin> administrator = adminService.findAll(pageable);
         Page<AdminDTO> administratori = administrator.map(new Function<Admin, AdminDTO>() {
             public AdminDTO apply(Admin administrator) {
-                AdminDTO administratorDTO = new AdminDTO(administrator.getId(),administrator.getKorisnickoIme(), administrator.getLozinka(),
-                        administrator.getIme(), administrator.getPrezime(), administrator.getEmail(), administrator.getJmbg());
+                AdminDTO administratorDTO = new AdminDTO(administrator.getId(),administrator.getUsername(), administrator.getPassword(),
+                        administrator.getFirstName(), administrator.getLastName(), administrator.getEmail(), administrator.getUpin());
                 // Conversion logic
                 return administratorDTO;
             }
@@ -43,8 +44,8 @@ public class AdminController {
     public ResponseEntity<AdminDTO> get(@PathVariable("administratorId") Long administratorId) {
         Optional<Admin> administrator = adminService.findOne(administratorId);
         if (administrator.isPresent()) {
-            AdminDTO administratorDTO = new AdminDTO(administrator.get().getId(),administrator.get().getKorisnickoIme(),administrator.get().getLozinka(),
-                    administrator.get().getIme(),administrator.get().getPrezime(),administrator.get().getEmail(),administrator.get().getJmbg());
+            AdminDTO administratorDTO = new AdminDTO(administrator.get().getId(),administrator.get().getUsername(),administrator.get().getPassword(),
+                    administrator.get().getFirstName(),administrator.get().getLastName(),administrator.get().getEmail(),administrator.get().getUpin());
             return new ResponseEntity<AdminDTO>(administratorDTO, HttpStatus.OK);
         }
         return new ResponseEntity<AdminDTO>(HttpStatus.NOT_FOUND);
@@ -55,8 +56,8 @@ public class AdminController {
     public ResponseEntity<AdminDTO> create(@RequestBody Admin administrator) {
         try {
             adminService.save(administrator);
-            AdminDTO administratorDTO = new AdminDTO(administrator.getId(),administrator.getKorisnickoIme(),administrator.getLozinka(),
-                    administrator.getIme(), administrator.getPrezime(), administrator.getEmail(), administrator.getJmbg());
+            AdminDTO administratorDTO = new AdminDTO(administrator.getId(),administrator.getUsername(),administrator.getPassword(),
+                    administrator.getFirstName(), administrator.getLastName(), administrator.getEmail(), administrator.getUpin());
             return new ResponseEntity<AdminDTO>(administratorDTO, HttpStatus.CREATED);
         } catch (Exception e) {
             e.printStackTrace();
@@ -67,14 +68,14 @@ public class AdminController {
     @RequestMapping(path = "/{administratorId}", method = RequestMethod.PUT)
     @Secured({"ROLE_ADMIN"})
     public ResponseEntity<AdminDTO> update(@PathVariable("administratorId") Long administratorId,
-                                                   @RequestBody Admin izmenjenAdministrator) {
+                                                   @RequestBody Admin updatedAdministrator) {
         Admin administrator = adminService.findOne(administratorId).orElse(null);
         if (administrator != null) {
-            izmenjenAdministrator.setId(administratorId);
-            adminService.save(izmenjenAdministrator);
-            AdminDTO administratorDTO = new AdminDTO(izmenjenAdministrator.getId(),izmenjenAdministrator.getKorisnickoIme(),
-                    izmenjenAdministrator.getLozinka(), izmenjenAdministrator.getIme(), izmenjenAdministrator.getPrezime(),
-                    izmenjenAdministrator.getEmail(), izmenjenAdministrator.getJmbg());
+            updatedAdministrator.setId(administratorId);
+            adminService.save(updatedAdministrator);
+            AdminDTO administratorDTO = new AdminDTO(updatedAdministrator.getId(),updatedAdministrator.getUsername(),
+                    updatedAdministrator.getPassword(), updatedAdministrator.getFirstName(), updatedAdministrator.getLastName(),
+                    updatedAdministrator.getEmail(), updatedAdministrator.getUpin());
             return new ResponseEntity<AdminDTO>(administratorDTO, HttpStatus.OK);
         }
         return new ResponseEntity<AdminDTO>(HttpStatus.NOT_FOUND);

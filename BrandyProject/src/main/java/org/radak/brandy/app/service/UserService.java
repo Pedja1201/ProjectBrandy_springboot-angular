@@ -1,8 +1,8 @@
 package org.radak.brandy.app.service;
 
 
-import org.radak.project.rakija.app.model.Korisnik;
-import org.radak.project.rakija.app.repository.KorisnikRepository;
+import org.radak.brandy.app.model.User;
+import org.radak.brandy.app.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,36 +11,35 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class KorisnikService {
+public class UserService {
     @Autowired
-    private KorisnikRepository korisnikRepository;
+    private UserRepository userRepository;
 
-    public Iterable<Korisnik> findAll() {
-        return korisnikRepository.findAll();
+    public Iterable<User> findAll() {
+        return userRepository.findAll();
     }
 
-    public Page<Korisnik> findAll(Pageable pageable) {
-        return korisnikRepository.findAll(pageable);
+    public Page<User> findAll(Pageable pageable) {
+        return userRepository.findAll(pageable);
     }
 
-    public Optional<Korisnik> findOne(Long id) {
-        return korisnikRepository.findById(id);
+    public Optional<User> findOne(Long id) {
+        return userRepository.findById(id);
     }
 
-    //Metoda za dobavljanje korisnickog imena [Vezbe 8-security]
-    public Optional<Korisnik> findByKorisnickoIme(String korisnickoIme) {
-        return korisnikRepository.findByKorisnickoIme(korisnickoIme);
+    public Optional<User> findByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 
-    public Korisnik save(Korisnik korisnik) {
-        return korisnikRepository.save(korisnik);
+    public User save(User user) {
+        return userRepository.save(user);
     }
 
     public void delete(Long id) {
-        korisnikRepository.deleteById(id);
+        userRepository.deleteById(id);
     }
 
-    public void delete(Korisnik korisnik) {
-        korisnikRepository.delete(korisnik);
+    public void delete(User user) {
+        userRepository.delete(user);
     }
 }

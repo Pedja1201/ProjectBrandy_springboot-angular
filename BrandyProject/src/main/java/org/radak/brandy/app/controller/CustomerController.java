@@ -4,10 +4,6 @@ import org.radak.brandy.app.dto.CustomerDTO;
 import org.radak.brandy.app.model.Customer;
 import org.radak.brandy.app.service.CustomerService;
 import org.radak.brandy.app.service.PdfService;
-import org.radak.project.rakija.app.dto.KupacDTO;
-import org.radak.project.rakija.app.model.Kupac;
-import org.radak.project.rakija.app.service.KupacService;
-import org.radak.project.rakija.app.service.PdfService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,7 +23,7 @@ import java.util.function.Function;
 @Controller
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(path = "/api/customers")
-public class KupacController {
+public class CustomerController {
     @Autowired
     private CustomerService customerService;
     @Autowired
@@ -48,57 +44,60 @@ public class KupacController {
         return new ResponseEntity<Page<CustomerDTO>>(customers, HttpStatus.OK);
     }
 
-    @RequestMapping(path = "/{kupacId}", method = RequestMethod.GET)
+    @RequestMapping(path = "/{customerId}", method = RequestMethod.GET)
     @Secured({"ROLE_ADMIN"})
-    public ResponseEntity<KupacDTO> get(@PathVariable("kupacId") Long kupacId) {
-        Optional<Kupac> kupac = kupacService.findOne(kupacId);
-        if (kupac.isPresent()) {
-            KupacDTO kupacDTO = new KupacDTO(kupac.get().getId(),
-                    kupac.get().getKorisnickoIme(), kupac.get().getLozinka(), kupac.get().getIme(), kupac.get().getPrezime(),
-                    kupac.get().getEmail());
-            return new ResponseEntity<KupacDTO>(kupacDTO, HttpStatus.OK);
+    public ResponseEntity<CustomerDTO> get(@PathVariable("customerId") Long customerId) {
+        Optional<Customer> customer = customerService.findOne(customerId);
+        if (customer.isPresent()) {
+            CustomerDTO customerDTO = new CustomerDTO(customer.get().getId(),
+                    customer.get().getUsername(), customer.get().getPassword(),
+                    customer.get().getFirstName(), customer.get().getLastName(),
+                    customer.get().getEmail());
+            return new ResponseEntity<CustomerDTO>(customerDTO, HttpStatus.OK);
         }
-        return new ResponseEntity<KupacDTO>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<CustomerDTO>(HttpStatus.NOT_FOUND);
     }
 
     @RequestMapping(path = "", method = RequestMethod.POST)
     @Secured({"ROLE_ADMIN"})
-    public ResponseEntity<KupacDTO> create(@RequestBody Kupac kupac) {
+    public ResponseEntity<CustomerDTO> create(@RequestBody Customer customer) {
         try {
-            kupacService.save(kupac);
-            KupacDTO kupacDTO = new KupacDTO(kupac.getId(),
-                    kupac.getKorisnickoIme(), kupac.getLozinka(), kupac.getIme(), kupac.getPrezime(), kupac.getEmail());
-            return new ResponseEntity<KupacDTO>(kupacDTO, HttpStatus.CREATED);
+            customerService.save(customer);
+            CustomerDTO customerDTO = new CustomerDTO(customer.getId(),
+                    customer.getUsername(), customer.getPassword(),
+                    customer.getFirstName(), customer.getLastName(), customer.getEmail());
+            return new ResponseEntity<CustomerDTO>(customerDTO, HttpStatus.CREATED);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new ResponseEntity<KupacDTO>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<CustomerDTO>(HttpStatus.BAD_REQUEST);
     }
 
-    @RequestMapping(path = "/{kupacId}", method = RequestMethod.PUT)
+    @RequestMapping(path = "/{customerId}", method = RequestMethod.PUT)
     @Secured({"ROLE_ADMIN"})
-    public ResponseEntity<KupacDTO> update(@PathVariable("kupacId") Long kupacId,
-                                              @RequestBody Kupac izmenjenKupac) {
-        Kupac kupac = kupacService.findOne(kupacId).orElse(null);
-        if (kupac != null) {
-            izmenjenKupac.setId(kupacId);
-            kupacService.save(izmenjenKupac);  //DONE:Sa ovim radi bez BUG-a (Beskonacna rekurzija!)-Roditelj
-            KupacDTO kupacDTO = new KupacDTO(izmenjenKupac.getId(),
-                    izmenjenKupac.getKorisnickoIme(), izmenjenKupac.getLozinka(),
-                    izmenjenKupac.getIme(), izmenjenKupac.getPrezime(), izmenjenKupac.getEmail());
-            return new ResponseEntity<KupacDTO>(kupacDTO, HttpStatus.OK);
+    public ResponseEntity<CustomerDTO> update(@PathVariable("customerId") Long customerId,
+                                              @RequestBody Customer updatedCustomer) {
+        Customer customer = customerService.findOne(customerId).orElse(null);
+        if (customer != null) {
+            updatedCustomer.setId(customerId);
+            customerService.save(updatedCustomer);  //DONE:Sa ovim radi bez BUG-a (Beskonacna rekurzija!)-Roditelj
+            CustomerDTO customerDTO = new CustomerDTO(updatedCustomer.getId(),
+                    updatedCustomer.getUsername(), updatedCustomer.getPassword(),
+                    updatedCustomer.getFirstName(), updatedCustomer.getLastName(),
+                    updatedCustomer.getEmail());
+            return new ResponseEntity<CustomerDTO>(customerDTO, HttpStatus.OK);
         }
-        return new ResponseEntity<KupacDTO>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<CustomerDTO>(HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(path = "/{kupacId}", method = RequestMethod.DELETE)
+    @RequestMapping(path = "/{customerId}", method = RequestMethod.DELETE)
     @Secured({"ROLE_ADMIN"})
-    public ResponseEntity<Kupac> delete(@PathVariable("kupacId") Long kupacId) {
-        if (kupacService.findOne(kupacId).isPresent()) {
-            kupacService.delete(kupacId);
-            return new ResponseEntity<Kupac>(HttpStatus.OK);
+    public ResponseEntity<Customer> delete(@PathVariable("customerId") Long customerId) {
+        if (customerService.findOne(customerId).isPresent()) {
+            customerService.delete(customerId);
+            return new ResponseEntity<Customer>(HttpStatus.OK);
         }
-        return new ResponseEntity<Kupac>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<Customer>(HttpStatus.NOT_FOUND);
     }
 
     //Metoda za preuzimanje PDF dokumenta - Potrebno (PdfService, pom.xml, resources)

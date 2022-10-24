@@ -4,31 +4,31 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-public class Porudzbina {
+public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String kolicina;
+    private String quantity;
 
     @Temporal(TemporalType.DATE)
-    private Date datumKupovine;
+    private Date dateOfPurchase;
 
     @ManyToOne(optional = false)
-    private Rakija rakija;
+    private Brandy brandy;
 
     @ManyToOne(optional = false)
     private Customer customer;
 
-    public Porudzbina() {super();
+    public Order() {super();
     }
 
-    public Porudzbina(Long id, String kolicina, Date datumKupovine, Rakija rakija, Customer customer) {
+    public Order(Long id, String quantity, Date dateOfPurchase, Brandy brandy, Customer customer) {
         this.id = id;
-        this.kolicina = kolicina;
-        this.datumKupovine = datumKupovine;
-        this.rakija = rakija;
+        this.quantity = quantity;
+        this.dateOfPurchase = dateOfPurchase;
+        this.brandy = brandy;
         this.customer = customer;
     }
 
@@ -40,35 +40,35 @@ public class Porudzbina {
         this.id = id;
     }
 
-    public String getKolicina() {
-        return kolicina;
+    public String getQuantity() {
+        return quantity;
     }
 
-    public void setKolicina(String kolicina) {
-        this.kolicina = kolicina;
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
     }
 
-    public Date getDatumKupovine() {
-        return datumKupovine;
+    public Date getDateOfPurchase() {
+        return dateOfPurchase;
     }
 
-    public void setDatumKupovine(Date datumKupovine) {
-        this.datumKupovine = datumKupovine;
+    public void setDateOfPurchase(Date dateOfPurchase) {
+        this.dateOfPurchase = dateOfPurchase;
     }
 
-    public Rakija getRakija() {
-        return rakija;
+    public Brandy getBrandy() {
+        return brandy;
     }
 
-    public void setRakija(Rakija rakija) {
-        this.rakija = rakija;
+    public void setBrandy(Brandy brandy) {
+        this.brandy = brandy;
     }
 
-    public Customer getKupac() {
+    public Customer getCustomer() {
         return customer;
     }
 
-    public void setKupac(Customer customer) {
+    public void setCustomer(Customer customer) {
         this.customer = customer;
     }
 }

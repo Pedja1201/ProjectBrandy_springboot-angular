@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, map, Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Admin } from '../../model/admin';
-import { Kupac } from '../../model/kupac';
+import { Customer } from '../../model/customer';
 import { Token } from '../../model/token';
 import { User } from '../../model/user';
 
@@ -38,8 +38,8 @@ export class LoginService {
     );
   }
 
-  registerKupac(kupac:Kupac){
-    return this.client.post<Token>(`${this.baseUrl}/registerKupac`, kupac).pipe(
+  registerKupac(customer:Customer){
+    return this.client.post<Token>(`${this.baseUrl}/registerCustomer`, customer).pipe(
       tap(token => {
         this.token = token;
         this.user = JSON.parse(atob(token.token.split(".")[1]));

@@ -1,7 +1,7 @@
-package org.radak.project.rakija.app.service;
+package org.radak.brandy.app.service;
 
-import org.radak.project.rakija.app.model.Permission;
-import org.radak.project.rakija.app.repository.PermissionRepository;
+import org.radak.brandy.app.model.Permission;
+import org.radak.brandy.app.repository.PermissionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

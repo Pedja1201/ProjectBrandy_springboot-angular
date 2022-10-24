@@ -1,4 +1,4 @@
-package org.radak.project.rakija.app.utils;
+package org.radak.brandy.app.utils;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

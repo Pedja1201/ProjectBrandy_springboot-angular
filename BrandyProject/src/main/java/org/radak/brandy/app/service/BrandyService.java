@@ -1,7 +1,7 @@
 package org.radak.brandy.app.service;
 
-import org.radak.project.rakija.app.model.Rakija;
-import org.radak.project.rakija.app.repository.RakijaRepository;
+import org.radak.brandy.app.model.Brandy;
+import org.radak.brandy.app.repository.BrandyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,60 +11,60 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class RakijaService {
+public class BrandyService {
     @Autowired
-    private RakijaRepository rakijaRepository;
+    private BrandyRepository brandyRepository;
 
-    public RakijaService() {
+    public BrandyService() {
         super();
     }
 
-    public RakijaService(RakijaRepository rakijaRepository) {
+    public BrandyService(BrandyRepository brandyRepository) {
         super();
-        this.rakijaRepository = rakijaRepository;
+        this.brandyRepository = brandyRepository;
     }
 
-    public RakijaRepository getRakijaRepository() {
-        return rakijaRepository;
+    public BrandyRepository getBrandyRepository() {
+        return brandyRepository;
     }
 
-    public void setRakijaRepository(RakijaRepository rakijaRepository) {
-        this.rakijaRepository = rakijaRepository;
+    public void setBrandyRepository(BrandyRepository brandyRepository) {
+        this.brandyRepository = brandyRepository;
     }
 
-    public Iterable<Rakija> findAll() {
-        return rakijaRepository.findAll();
+    public Iterable<Brandy> findAll() {
+        return brandyRepository.findAll();
     }
 
-    public Page<Rakija> findAll(Pageable pageable) {
-        return rakijaRepository.findAll(pageable);
+    public Page<Brandy> findAll(Pageable pageable) {
+        return brandyRepository.findAll(pageable);
     }
 
-    public Optional<Rakija> findOne(Long id) {
-        return rakijaRepository.findById(id);
+    public Optional<Brandy> findOne(Long id) {
+        return brandyRepository.findById(id);
     }
 
-    public List<Rakija> findByPriceBetween(double min, double max) {
-        return rakijaRepository.pronadjiPoCeni(min, max);
+    public List<Brandy> findByPriceBetween(double min, double max) {
+        return brandyRepository.findByPrice(min, max);
     }
 
-    public Rakija save(Rakija rakija) {
-        return rakijaRepository.save(rakija);
+    public Brandy save(Brandy brandy) {
+        return brandyRepository.save(brandy);
     }
 
     public void delete(Long id) {
-        rakijaRepository.deleteById(id);
+        brandyRepository.deleteById(id);
     }
 
-    public void delete(Rakija rakija) {
-        rakijaRepository.delete(rakija);
+    public void delete(Brandy brandy) {
+        brandyRepository.delete(brandy);
     }
 
-    public boolean postaviPopust(Long id, double popust) {
-        Optional<Rakija> rakija = rakijaRepository.findById(id);
-        if(rakija.isPresent()) {
-            rakija.get().setCena(rakija.get().getCena() - rakija.get().getCena()*popust);
-            rakijaRepository.save(rakija.get());
+    public boolean postaviPopust(Long id, double sale) {
+        Optional<Brandy> brandy = brandyRepository.findById(id);
+        if(brandy.isPresent()) {
+            brandy.get().setPrice(brandy.get().getPrice() - brandy.get().getPrice()*sale);
+            brandyRepository.save(brandy.get());
             return true;
         }
 

@@ -1,11 +1,12 @@
 package org.radak.brandy.app.controller;
 
-import org.radak.project.rakija.app.aspect.Logged;
-import org.radak.project.rakija.app.dto.KupacDTO;
-import org.radak.project.rakija.app.dto.PorudzbinaDTO;
-import org.radak.project.rakija.app.dto.RakijaDTO;
-import org.radak.project.rakija.app.model.Porudzbina;
-import org.radak.project.rakija.app.service.PorudzbinaService;
+
+import org.radak.brandy.app.aspect.Logged;
+import org.radak.brandy.app.dto.BrandyDTO;
+import org.radak.brandy.app.dto.CustomerDTO;
+import org.radak.brandy.app.dto.OrderDTO;
+import org.radak.brandy.app.model.Order;
+import org.radak.brandy.app.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,95 +21,108 @@ import java.util.function.Function;
 
 @Controller
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping(path = "/api/porudzbine")
-public class PorudzbinaController {
+@RequestMapping(path = "/api/orders")
+public class OrderController {
     @Autowired
-    private PorudzbinaService porudzbinaService;
+    private OrderService orderService;
 
     @Logged
     @RequestMapping(path = "", method = RequestMethod.GET)
-//    @Secured({"ROLE_ADMIN", "ROLE_KUPAC"})
-    public ResponseEntity<Page<PorudzbinaDTO>> getAll(Pageable pageable) {
-        Page<Porudzbina> porudzbina = porudzbinaService.findAll(pageable);
-        Page<PorudzbinaDTO> porudzbine = porudzbina.map(new Function<Porudzbina, PorudzbinaDTO>() {
-            public PorudzbinaDTO apply(Porudzbina porudzbina) {
-                PorudzbinaDTO porudzbinaDTO = new PorudzbinaDTO(porudzbina.getId(), porudzbina.getKolicina(), porudzbina.getDatumKupovine(),
-                        new RakijaDTO(porudzbina.getRakija().getId(), porudzbina.getRakija().getNaziv(),
-                                porudzbina.getRakija().getSorta(),porudzbina.getRakija().getCena(),porudzbina.getRakija().getGodina(),porudzbina.getRakija().getJacina()),
-                        new KupacDTO(porudzbina.getKupac().getId(), porudzbina.getKupac().getKorisnickoIme(),null,
-                                porudzbina.getKupac().getIme(),porudzbina.getKupac().getPrezime(),porudzbina.getKupac().getEmail())
+//    @Secured({"ROLE_ADMIN", "ROLE_CUSTOMER"})
+    public ResponseEntity<Page<OrderDTO>> getAll(Pageable pageable) {
+        Page<Order> order = orderService.findAll(pageable);
+        Page<OrderDTO> orders = order.map(new Function<Order, OrderDTO>() {
+            public OrderDTO apply(Order order) {
+                OrderDTO porudzbinaDTO = new OrderDTO(order.getId(), order.getQuantity(), order.getDateOfPurchase(),
+                        new BrandyDTO(order.getBrandy().getId(), order.getBrandy().getName(),
+                                order.getBrandy().getType(),order.getBrandy().getPrice(),
+                                order.getBrandy().getYear(),order.getBrandy().getStrength()),
+                        new CustomerDTO(order.getCustomer().getId(), order.getCustomer().getUsername(),null,
+                                order.getCustomer().getFirstName(),order.getCustomer().getLastName(),
+                                order.getCustomer().getEmail())
                 );
                 // Conversion logic
 
                 return porudzbinaDTO;
             }
         });
-        return new ResponseEntity<Page<PorudzbinaDTO>>(porudzbine, HttpStatus.OK);
+        return new ResponseEntity<Page<OrderDTO>>(orders, HttpStatus.OK);
     }
 
-    @RequestMapping(path = "/{porudzbinaId}", method = RequestMethod.GET)
-//    @Secured({"ROLE_ADMIN", "ROLE_KUPAC"})
-    public ResponseEntity<PorudzbinaDTO> get(@PathVariable("porudzbinaId") Long porudzbinaId) {
-        Optional<Porudzbina> porudzbina = porudzbinaService.findOne(porudzbinaId);
-        if (porudzbina.isPresent()) {
-            PorudzbinaDTO porudzbinaDTO = new PorudzbinaDTO(porudzbina.get().getId(),porudzbina.get().getKolicina(),
-                    porudzbina.get().getDatumKupovine(),
-                    new RakijaDTO(porudzbina.get().getRakija().getId(),porudzbina.get().getRakija().getNaziv(),
-                            porudzbina.get().getRakija().getSorta(), porudzbina.get().getRakija().getCena(), porudzbina.get().getRakija().getGodina(),porudzbina.get().getRakija().getJacina()),
-                    new KupacDTO(porudzbina.get().getKupac().getId(), porudzbina.get().getKupac().getKorisnickoIme(),
-                            porudzbina.get().getKupac().getLozinka(),porudzbina.get().getKupac().getIme(),
-                            porudzbina.get().getKupac().getPrezime(), porudzbina.get().getKupac().getEmail()) );
-            return new ResponseEntity<PorudzbinaDTO>(porudzbinaDTO, HttpStatus.OK);
+    @RequestMapping(path = "/{orderId}", method = RequestMethod.GET)
+//    @Secured({"ROLE_ADMIN", "ROLE_CUSTOMER"})
+    public ResponseEntity<OrderDTO> get(@PathVariable("orderId") Long orderId) {
+        Optional<Order> order = orderService.findOne(orderId);
+        if (order.isPresent()) {
+            OrderDTO orderDTO = new OrderDTO(order.get().getId(),order.get().getQuantity(),
+                    order.get().getDateOfPurchase(),
+                    new BrandyDTO(order.get().getBrandy().getId(),order.get().getBrandy().getName(),
+                            order.get().getBrandy().getType(), order.get().getBrandy().getPrice(),
+                            order.get().getBrandy().getYear(),order.get().getBrandy().getStrength()),
+                    new CustomerDTO(order.get().getCustomer().getId(), order.get().getCustomer().getUsername(),
+                            order.get().getCustomer().getPassword(),order.get().getCustomer().getFirstName(),
+                            order.get().getCustomer().getLastName(), order.get().getCustomer().getEmail()) );
+            return new ResponseEntity<OrderDTO>(orderDTO, HttpStatus.OK);
         }
-        return new ResponseEntity<PorudzbinaDTO>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<OrderDTO>(HttpStatus.NOT_FOUND);
     }
 
     @RequestMapping(path = "", method = RequestMethod.POST)
-    @Secured({"ROLE_ADMIN", "ROLE_KUPAC"})
-    public ResponseEntity<PorudzbinaDTO> create(@RequestBody Porudzbina porudzbina) {
+    @Secured({"ROLE_ADMIN", "ROLE_CUSTOMER"})
+    public ResponseEntity<OrderDTO> create(@RequestBody Order order) {
         try {
-            porudzbinaService.save(porudzbina);
-            RakijaDTO rakijaDTO =  new RakijaDTO(porudzbina.getRakija().getId(), porudzbina.getRakija().getNaziv(), porudzbina.getRakija().getSorta(),
-                    porudzbina.getRakija().getCena(), porudzbina.getRakija().getGodina(),  porudzbina.getRakija().getJacina());
-            KupacDTO kupacDTO =  new KupacDTO(porudzbina.getKupac().getId(), porudzbina.getKupac().getKorisnickoIme(),null,
-                    porudzbina.getKupac().getIme(),porudzbina.getKupac().getPrezime(),porudzbina.getKupac().getEmail());
+            orderService.save(order);
+            BrandyDTO brandyDTO =  new BrandyDTO(order.getBrandy().getId(),
+                    order.getBrandy().getName(), order.getBrandy().getType(),
+                    order.getBrandy().getPrice(), order.getBrandy().getYear(),
+                    order.getBrandy().getStrength());
+            CustomerDTO customerDTO =  new CustomerDTO(order.getCustomer().getId(),
+                    order.getCustomer().getUsername(),null,
+                    order.getCustomer().getFirstName(),order.getCustomer().getLastName(),
+                    order.getCustomer().getEmail());
 
-            PorudzbinaDTO porudzbinaDTO = new PorudzbinaDTO(porudzbina.getId(), porudzbina.getKolicina(),porudzbina.getDatumKupovine(),rakijaDTO, kupacDTO);
+            OrderDTO orderDTO = new OrderDTO(order.getId(), order.getQuantity(),
+                    order.getDateOfPurchase(), brandyDTO, customerDTO);
 
-            return new ResponseEntity<PorudzbinaDTO>(porudzbinaDTO, HttpStatus.CREATED);
+            return new ResponseEntity<OrderDTO>(orderDTO, HttpStatus.CREATED);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new ResponseEntity<PorudzbinaDTO>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<OrderDTO>(HttpStatus.BAD_REQUEST);
     }
 
-    @RequestMapping(path = "/{porudzbinaId}", method = RequestMethod.PUT)
-    @Secured({"ROLE_ADMIN", "ROLE_KUPAC"})
-    public ResponseEntity<PorudzbinaDTO> update(@PathVariable("porudzbinaId") Long porudzbinaId,
-                                                   @RequestBody Porudzbina izmenjenaPorudzbina) {
-        Porudzbina porudzbina = porudzbinaService.findOne(porudzbinaId).orElse(null);
-        if (porudzbina != null) {
-            izmenjenaPorudzbina.setId(porudzbinaId);
-            porudzbinaService.save(izmenjenaPorudzbina);
-            RakijaDTO rakijaDTO =  new RakijaDTO(izmenjenaPorudzbina.getRakija().getId(), izmenjenaPorudzbina.getRakija().getNaziv(), izmenjenaPorudzbina.getRakija().getSorta(),
-                    izmenjenaPorudzbina.getRakija().getCena(), izmenjenaPorudzbina.getRakija().getGodina(), izmenjenaPorudzbina.getRakija().getJacina());
-            KupacDTO kupacDTO =  new KupacDTO(izmenjenaPorudzbina.getKupac().getId(), izmenjenaPorudzbina.getKupac().getKorisnickoIme(),null,
-                    izmenjenaPorudzbina.getKupac().getIme(),izmenjenaPorudzbina.getKupac().getPrezime(),izmenjenaPorudzbina.getKupac().getEmail());
+    @RequestMapping(path = "/{orderId}", method = RequestMethod.PUT)
+    @Secured({"ROLE_ADMIN", "ROLE_CUSTOMER"})
+    public ResponseEntity<OrderDTO> update(@PathVariable("orderId") Long orderId,
+                                                   @RequestBody Order updatedOrder) {
+        Order order = orderService.findOne(orderId).orElse(null);
+        if (order != null) {
+            updatedOrder.setId(orderId);
+            orderService.save(updatedOrder);
+            BrandyDTO brandyDTO =  new BrandyDTO(updatedOrder.getBrandy().getId(),
+                    updatedOrder.getBrandy().getName(), updatedOrder.getBrandy().getType(),
+                    updatedOrder.getBrandy().getPrice(), updatedOrder.getBrandy().getYear(),
+                    updatedOrder.getBrandy().getStrength());
+            CustomerDTO customerDTO =  new CustomerDTO(updatedOrder.getCustomer().getId(),
+                    updatedOrder.getCustomer().getUsername(),null,
+                    updatedOrder.getCustomer().getFirstName(),updatedOrder.getCustomer().getLastName(),
+                    updatedOrder.getCustomer().getEmail());
 
-            PorudzbinaDTO porudzbinaDTO = new PorudzbinaDTO(izmenjenaPorudzbina.getId(), izmenjenaPorudzbina.getKolicina(),izmenjenaPorudzbina.getDatumKupovine(),rakijaDTO, kupacDTO);
+            OrderDTO orderDTO = new OrderDTO(updatedOrder.getId(), updatedOrder.getQuantity(),
+                    updatedOrder.getDateOfPurchase(),brandyDTO, customerDTO);
 
-            return new ResponseEntity<PorudzbinaDTO>(porudzbinaDTO, HttpStatus.OK);
+            return new ResponseEntity<OrderDTO>(orderDTO, HttpStatus.OK);
         }
-        return new ResponseEntity<PorudzbinaDTO>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<OrderDTO>(HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(path = "/{porudzbinaId}", method = RequestMethod.DELETE)
-    @Secured({"ROLE_ADMIN", "ROLE_KUPAC"})
-    public ResponseEntity<PorudzbinaDTO> delete(@PathVariable("porudzbinaId") Long porudzbinaId) {
-        if (porudzbinaService.findOne(porudzbinaId).isPresent()) {
-            porudzbinaService.delete(porudzbinaId);
-            return new ResponseEntity<PorudzbinaDTO>(HttpStatus.OK);
+    @RequestMapping(path = "/{orderId}", method = RequestMethod.DELETE)
+    @Secured({"ROLE_ADMIN", "ROLE_CUSTOMER"})
+    public ResponseEntity<OrderDTO> delete(@PathVariable("orderId") Long orderId) {
+        if (orderService.findOne(orderId).isPresent()) {
+            orderService.delete(orderId);
+            return new ResponseEntity<OrderDTO>(HttpStatus.OK);
         }
-        return new ResponseEntity<PorudzbinaDTO>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<OrderDTO>(HttpStatus.NOT_FOUND);
     }
 }

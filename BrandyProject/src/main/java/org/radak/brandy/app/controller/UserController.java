@@ -1,8 +1,8 @@
 package org.radak.brandy.app.controller;
 
-import org.radak.project.rakija.app.dto.KorisnikDTO;
-import org.radak.project.rakija.app.model.Korisnik;
-import org.radak.project.rakija.app.service.KorisnikService;
+import org.radak.brandy.app.dto.UserDTO;
+import org.radak.brandy.app.model.User;
+import org.radak.brandy.app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,75 +17,75 @@ import java.util.function.Function;
 
 @Controller
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping(path = "/api/korisnici")
-public class KorisnikController {
+@RequestMapping(path = "/api/users")
+public class UserController {
     @Autowired
-    private KorisnikService korisnikService;
+    private UserService userService;
 
     @RequestMapping(path = "", method = RequestMethod.GET)
     @Secured({"ROLE_ADMIN"})
-    public ResponseEntity<Page<KorisnikDTO>> getAll(Pageable pageable) {
-        Page<Korisnik> korisnik = korisnikService.findAll(pageable);
-        Page<KorisnikDTO> korisnici = korisnik.map(new Function<Korisnik, KorisnikDTO>() {
-            public KorisnikDTO apply(Korisnik korisnik) {
-                KorisnikDTO korisnikDTO = new KorisnikDTO(korisnik.getId(), korisnik.getKorisnickoIme(),
-                        korisnik.getLozinka()
+    public ResponseEntity<Page<UserDTO>> getAll(Pageable pageable) {
+        Page<User> user = userService.findAll(pageable);
+        Page<UserDTO> users = user.map(new Function<User, UserDTO>() {
+            public UserDTO apply(User user) {
+                UserDTO userDTO = new UserDTO(user.getId(), user.getUsername(),
+                        user.getPassword()
                 );
                 // Conversion logic
-                return korisnikDTO;
+                return userDTO;
             }
         });
-        return new ResponseEntity<Page<KorisnikDTO>>(korisnici, HttpStatus.OK);
+        return new ResponseEntity<Page<UserDTO>>(users, HttpStatus.OK);
     }
 
-    @RequestMapping(path = "/{korisnikId}", method = RequestMethod.GET)
+    @RequestMapping(path = "/{userId}", method = RequestMethod.GET)
     @Secured({"ROLE_ADMIN"})
-    public ResponseEntity<KorisnikDTO> get(@PathVariable("korisnikId") Long korisnikId) {
-        Optional<Korisnik> korisnik = korisnikService.findOne(korisnikId);
-        if (korisnik.isPresent()) {
-            KorisnikDTO korisnikDTO = new KorisnikDTO(korisnik.get().getId(),
-                    korisnik.get().getKorisnickoIme(), korisnik.get().getLozinka());
-            return new ResponseEntity<KorisnikDTO>(korisnikDTO, HttpStatus.OK);
+    public ResponseEntity<UserDTO> get(@PathVariable("userId") Long userId) {
+        Optional<User> user = userService.findOne(userId);
+        if (user.isPresent()) {
+            UserDTO userDTO = new UserDTO(user.get().getId(),
+                    user.get().getUsername(), user.get().getPassword());
+            return new ResponseEntity<UserDTO>(userDTO, HttpStatus.OK);
         }
-        return new ResponseEntity<KorisnikDTO>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<UserDTO>(HttpStatus.NOT_FOUND);
     }
 
     @RequestMapping(path = "", method = RequestMethod.POST)
     @Secured({"ROLE_ADMIN"})
-    public ResponseEntity<KorisnikDTO> create(@RequestBody Korisnik korisnik) {
+    public ResponseEntity<UserDTO> create(@RequestBody User user) {
         try {
-            korisnikService.save(korisnik);
-            KorisnikDTO korisnikDTO = new KorisnikDTO(korisnik.getId(),
-                    korisnik.getKorisnickoIme(), korisnik.getLozinka());
-            return new ResponseEntity<KorisnikDTO>(korisnikDTO, HttpStatus.CREATED);
+            userService.save(user);
+            UserDTO userDTO = new UserDTO(user.getId(),
+                    user.getUsername(), user.getPassword());
+            return new ResponseEntity<UserDTO>(userDTO, HttpStatus.CREATED);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new ResponseEntity<KorisnikDTO>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<UserDTO>(HttpStatus.BAD_REQUEST);
     }
 
-    @RequestMapping(path = "/{korisnikId}", method = RequestMethod.PUT)
+    @RequestMapping(path = "/{userId}", method = RequestMethod.PUT)
     @Secured({"ROLE_ADMIN"})
-    public ResponseEntity<KorisnikDTO> update(@PathVariable("korisnikId") Long korisnikId,
-                                              @RequestBody Korisnik izmenjenKorisnik) {
-        Korisnik korisnik = korisnikService.findOne(korisnikId).orElse(null);
-        if (korisnik != null) {
-            izmenjenKorisnik.setId(korisnikId);
-            korisnikService.save(izmenjenKorisnik);  //DONE:Sa ovim radi bez BUG-a (Beskonacna rekurzija!)-Roditelj
-            KorisnikDTO korisnikDTO = new KorisnikDTO(izmenjenKorisnik.getId(),
-                    izmenjenKorisnik.getKorisnickoIme(), izmenjenKorisnik.getLozinka());
-            return new ResponseEntity<KorisnikDTO>(korisnikDTO, HttpStatus.OK);
+    public ResponseEntity<UserDTO> update(@PathVariable("userId") Long userId,
+                                              @RequestBody User updatedUser) {
+        User user = userService.findOne(userId).orElse(null);
+        if (user != null) {
+            updatedUser.setId(userId);
+            userService.save(updatedUser);
+            UserDTO korisnikDTO = new UserDTO(updatedUser.getId(),
+                    updatedUser.getUsername(), updatedUser.getPassword());
+            return new ResponseEntity<UserDTO>(korisnikDTO, HttpStatus.OK);
         }
-        return new ResponseEntity<KorisnikDTO>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<UserDTO>(HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(path = "/{korisnikId}", method = RequestMethod.DELETE)
+    @RequestMapping(path = "/{userId}", method = RequestMethod.DELETE)
     @Secured({"ROLE_ADMIN"})
-    public ResponseEntity<Korisnik> delete(@PathVariable("korisnikId") Long korisnikId) {
-        if (korisnikService.findOne(korisnikId).isPresent()) {
-            korisnikService.delete(korisnikId);
-            return new ResponseEntity<Korisnik>(HttpStatus.OK);
+    public ResponseEntity<User> delete(@PathVariable("userId") Long userId) {
+        if (userService.findOne(userId).isPresent()) {
+            userService.delete(userId);
+            return new ResponseEntity<User>(HttpStatus.OK);
         }
-        return new ResponseEntity<Korisnik>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
     }
 }

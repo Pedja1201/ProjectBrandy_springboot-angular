@@ -1,0 +1,35 @@
+body {
+    font-family: Roboto, Helvetica Neue Light, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;
+    font-size: 15px;
+    text-align: justify;
+}
+
+.logo {
+     width: 100%;
+    height: 120px;
+
+}
+@page {
+    size: letter;
+}
+.header{
+    display: -webkit-flex;
+    webkit-justify-content: center;
+}
+.table-places{
+    padding-top: 0px;
+    width: 100%;
+    color: black;
+    font-family: Roboto, Helvetica Neue Light, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;
+    font-size: 15px;
+    border-spacing: 2px;
+}
+
+.table-places th{
+    background-color: rgb(160, 160, 160);
+    padding: 16px;
+}
+.table-places td{
+    background-color: rgb(204, 235, 255);
+    padding: 10px;
+}

@@ -1,7 +1,7 @@
-package org.radak.project.rakija.app.security;
+package org.radak.brandy.app.security;
 
 
-import org.radak.project.rakija.app.utils.TokenUtils;
+import org.radak.brandy.app.utils.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;

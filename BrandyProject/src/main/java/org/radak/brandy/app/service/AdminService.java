@@ -1,7 +1,7 @@
-package org.radak.project.rakija.app.service;
+package org.radak.brandy.app.service;
 
-import org.radak.project.rakija.app.model.Admin;
-import org.radak.project.rakija.app.repository.AdminRepository;
+import org.radak.brandy.app.model.Admin;
+import org.radak.brandy.app.repository.AdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

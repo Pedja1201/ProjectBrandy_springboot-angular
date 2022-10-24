@@ -1,4 +1,4 @@
-package org.radak.project.rakija.app.aspect;
+package org.radak.brandy.app.aspect;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

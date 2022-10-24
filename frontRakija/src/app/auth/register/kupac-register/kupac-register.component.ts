@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@
 import { Validators, FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Kupac } from 'src/app/model/kupac';
+import { Kupac } from 'src/app/model/customer';
 
 @Component({
   selector: 'app-kupac-register',
