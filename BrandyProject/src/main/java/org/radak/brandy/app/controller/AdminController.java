@@ -17,7 +17,6 @@ import java.util.Optional;
 import java.util.function.Function;
 
 @Controller
-@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(path = "api/admins")
 public class AdminController {
     @Autowired

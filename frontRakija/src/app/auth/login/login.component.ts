@@ -14,8 +14,8 @@ export class LoginComponent implements OnInit {
   constructor(public loginService : LoginService,private snackBar : MatSnackBar, private router : Router) { }
 
   loginForma : FormGroup = new FormGroup({
-    "korisnickoIme": new FormControl(null, Validators.required),
-    "lozinka": new FormControl(null, Validators.required),
+    "username": new FormControl(null, Validators.required),
+    "password": new FormControl(null, Validators.required),
   });
 
 

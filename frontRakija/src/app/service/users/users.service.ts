@@ -8,29 +8,29 @@ import { LoginService } from '../auth/login.service';
   providedIn: 'root'
 })
 export class UsersService {
-  private baseUrl = environment.baseUrl //Dobavljanje url adrese da ne kucamo rucno
+  private baseUrl = "/api/users"
 
   constructor(private client : HttpClient, private loginService : LoginService) { }
 
 
   getAll(){
-    return this.client.get<UserPage<User>>(`${this.baseUrl}/users`)
+    return this.client.get<UserPage<User>>(this.baseUrl)
   }
 
   getOne(id : number){
-    return this.client.get<User[]>(`${this.baseUrl}/users/${id}`)
+    return this.client.get<User[]>(`${this.baseUrl}/${id}`)
   }
 
   create(user : User){
-    return this.client.post(`${this.baseUrl}/users`, user)
+    return this.client.post(this.baseUrl, user)
   }
 
   update(id:number, user : User){
-    return this.client.put<User[]>(`${this.baseUrl}/users/${id}`, user)
+    return this.client.put<User[]>(`${this.baseUrl}/${id}`, user)
   }
 
   delete(id:number){
-    return this.client.delete<User[]>(`${this.baseUrl}/users/${id}`)
+    return this.client.delete<User[]>(`${this.baseUrl}/${id}`)
   }
 
 }

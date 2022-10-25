@@ -11,15 +11,15 @@ export class SearchRakijeComponent implements OnInit {
   title="Search Brandy";
 
   @Output()
-  pretraga: EventEmitter<any> = new EventEmitter<any>();
+  searched: EventEmitter<any> = new EventEmitter<any>();
 
   parameters : FormGroup = new FormGroup({
     id: new FormControl(),
     name: new FormControl(),
     priceFor: new FormControl(),
-    cenaTo: new FormControl(),
-    godinaFor: new FormControl(),
-    godinaTo: new FormControl(),
+    priceTo: new FormControl(),
+    yearFor: new FormControl(),
+    yearTo: new FormControl(),
 
   });
 
@@ -28,8 +28,8 @@ export class SearchRakijeComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  pretrazi() {
-    this.pretraga.emit(this.parameters.value);
+  search() {
+    this.searched.emit(this.parameters.value);
   }
 
 }

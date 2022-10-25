@@ -19,8 +19,8 @@ export class FormUsersComponent implements OnInit {
   });
 
   forma : FormGroup = new FormGroup({
-    "korisnickoIme": new FormControl(null, [Validators.required]),
-    "lozinka": new FormControl(null, [Validators.required]),
+    "username": new FormControl(null, [Validators.required]),
+    "password": new FormControl(null, [Validators.required]),
   })
   
   @Input()

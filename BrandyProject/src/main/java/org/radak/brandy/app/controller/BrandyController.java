@@ -16,14 +16,13 @@ import java.util.Optional;
 import java.util.function.Function;
 
 @Controller
-@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(path = "/api/brandies")
 public class BrandyController {
     @Autowired
     private BrandyService brandyService;
 
     @RequestMapping(path = "", method = RequestMethod.GET)
-    @Secured({"ROLE_ADMIN", "ROLE_CUSTOMER"})
+//    @Secured({"ROLE_ADMIN", "ROLE_CUSTOMER"})
     public ResponseEntity<Page<BrandyDTO>> getAll(@RequestParam(name = "min", required = false) Double min,
                                                   @RequestParam(name = "max", required = false) Double max,
                                                   Pageable pageable) {

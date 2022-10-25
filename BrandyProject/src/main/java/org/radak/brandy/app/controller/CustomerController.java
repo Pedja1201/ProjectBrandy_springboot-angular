@@ -21,7 +21,6 @@ import java.util.Optional;
 import java.util.function.Function;
 
 @Controller
-@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(path = "/api/customers")
 public class CustomerController {
     @Autowired
@@ -30,7 +29,7 @@ public class CustomerController {
     private PdfService pdfService;
 
     @RequestMapping(path = "", method = RequestMethod.GET)
-    @Secured({"ROLE_ADMIN"})
+//    @Secured({"ROLE_ADMIN"})
     public ResponseEntity<Page<CustomerDTO>> getAll(Pageable pageable) {
         Page<Customer> customer = customerService.findAll(pageable);
         Page<CustomerDTO> customers = customer.map(new Function<Customer, CustomerDTO>() {

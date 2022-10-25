@@ -16,14 +16,13 @@ import java.util.Optional;
 import java.util.function.Function;
 
 @Controller
-@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(path = "/api/users")
 public class UserController {
     @Autowired
     private UserService userService;
 
     @RequestMapping(path = "", method = RequestMethod.GET)
-    @Secured({"ROLE_ADMIN"})
+//    @Secured({"ROLE_ADMIN"})
     public ResponseEntity<Page<UserDTO>> getAll(Pageable pageable) {
         Page<User> user = userService.findAll(pageable);
         Page<UserDTO> users = user.map(new Function<User, UserDTO>() {

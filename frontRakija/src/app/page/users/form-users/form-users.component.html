@@ -5,12 +5,12 @@
       <ng-template matStepLabel>Primary data</ng-template>
       <mat-form-field>
         <mat-label>Username: </mat-label>
-        <input matInput name="korisnickoIme" formControlName="korisnickoIme" type="text" required>
+        <input matInput name="username" formControlName="username" type="text" required>
       </mat-form-field>
 
       <mat-form-field>
         <mat-label>Password: </mat-label>
-        <input matInput name="lozinka" formControlName="lozinka" type="text" required>
+        <input matInput name="password" formControlName="password" type="text" required>
       </mat-form-field>
       <div>
         <button mat-button matStepperNext>Next</button>
@@ -22,7 +22,7 @@
       <div>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button (click)="stepper.reset()">Reset</button>
-        <button mat-raised-button color="primary" (click)="create()">Dodaj</button>
+        <button mat-raised-button color="primary" (click)="create()">Submit</button>
       </div>
     </mat-step>
   </form>

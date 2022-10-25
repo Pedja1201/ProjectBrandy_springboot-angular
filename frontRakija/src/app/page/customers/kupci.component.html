@@ -2,7 +2,7 @@
     <h2>{{title}}</h2>
 
     <mat-tab-group>
-        <mat-tab label="Table Kupci">
+        <mat-tab label="Table Customers">
             <button (click)="export()" mat-icon-button color="warn" ><mat-icon>picture_as_pdf</mat-icon>Export To PDF</button>
             <app-table-kupci [elements]="customers" (deleted)="delete($event)" (updated)="setUpdate($event)">
             </app-table-kupci>
@@ -10,7 +10,7 @@
             <app-form-kupci *ngIf="prikaz" [customer]="customerUpdate" (createEvent)="update($event)">
             </app-form-kupci>
         </mat-tab>
-        <mat-tab label="Add Kupac" *ngIf="loginService.isLoggedIn()">
+        <mat-tab label="Add Customer" *ngIf="loginService.isLoggedIn()">
             <app-form-kupci (createEvent)="create($event)"></app-form-kupci>
         </mat-tab>
     </mat-tab-group>

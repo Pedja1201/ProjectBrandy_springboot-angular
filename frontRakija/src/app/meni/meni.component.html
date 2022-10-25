@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light row-justify-between nav">
-  <a class="navbar-brand" routerLink="/libraries">Home Made Rakija</a>
+  <a class="navbar-brand" routerLink="">Home Made Rakija</a>
   <button *ngIf="loginService.isLoggedIn()" [routerLink]="['/users']" type="button"  class="btn btn-light"><i>Users</i></button>
   <button *ngIf="loginService.isLoggedIn()" [routerLink]="['/customers']" type="button"  class="btn btn-light"><i>Customers</i></button>
   <button *ngIf="loginService.isLoggedIn()" [routerLink]="['/brandies']" type="button"  class="btn btn-light"><i>Brandy</i></button>

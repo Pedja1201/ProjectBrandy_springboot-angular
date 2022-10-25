@@ -4,9 +4,9 @@
     <mat-tab-group>
         <mat-tab label="Table Brandy">
             <button mat-mini-fab color="link"    (click)="open()"> <mat-icon>search</mat-icon> Search  Brandy </button>
-            <app-search-rakije *ngIf="prikazPretrage" (pretraga)="search($event)"></app-search-rakije>
+            <app-search-rakije *ngIf="prikazPretrage" (searched)="search($event)"></app-search-rakije>
 
-            <app-table-rakije [elements]="brandies" (uklanjanje)="delete($event)" (izmena)="setUpdate($event)">
+            <app-table-rakije [elements]="brandies" (deleted)="delete($event)" (updated)="setUpdate($event)">
             </app-table-rakije>
 
             <app-form-rakije *ngIf="prikaz" [brandy]="brandyUpdate" (createEvent)="update($event)">

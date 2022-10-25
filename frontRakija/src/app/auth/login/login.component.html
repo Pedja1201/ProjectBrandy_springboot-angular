@@ -5,12 +5,12 @@
 
     <div class=" col-sm-6">
       <!-- <label>Username</label> -->
-      <input class="form-control" name="korisnickoIme" formControlName="korisnickoIme" placeholder="Username" type="text"
+      <input class="form-control" name="username" formControlName="username" placeholder="Username" type="text"
         required>
     </div>
     <div class=" col-sm-6">
       <!-- <label>Password</label> -->
-      <input class="form-control" name="lozinka" formControlName="lozinka" placeholder="Password" type="password"
+      <input class="form-control" name="password" formControlName="password" placeholder="Password" type="password"
         required>
     </div>
 
@@ -21,7 +21,7 @@
 
     <div class="form-check d-flex justify-content-left mb-5">
       <label class="form-check-label" for="form2Example3">
-        Don't have an account? <a href="#!" [routerLink]="['/signup']" >Register</a>
+        Don't have an account? <a href="#!" [routerLink]="['/register']" >Register</a>
       </label>
     </div>
 

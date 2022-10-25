@@ -13,11 +13,10 @@ import { User } from '../../model/user';
   providedIn: 'root'
 })
 export class LoginService {
-  private baseUrl = environment.baseUrl //Dobavljanje url adrese da ne kucamo rucno
+  private baseUrl = "/api"
 
   token : Token = new Token()
   user : User = new User()
-  rolesSubject: BehaviorSubject<Set<string>> = new BehaviorSubject<Set<string>>(new Set([]));
 
 
   constructor(private client : HttpClient, public snackBar : MatSnackBar) { }

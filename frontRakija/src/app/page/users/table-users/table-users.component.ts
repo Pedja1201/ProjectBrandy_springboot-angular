@@ -8,7 +8,7 @@ import { User, UserPage } from 'src/app/model/user';
   styleUrls: ['./table-users.component.css']
 })
 export class TableUsersComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'korisnickoIme', 'lozinka',  "akcije"];
+  displayedColumns: string[] = ['id', 'username', 'password',  "action"];
   dataSource : UserPage<User> | undefined;
   title="Table Users";
 
@@ -16,25 +16,25 @@ export class TableUsersComponent implements OnInit {
   elementi: any[] = [];
 
   @Output()
-  uklanjanje : EventEmitter<any> = new EventEmitter<any>();
+  deleted : EventEmitter<any> = new EventEmitter<any>();
 
   @Output()
-  izmena: EventEmitter<any> = new EventEmitter<any>();
+  updated: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private router : Router) { }
 
   ngOnInit(): void {
   }
 
-  ukloni(id:number) {
-    this.uklanjanje.emit(id);
+  deleting(id:number) {
+    this.deleted.emit(id);
   }
 
-  izmeni(id:number) {
-    this.izmena.emit(id);
+  updating(id:number) {
+    this.updated.emit(id);
   }
 
-  prikaziDetalje(user: User) {
+  details(user: User) {
     this.router.navigate(["/users", user.id]);
   }
 

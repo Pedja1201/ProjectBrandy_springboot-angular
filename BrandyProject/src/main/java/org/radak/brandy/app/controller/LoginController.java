@@ -30,7 +30,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.HashSet;
 
 @Controller
-@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api")
 public class LoginController { //TODO:RAspodeliti uloge prilikom register: ROLE_ADMIN, ROLE_KUPAC
 

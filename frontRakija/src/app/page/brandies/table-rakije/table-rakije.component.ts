@@ -18,10 +18,10 @@ export class TableRakijeComponent implements OnInit {
   elements: any[] = [];
 
   @Output()
-  uklanjanje : EventEmitter<any> = new EventEmitter<any>();
+  deleted : EventEmitter<any> = new EventEmitter<any>();
 
   @Output()
-  izmena: EventEmitter<any> = new EventEmitter<any>();
+  updated: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private router : Router, public loginService : LoginService) { }
 
@@ -29,11 +29,11 @@ export class TableRakijeComponent implements OnInit {
   }
 
   deleting(id:number) {
-    this.uklanjanje.emit(id);
+    this.deleted.emit(id);
   }
 
   updating(id:number) {
-    this.izmena.emit(id);
+    this.updated.emit(id);
   }
 
   details(brandy: Brandy) {

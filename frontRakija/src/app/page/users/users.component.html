@@ -3,7 +3,7 @@
 
     <mat-tab-group>
         <mat-tab label="Table Users">
-            <app-table-users [elementi]="users" (uklanjanje)="delete($event)" (izmena)="setUpdate($event)">
+            <app-table-users [elementi]="users" (delted)="delete($event)" (updated)="setUpdate($event)">
             </app-table-users>
 
             <app-form-users *ngIf="prikaz" [user]="userUpdate" (createEvent)="update($event)"></app-form-users>

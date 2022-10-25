@@ -9,25 +9,25 @@ import { LoginService } from '../auth/login.service';
   providedIn: 'root'
 })
 export class CustomersService {
-  private baseUrl = environment.baseUrl //Dobavljanje url adrese da ne kucamo rucno
+  private baseUrl = "/api/customers"
 
   constructor(private client : HttpClient, private loginService : LoginService) { } //Login
 
   
   getAll(){
-    return this.client.get<CustomerPage<Customer>>(`${this.baseUrl}/customers`)
+    return this.client.get<CustomerPage<Customer>>(this.baseUrl)
   }
 
   getOne(id : number): Observable<Customer[]>{
-    return this.client.get<Customer[]>(`${this.baseUrl}/customers/${id}`)
+    return this.client.get<Customer[]>(`${this.baseUrl}/${id}`)
   }
 
   create(customer : Customer):Observable<string>{
-    return this.client.post<string>(`${this.baseUrl}/customers`, customer)
+    return this.client.post<string>(this.baseUrl, customer)
   }
 
   update(id:number, customer : Customer){
-    return this.client.put<Customer[]>(`${this.baseUrl}/customers/${id}`, customer)
+    return this.client.put<Customer[]>(`${this.baseUrl}/${id}`, customer)
   }
 
   delete(customer:Customer){
@@ -35,9 +35,9 @@ export class CustomersService {
   }
   pretrazi(parameters: any = undefined) {
     if (parameters == undefined) {
-      return this.client.get<Customer[]>(`${this.baseUrl}/customers`);
+      return this.client.get<Customer[]>(this.baseUrl);
     }
-    return this.client.get<CustomerPage<Customer>>(`${this.baseUrl}/customers`).pipe(
+    return this.client.get<CustomerPage<Customer>>(this.baseUrl).pipe(
       map(customers => {
         return customers.content.filter(customer => {
           let rezultat = true;
@@ -54,6 +54,6 @@ export class CustomersService {
   }
 
   exportPdf(){
-    return this.client.get(`${this.baseUrl}/kupci/export`, {responseType:'blob'})
+    return this.client.get(`${this.baseUrl}/export`, {responseType:'blob'})
   }
 }

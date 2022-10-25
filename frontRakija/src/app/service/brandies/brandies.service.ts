@@ -10,53 +10,53 @@ import { LoginService } from '../auth/login.service';
 })
 export class BrandiesService {
 
-  private baseUrl = environment.baseUrl //Dobavljanje url adrese da ne kucamo rucno
+  private baseUrl = "/api/brandies"
 
   constructor(private client : HttpClient, private loginService : LoginService) { }
 
 
   getAll(){
-    return this.client.get<BrandyPage<Brandy>>(`${this.baseUrl}/brandies`)
+    return this.client.get<BrandyPage<Brandy>>(this.baseUrl)
   }
 
   getOne(id : number){
-    return this.client.get<Brandy[]>(`${this.baseUrl}/brandies/${id}`)
+    return this.client.get<Brandy[]>(`${this.baseUrl}/${id}`)
   }
 
   create(brandy : Brandy){
-    return this.client.post(`${this.baseUrl}/brandies`, brandy)
+    return this.client.post(this.baseUrl, brandy)
   }
 
   update(id:number, brandy : Brandy){
-    return this.client.put<Brandy[]>(`${this.baseUrl}/brandies/${id}`, brandy)
+    return this.client.put<Brandy[]>(`${this.baseUrl}/${id}`, brandy)
   }
 
   delete(id:number){
-    return this.client.delete<Brandy[]>(`${this.baseUrl}/rakije/${id}`)
+    return this.client.delete<Brandy[]>(`${this.baseUrl}/${id}`)
   }
 
   pretrazi(parameters: any = undefined) {
     if (parameters == undefined) {
-      return this.client.get<Brandy[]>(`${this.baseUrl}/brandies`);
+      return this.client.get<Brandy[]>(this.baseUrl);
     }
-    return this.client.get<BrandyPage<Brandy>>(`${this.baseUrl}/brandies`).pipe(
+    return this.client.get<BrandyPage<Brandy>>(this.baseUrl).pipe(
       map(brandies => {
         return brandies.content.filter(brandy => {
           let rezultat = true;
           if (brandy["name"] && parameters["name"]) {
             rezultat &&= brandy["name"] == parameters["name"];
           }
-          if (brandy["price"] && parameters["cenaOd"]) {
-            rezultat &&= brandy["price"] >= parameters["cenaOd"]
+          if (brandy["price"] && parameters["priceFor"]) {
+            rezultat &&= brandy["price"] >= parameters["priceFor"]
           }
-          if (brandy["price"] && parameters["cenaDo"]) {
-            rezultat &&= brandy["price"] <= parameters["cenaDo"]
+          if (brandy["price"] && parameters["priceTo"]) {
+            rezultat &&= brandy["price"] <= parameters["priceTo"]
           }
-          if (brandy["year"] && parameters["godinaOd"]) {
-            rezultat &&= brandy["year"] >= parameters["godinaOd"]
+          if (brandy["year"] && parameters["yearFor"]) {
+            rezultat &&= brandy["year"] >= parameters["yearFor"]
           }
-          if (brandy["year"] && parameters["godinaDo"]) {
-            rezultat &&= brandy["year"] <= parameters["godinaDo"]
+          if (brandy["year"] && parameters["yearTo"]) {
+            rezultat &&= brandy["year"] <= parameters["yearTo"]
           }
           return rezultat;
         });

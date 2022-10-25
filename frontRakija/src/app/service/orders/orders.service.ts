@@ -9,28 +9,28 @@ import { LoginService } from '../auth/login.service';
 })
 export class OrdersService {
 
-  private baseUrl = environment.baseUrl //Dobavljanje url adrese da ne kucamo rucno
+  private baseUrl = "/api/orders"
 
   constructor(private client : HttpClient,  private loginService : LoginService) { }
   
   
   getAll(){
-    return this.client.get<OrderPage<Order>>(`${this.baseUrl}/orders`)
+    return this.client.get<OrderPage<Order>>(this.baseUrl)
   }
 
   getOne(id : number){
-    return this.client.get<Order[]>(`${this.baseUrl}/orders/${id}`)
+    return this.client.get<Order[]>(`${this.baseUrl}/${id}`)
   }
 
   create(order : Order){
-    return this.client.post(`${this.baseUrl}/orders`, order)
+    return this.client.post(this.baseUrl, order)
   }
 
   update(id:number, order : Order){
-    return this.client.put<Order[]>(`${this.baseUrl}/orders/${id}`, order)
+    return this.client.put<Order[]>(`${this.baseUrl}/${id}`, order)
   }
 
   delete(id:number){
-    return this.client.delete<Order[]>(`${this.baseUrl}/orders/${id}`)
+    return this.client.delete<Order[]>(`${this.baseUrl}/${id}`)
   }
 }
