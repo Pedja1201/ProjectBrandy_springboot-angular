@@ -11,14 +11,14 @@ import { BrandiesService } from 'src/app/service/brandies/brandies.service';
 })
 export class RakijeComponent implements OnInit {
 
-  title="Dostupne Rakije";
+  title="Available Brandies";
   prikaz = false;
   prikazPretrage = false;
   
   //Rakije
-  rakije : Brandy[]=[];
-  rakijaUpdate : Brandy | null = null;
-  parametri : any = {}; //Za pretragu
+  brandies : Brandy[]=[];
+  brandyUpdate : Brandy | null = null;
+  parameters : any = {}; //Za pretragu
 
 
   constructor(private service : BrandiesService, public snackBar:MatSnackBar, public loginService : LoginService) {
@@ -37,7 +37,7 @@ export class RakijeComponent implements OnInit {
 
   getAll() {
     this.service.getAll().subscribe((value) => {
-      this.rakije = value.content;
+      this.brandies = value.content;
     }, (error) => {
       console.log(error);
     });
@@ -52,8 +52,8 @@ export class RakijeComponent implements OnInit {
     })
   }
 
-  create(rakija: Brandy) {
-    this.service.create(rakija).subscribe((value) => {
+  create(brandy: Brandy) {
+    this.service.create(brandy).subscribe((value) => {
       this.getAll();
       let snackBarRef = this.snackBar.open('Created', 'OK!',  {duration: 3000 });
     }, (error) => {
@@ -61,9 +61,9 @@ export class RakijeComponent implements OnInit {
     })
   }
 
-  update(rakija: Brandy) {
-    if(this.rakijaUpdate && this.rakijaUpdate.id) {
-      this.service.update(this.rakijaUpdate.id, rakija).subscribe((value) => {
+  update(brandy: Brandy) {
+    if(this.brandyUpdate && this.brandyUpdate.id) {
+      this.service.update(this.brandyUpdate.id, brandy).subscribe((value) => {
         this.getAll();
         let snackBarRef = this.snackBar.open('Updated', 'OK!',  {duration: 2000 });
       }, (error) => {
@@ -74,19 +74,19 @@ export class RakijeComponent implements OnInit {
   }
 
   setUpdate(rakija: any) {
-    this.rakijaUpdate = { ...rakija };
+    this.brandyUpdate = { ...rakija };
     this.prikaz = true;
   }
 
   // Pretraga
-  search(parametri : any) {
-    if(parametri === undefined) {
-      parametri = this.parametri;
+  search(parameters : any) {
+    if(parameters === undefined) {
+      parameters = this.parameters;
     } else {
-      this.parametri = parametri;
+      this.parameters = parameters;
     }
-    this.service.pretrazi(parametri).subscribe((rakije : Brandy[]) => {
-      this.rakije = rakije;
+    this.service.pretrazi(parameters).subscribe((rakije : Brandy[]) => {
+      this.brandies = rakije;
     });
   }
 

@@ -1,8 +1,8 @@
 <mat-list>
-    <mat-list-item>ID: {{porudzbina["id"]}}</mat-list-item>
-    <mat-list-item>Datum kupovine: {{porudzbina["datumKupovine"]}}</mat-list-item>
-    <mat-list-item>Kolicina: {{porudzbina["kolicina"]}}</mat-list-item>
-    <mat-list-item>Rakija: <span *ngIf="porudzbina['brandy']">{{porudzbina["brandy"]["naziv"]}}</span></mat-list-item>
-    <mat-list-item>Kupac: <span *ngIf="porudzbina['customer']">{{porudzbina["customer"]["email"]}}</span></mat-list-item>
+    <mat-list-item>ID: {{order["id"]}}</mat-list-item>
+    <mat-list-item>Date Of Purchase: {{order["dateOfPurchase"]}}</mat-list-item>
+    <mat-list-item>Quantity: {{order["quantity"]}}</mat-list-item>
+    <mat-list-item>Brandy: <span *ngIf="order['brandy']">{{order["brandy"]["name"]}}</span></mat-list-item>
+    <mat-list-item>Custoemr: <span *ngIf="order['customer']">{{order["customer"]["email"]}}</span></mat-list-item>
 </mat-list>
-<button mat-raised-button color="primary"  (click)="back()">Nazad</button>
+<button mat-raised-button color="primary"  (click)="back()">Back</button>

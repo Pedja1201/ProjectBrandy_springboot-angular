@@ -8,12 +8,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./search-rakije.component.css']
 })
 export class SearchRakijeComponent implements OnInit {
-  title="Pretraga Rakije";
+  title="Search Brandy";
 
   @Output()
   pretraga: EventEmitter<any> = new EventEmitter<any>();
 
-  parametri : FormGroup = new FormGroup({
+  parameters : FormGroup = new FormGroup({
     id: new FormControl(),
     name: new FormControl(),
     priceFor: new FormControl(),
@@ -29,7 +29,7 @@ export class SearchRakijeComponent implements OnInit {
   }
 
   pretrazi() {
-    this.pretraga.emit(this.parametri.value);
+    this.pretraga.emit(this.parameters.value);
   }
 
 }

@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@
 import { Validators, FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Kupac } from 'src/app/model/customer';
+import { Customer } from 'src/app/model/customer';
 
 @Component({
   selector: 'app-kupac-register',
@@ -11,7 +11,7 @@ import { Kupac } from 'src/app/model/customer';
 })
 export class KupacRegisterComponent implements OnInit {
 
-  title='Registrovanje Kupca'
+  title='Register Customer'
   hide = true;
   
   isLinear = false;
@@ -23,10 +23,10 @@ export class KupacRegisterComponent implements OnInit {
   });
   
   forma : FormGroup = new FormGroup({
-    "korisnickoIme": new FormControl(null, [Validators.required]),
-    "lozinka": new FormControl(null, [Validators.required]),
-    "ime": new FormControl(null, [Validators.required]),
-    "prezime": new FormControl(null, [Validators.required]),
+    "username": new FormControl(null, [Validators.required]),
+    "password": new FormControl(null, [Validators.required]),
+    "firstName": new FormControl(null, [Validators.required]),
+    "lastName": new FormControl(null, [Validators.required]),
     "email": new FormControl(null, [Validators.required])
 
   })
@@ -35,29 +35,29 @@ export class KupacRegisterComponent implements OnInit {
   public createEvent: EventEmitter<any> = new EventEmitter<any>();
   
   @Input()
-  kupac: Kupac|null = null;
+  customer: Customer|null = null;
 
   constructor( public snackBar:MatSnackBar, private _formBuilder: FormBuilder,private router: Router) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     console.log(changes);
-    console.log(this.kupac);
-    this.forma.get("id")?.setValue(this.kupac?.id);
-    this.forma.get("korisnickoIme")?.setValue(this.kupac?.korisnickoIme);
-    this.forma.get("lozinka")?.setValue(this.kupac?.lozinka);
-    this.forma.get("ime")?.setValue(this.kupac?.ime);
-    this.forma.get("prezime")?.setValue(this.kupac?.prezime);
-    this.forma.get("email")?.setValue(this.kupac?.email);
+    console.log(this.customer);
+    this.forma.get("id")?.setValue(this.customer?.id);
+    this.forma.get("username")?.setValue(this.customer?.username);
+    this.forma.get("password")?.setValue(this.customer?.password);
+    this.forma.get("firstName")?.setValue(this.customer?.firstName);
+    this.forma.get("lastName")?.setValue(this.customer?.lastName);
+    this.forma.get("email")?.setValue(this.customer?.email);
 
   }
 
   ngOnInit(): void {
-    this.forma.get("id")?.setValue(this.kupac?.id);
-    this.forma.get("korisnickoIme")?.setValue(this.kupac?.id);
-    this.forma.get("lozinka")?.setValue(this.kupac?.id);
-    this.forma.get("ime")?.setValue(this.kupac?.id);
-    this.forma.get("prezime")?.setValue(this.kupac?.id);
-    this.forma.get("email")?.setValue(this.kupac?.id);
+    this.forma.get("id")?.setValue(this.customer?.id);
+    this.forma.get("username")?.setValue(this.customer?.id);
+    this.forma.get("password")?.setValue(this.customer?.id);
+    this.forma.get("firstName")?.setValue(this.customer?.id);
+    this.forma.get("lastName")?.setValue(this.customer?.id);
+    this.forma.get("email")?.setValue(this.customer?.id);
 
   }
 

@@ -49,7 +49,7 @@ export class LoginService {
 
 
   registerAdmin(admin:Admin){
-    return this.client.post<Token>(`${this.baseUrl}/registerAdministrator`, admin).pipe(
+    return this.client.post<Token>(`${this.baseUrl}/registerAdmin`, admin).pipe(
       tap(token => {
         this.token = token;
         this.user = JSON.parse(atob(token.token.split(".")[1]));

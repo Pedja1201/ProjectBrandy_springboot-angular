@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Admin } from '../../model/admin';
-import { Kupac } from '../../model/customer';
+import { Customer } from '../../model/customer';
 import { LoginService } from '../../service/auth/login.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { LoginService } from '../../service/auth/login.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  title="Registruj se";
+  title="Sign up";
 
   constructor(public loginService : LoginService,  public snackBar:MatSnackBar) {
 
@@ -19,9 +19,9 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  createKupac(kupac: Kupac) {
-    this.loginService.registerKupac(kupac).subscribe((value) => {
-      console.log(kupac)
+  createKupac(customer: Customer) {
+    this.loginService.registerKupac(customer).subscribe((value) => {
+      console.log(customer)
     }, (error) => {
       console.log(error);
     })

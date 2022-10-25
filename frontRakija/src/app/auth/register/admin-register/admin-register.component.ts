@@ -11,7 +11,7 @@ import { Admin } from 'src/app/model/admin';
 })
 export class AdminRegisterComponent implements OnInit {
 
-  title='Registrovanje Administratora'
+  title='Register Administrators'
   hide = true;
   
   isLinear = false;
@@ -23,12 +23,12 @@ export class AdminRegisterComponent implements OnInit {
   });
   
   forma : FormGroup = new FormGroup({
-    "korisnickoIme": new FormControl(null, [Validators.required]),
-    "lozinka": new FormControl(null, [Validators.required]),
-    "ime": new FormControl(null, [Validators.required]),
-    "prezime": new FormControl(null, [Validators.required]),
+    "username": new FormControl(null, [Validators.required]),
+    "password": new FormControl(null, [Validators.required]),
+    "firstName": new FormControl(null, [Validators.required]),
+    "lastName": new FormControl(null, [Validators.required]),
     "email": new FormControl(null, [Validators.required]),
-    "jmbg": new FormControl(null, [Validators.required])
+    "upin": new FormControl(null, [Validators.required])
   })
   
   @Output()
@@ -43,23 +43,23 @@ export class AdminRegisterComponent implements OnInit {
     console.log(changes);
     console.log(this.admin);
     this.forma.get("id")?.setValue(this.admin?.id);
-    this.forma.get("korisnickoIme")?.setValue(this.admin?.korisnickoIme);
-    this.forma.get("lozinka")?.setValue(this.admin?.lozinka);
-    this.forma.get("ime")?.setValue(this.admin?.ime);
-    this.forma.get("prezime")?.setValue(this.admin?.prezime);
+    this.forma.get("username")?.setValue(this.admin?.username);
+    this.forma.get("password")?.setValue(this.admin?.password);
+    this.forma.get("firstName")?.setValue(this.admin?.firstName);
+    this.forma.get("lastName")?.setValue(this.admin?.lastName);
     this.forma.get("email")?.setValue(this.admin?.email);
-    this.forma.get("jmbg")?.setValue(this.admin?.jmbg);
+    this.forma.get("upin")?.setValue(this.admin?.upin);
 
   }
 
   ngOnInit(): void {
     this.forma.get("id")?.setValue(this.admin?.id);
-    this.forma.get("korisnickoIme")?.setValue(this.admin?.id);
-    this.forma.get("lozinka")?.setValue(this.admin?.id);
-    this.forma.get("ime")?.setValue(this.admin?.id);
-    this.forma.get("prezime")?.setValue(this.admin?.id);
+    this.forma.get("username")?.setValue(this.admin?.id);
+    this.forma.get("password")?.setValue(this.admin?.id);
+    this.forma.get("firstName")?.setValue(this.admin?.id);
+    this.forma.get("lastName")?.setValue(this.admin?.id);
     this.forma.get("email")?.setValue(this.admin?.id);
-    this.forma.get("jmbg")?.setValue(this.admin?.id);
+    this.forma.get("upin")?.setValue(this.admin?.id);
   }
 
   create() {

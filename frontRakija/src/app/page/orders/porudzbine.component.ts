@@ -14,12 +14,12 @@ export class PorudzbineComponent implements OnInit {
   prikaz = false;
   
 
-  porudzbine : Order[] = [];
-  porudzbinaUpdate: Order | null = null;
+  orders : Order[] = [];
+  orderUpdate: Order | null = null;
 
   constructor(private service : OrdersService,  public snackBar:MatSnackBar,public loginService : LoginService) {
-    service.getAll().subscribe((porudzbine : OrderPage<Order>)=> {
-      this.porudzbine = porudzbine.content;
+    service.getAll().subscribe((orders : OrderPage<Order>)=> {
+      this.orders = orders.content;
     })
   }
 
@@ -29,7 +29,7 @@ export class PorudzbineComponent implements OnInit {
 
   getAll() {
     this.service.getAll().subscribe((value) => {
-      this.porudzbine = value.content;
+      this.orders = value.content;
     }, (error) => {
       console.log(error);
     });
@@ -44,8 +44,8 @@ export class PorudzbineComponent implements OnInit {
     })
   }
 
-  create(porudzbina: Order) {
-    this.service.create(porudzbina).subscribe((value) => {
+  create(order: Order) {
+    this.service.create(order).subscribe((value) => {
       this.getAll();
       let snackBarRef = this.snackBar.open('Created', 'OK!',  {duration: 3000 });
     }, (error) => {
@@ -53,9 +53,9 @@ export class PorudzbineComponent implements OnInit {
     })
   }
 
-  update(porudzbina: Order) {
-    if(this.porudzbinaUpdate && this.porudzbinaUpdate.id) {
-      this.service.update(this.porudzbinaUpdate.id, porudzbina).subscribe((value) => {
+  update(order: Order) {
+    if(this.orderUpdate && this.orderUpdate.id) {
+      this.service.update(this.orderUpdate.id, order).subscribe((value) => {
         this.getAll();
         let snackBarRef = this.snackBar.open('Updated', 'OK!',  {duration: 2000 });
       }, (error) => {
@@ -65,8 +65,8 @@ export class PorudzbineComponent implements OnInit {
 
   }
 
-  setUpdate(porudzbina: any) {
-    this.porudzbinaUpdate = { ...porudzbina };
+  setUpdate(order: any) {
+    this.orderUpdate = { ...order };
     this.prikaz = true;
   }
 

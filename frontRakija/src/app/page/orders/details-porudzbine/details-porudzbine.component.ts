@@ -10,14 +10,14 @@ import { OrdersService } from 'src/app/service/orders/orders.service';
 })
 export class DetailsPorudzbineComponent implements OnInit {
 
-  porudzbina: any = {};
+  order: any = {};
 
   constructor(private porudzbineService: OrdersService, private route: ActivatedRoute, private router: Router, private location: Location) { }
 
   ngOnInit(): void {
-    let porudzbinaId = Number(this.route.snapshot.paramMap.get("id"));
-    this.porudzbineService.getOne(porudzbinaId).subscribe((value: any) => {
-      this.porudzbina = value;
+    let orderId = Number(this.route.snapshot.paramMap.get("id"));
+    this.porudzbineService.getOne(orderId).subscribe((value: any) => {
+      this.order = value;
     }, (error) => {
       console.log(error);
       this.router.navigate(["orders"]);

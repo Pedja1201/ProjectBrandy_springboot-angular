@@ -4,28 +4,28 @@
     <mat-step [stepControl]="firstFormGroup">
       <ng-template matStepLabel>Primary data</ng-template>
       <mat-form-field appearance="outline">
-        <mat-label>Naziv:</mat-label>
-        <input matInput formControlName="naziv" name="naziv" type="text" required>
+        <mat-label>Name:</mat-label>
+        <input matInput formControlName="name" name="name" type="text" required>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
-        <mat-label>Sorta:</mat-label>
-        <input matInput formControlName="sorta" name="sorta" type="text" required>
+        <mat-label>Type:</mat-label>
+        <input matInput formControlName="type" name="type" type="text" required>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
-        <mat-label>Cena: </mat-label>
-        <input matInput formControlName="cena" name="cena" type="number" step="0,1" required>
+        <mat-label>Price: </mat-label>
+        <input matInput formControlName="price" name="price" type="number" step="0,1" required>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
-        <mat-label>Godina: </mat-label>
-        <input matInput formControlName="godina" name="godina" type="number" required>
+        <mat-label>Year: </mat-label>
+        <input matInput formControlName="year" name="year" type="number" required>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
-        <mat-label>Jacina: </mat-label>
-        <input matInput formControlName="jacina" name="jacina" type="text" required>
+        <mat-label>Strength: </mat-label>
+        <input matInput formControlName="strength" name="strength" type="text" required>
       </mat-form-field>
 
       <div>
@@ -38,7 +38,7 @@
       <div>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button (click)="stepper.reset()">Reset</button>
-        <button mat-raised-button color="primary" (click)="create()">Dodaj</button>
+        <button mat-raised-button color="primary" (click)="create()">Submit</button>
       </div>
     </mat-step>
   </form>

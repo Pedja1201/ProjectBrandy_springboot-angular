@@ -8,7 +8,7 @@ import { Customer } from 'src/app/model/customer';
   styleUrls: ['./form-kupci.component.css']
 })
 export class FormKupciComponent implements OnInit {
-  title='Forma Kupca'
+  title='Form Customer'
 
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective | undefined;
 
@@ -27,7 +27,7 @@ export class FormKupciComponent implements OnInit {
   })
   
   @Input()
-  kupac: Customer|null = null;
+  customer: Customer|null = null;
 
   @Output()
   public createEvent: EventEmitter<any> = new EventEmitter<any>();
@@ -36,23 +36,23 @@ export class FormKupciComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges): void {
     console.log(changes);
-    console.log(this.kupac);
-    this.forma.get("id")?.setValue(this.kupac?.id);
-    this.forma.get("username")?.setValue(this.kupac?.username);
-    this.forma.get("password")?.setValue(this.kupac?.password);
-    this.forma.get("firstName")?.setValue(this.kupac?.firstName) ; 
-    this.forma.get("lastName")?.setValue(this.kupac?.lastName)  ;
-    this.forma.get("email")?.setValue(this.kupac?.email) ; 
+    console.log(this.customer);
+    this.forma.get("id")?.setValue(this.customer?.id);
+    this.forma.get("username")?.setValue(this.customer?.username);
+    this.forma.get("password")?.setValue(this.customer?.password);
+    this.forma.get("firstName")?.setValue(this.customer?.firstName) ; 
+    this.forma.get("lastName")?.setValue(this.customer?.lastName)  ;
+    this.forma.get("email")?.setValue(this.customer?.email) ; 
     
   }
 
   ngOnInit(): void {
-    this.forma.get("id")?.setValue(this.kupac?.id);
-    this.forma.get("username")?.setValue(this.kupac?.id);
-    this.forma.get("password")?.setValue(this.kupac?.id);
-    this.forma.get("firstName")?.setValue(this.kupac?.id);
-    this.forma.get("lastName")?.setValue(this.kupac?.id);
-    this.forma.get("email")?.setValue(this.kupac?.id);
+    this.forma.get("id")?.setValue(this.customer?.id);
+    this.forma.get("username")?.setValue(this.customer?.id);
+    this.forma.get("password")?.setValue(this.customer?.id);
+    this.forma.get("firstName")?.setValue(this.customer?.id);
+    this.forma.get("lastName")?.setValue(this.customer?.id);
+    this.forma.get("email")?.setValue(this.customer?.id);
   }
 
   create() {

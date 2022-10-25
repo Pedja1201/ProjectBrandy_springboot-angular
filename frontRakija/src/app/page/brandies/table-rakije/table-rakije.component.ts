@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { Rakija, RakijaPage } from 'src/app/model/brandy';
+import { Brandy, BrandyPage } from 'src/app/model/brandy';
 import { LoginService } from 'src/app/service/auth/login.service';
 
 @Component({
@@ -10,12 +10,12 @@ import { LoginService } from 'src/app/service/auth/login.service';
 })
 export class TableRakijeComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'naziv', 'sorta','cena', 'godina', 'jacina',"akcije"];
-  dataSource : RakijaPage<Rakija> |undefined;
-  title="Tabela Rakije";
+  displayedColumns: string[] = ['id', 'name', 'type','price', 'year', 'strength',"action"];
+  dataSource : BrandyPage<Brandy> |undefined;
+  title="Table Brandies";
 
   @Input()
-  elementi: any[] = [];
+  elements: any[] = [];
 
   @Output()
   uklanjanje : EventEmitter<any> = new EventEmitter<any>();
@@ -28,16 +28,16 @@ export class TableRakijeComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  ukloni(id:number) {
+  deleting(id:number) {
     this.uklanjanje.emit(id);
   }
 
-  izmeni(id:number) {
+  updating(id:number) {
     this.izmena.emit(id);
   }
 
-  prikaziDetalje(rakija: Rakija) {
-    this.router.navigate(["/rakije", rakija.id]);
+  details(brandy: Brandy) {
+    this.router.navigate(["/brandies", brandy.id]);
   }
 
 }

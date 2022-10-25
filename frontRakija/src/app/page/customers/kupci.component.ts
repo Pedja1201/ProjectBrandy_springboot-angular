@@ -11,11 +11,11 @@ import { LoginService } from 'src/app/service/auth/login.service';
 })
 export class KupciComponent implements OnInit {
 
-  title="Kupci";
+  title="Customers";
   prikaz = false;
   
-  kupci : Customer[] = [];
-  kupacUpdate: Customer | null = null;
+  customers : Customer[] = [];
+  customerUpdate: Customer | null = null;
 
   constructor(private service : CustomersService, public snackBar:MatSnackBar, public loginService : LoginService) {
     // service.getAll().subscribe((kupci : KupacPage<Kupac>) => {
@@ -39,7 +39,7 @@ export class KupciComponent implements OnInit {
 
   getAll() {
     this.service.getAll().subscribe((value) => {
-      this.kupci = value.content;
+      this.customers = value.content;
     }, (error) => {
       console.log(error);
     });
@@ -54,8 +54,8 @@ export class KupciComponent implements OnInit {
     })
   }
 
-  create(kupac: Customer) {
-    this.service.create(kupac).subscribe((value) => {
+  create(customer: Customer) {
+    this.service.create(customer).subscribe((value) => {
       this.getAll();
       let snackBarRef = this.snackBar.open('Created', 'OK!',  {duration: 3000 });
     }, (error) => {
@@ -63,9 +63,9 @@ export class KupciComponent implements OnInit {
     })
   }
 
-  update(kupac: Customer) {
-    if(this.kupacUpdate && this.kupacUpdate.id) {
-      this.service.update(this.kupacUpdate.id, kupac).subscribe((value) => {
+  update(customer: Customer) {
+    if(this.customerUpdate && this.customerUpdate.id) {
+      this.service.update(this.customerUpdate.id, customer).subscribe((value) => {
         this.getAll();
         let snackBarRef = this.snackBar.open('Updated', 'OK!',  {duration: 2000 });
       }, (error) => {
@@ -76,7 +76,7 @@ export class KupciComponent implements OnInit {
   }
 
   setUpdate(kupac: any) {
-    this.kupacUpdate = { ...kupac };
+    this.customerUpdate = { ...kupac };
     this.prikaz = true;
   }
 

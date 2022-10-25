@@ -25,8 +25,8 @@ export class FormPorudzbineComponent implements OnInit {
     secondCtrl: ['', Validators.required],
   });
 
-  rakije: Brandy[] = [];
-  kupci: Customer[] = [];
+  brandies: Brandy[] = [];
+  customers: Customer[] = [];
   
   forma : FormGroup = new FormGroup({
     "dateOfPurchase": new FormControl(null, [Validators.required]),
@@ -39,18 +39,18 @@ export class FormPorudzbineComponent implements OnInit {
   public createEvent: EventEmitter<any> = new EventEmitter<any>();
   
   @Input()
-  porudzbina: Order |null = null;
+  order: Order |null = null;
 
   constructor(private rakijeService : BrandiesService, private kupciService : CustomersService,private _formBuilder: FormBuilder) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     console.log(changes);
-    console.log(this.porudzbina);
-    this.forma.get("id")?.setValue(this.porudzbina?.id);
-    this.forma.get("dateOfPurchase")?.setValue(this.porudzbina?.dateOfPurchase);
-    this.forma.get("quantity")?.setValue(this.porudzbina?.quantity);
-    this.forma.get("brandy")?.setValue(this.porudzbina?.brandy);
-    this.forma.get("customer")?.setValue(this.porudzbina?.customer);
+    console.log(this.order);
+    this.forma.get("id")?.setValue(this.order?.id);
+    this.forma.get("dateOfPurchase")?.setValue(this.order?.dateOfPurchase);
+    this.forma.get("quantity")?.setValue(this.order?.quantity);
+    this.forma.get("brandy")?.setValue(this.order?.brandy);
+    this.forma.get("customer")?.setValue(this.order?.customer);
   }
 
   ngOnInit(): void {
@@ -60,11 +60,11 @@ export class FormPorudzbineComponent implements OnInit {
     // this.kupciService.getAll().subscribe((kupci : KupacPage<Kupac>)=>{
     //   this.kupci = kupci.content;
     // });
-    this.forma.get("id")?.setValue(this.porudzbina?.id);
-    this.forma.get("dateOfPurchase")?.setValue(this.porudzbina?.id);
-    this.forma.get("quantity")?.setValue(this.porudzbina?.id);
-    this.forma.get("brandy")?.setValue(this.porudzbina?.id);
-    this.forma.get("customer")?.setValue(this.porudzbina?.id);
+    this.forma.get("id")?.setValue(this.order?.id);
+    this.forma.get("dateOfPurchase")?.setValue(this.order?.id);
+    this.forma.get("quantity")?.setValue(this.order?.id);
+    this.forma.get("brandy")?.setValue(this.order?.id);
+    this.forma.get("customer")?.setValue(this.order?.id);
   }
 
   create() {
@@ -78,15 +78,15 @@ export class FormPorudzbineComponent implements OnInit {
 
 
   //Metoda koja proverava 
-  comparator1(rakija1: any, rakija2:any) {
-    return rakija1 && rakija2
-    ? rakija1.id === rakija2.id
-    : rakija1 === rakija2;
+  comparator1(brandy1: any, brandy2:any) {
+    return brandy1 && brandy2
+    ? brandy1.id === brandy2.id
+    : brandy1 === brandy2;
   }
-  comparator2(kupac1: any, kupac2:any) {
-    return kupac1 && kupac2
-    ? kupac1.id === kupac2.id
-    : kupac1 === kupac2;
+  comparator2(customer1: any, customer2:any) {
+    return customer1 && customer2
+    ? customer1.id === customer2.id
+    : customer1 === customer2;
   }
 
 }

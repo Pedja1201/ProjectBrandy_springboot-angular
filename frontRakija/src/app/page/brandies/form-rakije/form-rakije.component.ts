@@ -9,7 +9,7 @@ import { Brandy } from 'src/app/model/brandy';
 })
 export class FormRakijeComponent implements OnInit {
 
-  title='Forma Rakije'
+  title='Form Brandy'
 
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective | undefined;
 
@@ -28,7 +28,7 @@ export class FormRakijeComponent implements OnInit {
   })
   
   @Input()
-  rakija: Brandy|null = null;
+  brandy: Brandy|null = null;
 
   @Output()
   public createEvent: EventEmitter<any> = new EventEmitter<any>();
@@ -37,22 +37,22 @@ export class FormRakijeComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges): void {
     console.log(changes);
-    console.log(this.rakija);
-    this.forma.get("id")?.setValue(this.rakija?.id);
-    this.forma.get("name")?.setValue(this.rakija?.name);
-    this.forma.get("type")?.setValue(this.rakija?.type);
-    this.forma.get("price")?.setValue(this.rakija?.price) ; 
-    this.forma.get("year")?.setValue(this.rakija?.year);    
-    this.forma.get("strength")?.setValue(this.rakija?.strength);    
+    console.log(this.brandy);
+    this.forma.get("id")?.setValue(this.brandy?.id);
+    this.forma.get("name")?.setValue(this.brandy?.name);
+    this.forma.get("type")?.setValue(this.brandy?.type);
+    this.forma.get("price")?.setValue(this.brandy?.price) ; 
+    this.forma.get("year")?.setValue(this.brandy?.year);    
+    this.forma.get("strength")?.setValue(this.brandy?.strength);    
   }
 
   ngOnInit(): void {
-    this.forma.get("id")?.setValue(this.rakija?.id);
-    this.forma.get("name")?.setValue(this.rakija?.id);
-    this.forma.get("type")?.setValue(this.rakija?.id);
-    this.forma.get("price")?.setValue(this.rakija?.id);
-    this.forma.get("year")?.setValue(this.rakija?.id);
-    this.forma.get("strength")?.setValue(this.rakija?.id);
+    this.forma.get("id")?.setValue(this.brandy?.id);
+    this.forma.get("name")?.setValue(this.brandy?.id);
+    this.forma.get("type")?.setValue(this.brandy?.id);
+    this.forma.get("price")?.setValue(this.brandy?.id);
+    this.forma.get("year")?.setValue(this.brandy?.id);
+    this.forma.get("strength")?.setValue(this.brandy?.id);
   }
 
   create() {

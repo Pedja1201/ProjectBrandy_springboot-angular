@@ -9,34 +9,34 @@ import { LoginService } from 'src/app/service/auth/login.service';
   styleUrls: ['./table-porudzbine.component.css']
 })
 export class TablePorudzbineComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'datumKupovine', 'kolicina','rakija', 'kupac',"akcije"];
+  displayedColumns: string[] = ['id', 'quantity', 'dateOfPurchase','brandy', 'customer',"action"];
   dataSource : OrderPage<Order> |undefined;
-  title="Tabela Porudzbine";
+  title="Table Orders";
 
   @Input()
-  elementi: any[] = [];
+  elements: any[] = [];
 
   @Output()
-  uklanjanje : EventEmitter<any> = new EventEmitter<any>();
+  deleted : EventEmitter<any> = new EventEmitter<any>();
 
   @Output()
-  izmena: EventEmitter<any> = new EventEmitter<any>();
+  updated: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private router : Router, public loginService : LoginService) { }
 
   ngOnInit(): void {
   }
 
-  ukloni(id:number) {
-    this.uklanjanje.emit(id);
+  deleting(id:number) {
+    this.deleted.emit(id);
   }
 
-  izmeni(id:number) {
-    this.izmena.emit(id);
+  updating(id:number) {
+    this.updated.emit(id);
   }
 
-  prikaziDetalje(porudzbina: Order) {
-    this.router.navigate(["/orders", porudzbina.id]);
+  details(order: Order) {
+    this.router.navigate(["/orders", order.id]);
   }
 
 }

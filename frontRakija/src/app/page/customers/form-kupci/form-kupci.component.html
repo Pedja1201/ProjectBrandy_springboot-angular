@@ -4,23 +4,23 @@
     <mat-step [stepControl]="firstFormGroup">
       <ng-template matStepLabel>Primary data</ng-template>
       <mat-form-field appearance="outline">
-        <mat-label>Korisnicko ime:</mat-label>
-        <input matInput formControlName="korisnickoIme" name="korisnickoIme" type="text" required>
+        <mat-label>Username:</mat-label>
+        <input matInput formControlName="username" name="username" type="text" required>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
-        <mat-label>Lozinka:</mat-label>
-        <input matInput formControlName="lozinka" name="lozinka" type="password" required>
+        <mat-label>Password:</mat-label>
+        <input matInput formControlName="password" name="password" type="password" required>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
-        <mat-label>Ime: </mat-label>
-        <input matInput formControlName="ime" name="ime" type="text" required>
+        <mat-label>First Name: </mat-label>
+        <input matInput formControlName="firstName" name="firstName" type="text" required>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
-        <mat-label>Prezime: </mat-label>
-        <input matInput formControlName="prezime" name="prezime" type="text" required>
+        <mat-label>Last Name: </mat-label>
+        <input matInput formControlName="lastName" name="lastName" type="text" required>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
@@ -38,7 +38,7 @@
       <div>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button (click)="stepper.reset()">Reset</button>
-        <button mat-raised-button color="primary" (click)="create()">Dodaj</button>
+        <button mat-raised-button color="primary" (click)="create()">Submit</button>
       </div>
     </mat-step>
   </form>

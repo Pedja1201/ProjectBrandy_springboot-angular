@@ -10,34 +10,34 @@ import { LoginService } from 'src/app/service/auth/login.service';
 })
 export class TableKupciComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'korisnickoIme', 'ime','prezime', 'email',"akcije"];
+  displayedColumns: string[] = ['id', 'username', 'firstName','lastName', 'email',"action"];
   dataSource : CustomerPage<Customer> |undefined;
-  title="Tabela Kupca";
+  title="Table Customers";
 
   @Input()
-  elementi: any[] = [];
+  elements: any[] = [];
 
   @Output()
-  uklanjanje : EventEmitter<any> = new EventEmitter<any>();
+  deleted : EventEmitter<any> = new EventEmitter<any>();
 
   @Output()
-  izmena: EventEmitter<any> = new EventEmitter<any>();
+  updated: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private router : Router, public loginService : LoginService) { }
 
   ngOnInit(): void {
   }
 
-  ukloni(id:number) {
-    this.uklanjanje.emit(id);
+  deleting(id:number) {
+    this.deleted.emit(id);
   }
 
-  izmeni(id:number) {
-    this.izmena.emit(id);
+  updating(id:number) {
+    this.updated.emit(id);
   }
 
-  prikaziDetalje(kupac: Customer) {
-    this.router.navigate(["/customers", kupac.id]);
+  details(customer: Customer) {
+    this.router.navigate(["/customers", customer.id]);
   }
 
 }

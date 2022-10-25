@@ -5,14 +5,14 @@
       <mat-step [stepControl]="firstFormGroup">
         <ng-template matStepLabel>Primary data</ng-template>
         <mat-form-field appearance="outline">
-          <mat-label>Korisnicko ime:</mat-label>
-          <input matInput formControlName="korisnickoIme" name="korisnickoIme" type="text" required>
+          <mat-label>Username:</mat-label>
+          <input matInput formControlName="username" name="username" type="text" required>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <mat-label>Lozinka:</mat-label>
+          <mat-label>Password:</mat-label>
           <!-- <input matInput formControlName="lozinka" name="lozinka" type="password" required> -->
-          <input matInput formControlName="lozinka" [type]="hide ? 'password' : 'text'">
+          <input matInput formControlName="password" [type]="hide ? 'password' : 'text'">
           <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
             [attr.aria-pressed]="hide">
             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -25,20 +25,20 @@
       </mat-step>
       <mat-step [stepControl]="secondFormGroup" label="Secondary data">
         <mat-form-field appearance="fill">
-          <mat-label>Ime:</mat-label>
-          <input matInput formControlName="ime" name="ime" type="text" required>
+          <mat-label>First Name:</mat-label>
+          <input matInput formControlName="firstName" name="firstName" type="text" required>
         </mat-form-field>
         <mat-form-field appearance="fill">
-            <mat-label>Prezime:</mat-label>
-            <input matInput formControlName="prezime" name="prezime" type="text" required>
+            <mat-label>Last Name:</mat-label>
+            <input matInput formControlName="lastName" name="lastName" type="text" required>
           </mat-form-field>
           <mat-form-field appearance="fill">
             <mat-label>E-mail:</mat-label>
             <input matInput formControlName="email" name="email" type="email" required>
           </mat-form-field>
         <mat-form-field appearance="fill">
-          <mat-label>JMBG:</mat-label>
-          <input matInput formControlName="jmbg" name="jmbg" type="text" required>
+          <mat-label>UPIN:</mat-label>
+          <input matInput formControlName="upin" name="upin" type="text" required>
         </mat-form-field>
         <div>
           <button mat-button matStepperPrevious>Back</button>
@@ -55,7 +55,7 @@
         <div>
           <button mat-button matStepperPrevious>Back</button>
           <button mat-button (click)="stepper.reset()">Reset</button>
-          <button mat-raised-button color="primary" (click)="create()">Dodaj</button>
+          <button mat-raised-button color="primary" (click)="create()">Submit</button>
         </div>
       </mat-step>
     </form>

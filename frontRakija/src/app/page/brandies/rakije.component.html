@@ -2,17 +2,17 @@
     <h2>{{title}}</h2>
 
     <mat-tab-group>
-        <mat-tab label="Table Rakije">
-            <button mat-mini-fab color="link"    (click)="open()"> <mat-icon>search</mat-icon> Pretrazi Rakiju </button>
+        <mat-tab label="Table Brandy">
+            <button mat-mini-fab color="link"    (click)="open()"> <mat-icon>search</mat-icon> Search  Brandy </button>
             <app-search-rakije *ngIf="prikazPretrage" (pretraga)="search($event)"></app-search-rakije>
 
-            <app-table-rakije [elementi]="rakije" (uklanjanje)="delete($event)" (izmena)="setUpdate($event)">
+            <app-table-rakije [elements]="brandies" (uklanjanje)="delete($event)" (izmena)="setUpdate($event)">
             </app-table-rakije>
 
-            <app-form-rakije *ngIf="prikaz" [rakija]="rakijaUpdate" (createEvent)="update($event)">
+            <app-form-rakije *ngIf="prikaz" [brandy]="brandyUpdate" (createEvent)="update($event)">
             </app-form-rakije>
         </mat-tab>
-        <mat-tab label="Add Rakija" *ngIf="loginService.isLoggedIn()">
+        <mat-tab label="Add Brandy" *ngIf="loginService.isLoggedIn()">
             <app-form-rakije (createEvent)="create($event)"></app-form-rakije>
         </mat-tab>
     </mat-tab-group>
