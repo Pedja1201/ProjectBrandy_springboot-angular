@@ -52,7 +52,7 @@ import { FormOrdersComponent } from './page/orders/form-orders/form-orders.compo
 import { DetailsOrdersComponent } from './page/orders/details-orders/details-orders.component';
 import { CustomersComponent } from './page/customers/customers.component';
 import { TableCustomersComponent } from './page/customers/table-customers/table-customers.component';
-import { FormCustomersComponent } from './page/customers/form-kupci/form-customers.component';
+import { FormCustomersComponent } from './page/customers/form-customers/form-customers.component';
 import { DetailsCustomersComponent } from './page/customers/details-customers/details-customers.component';
 
 @NgModule({

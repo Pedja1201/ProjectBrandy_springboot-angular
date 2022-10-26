@@ -3,27 +3,27 @@
   <form [formGroup]="forma" ngNativeValidate>
     <mat-step [stepControl]="firstFormGroup">
       <ng-template matStepLabel>Primary data</ng-template>
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="standard">
         <mat-label>Username:</mat-label>
         <input matInput formControlName="username" name="username" type="text" required>
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="standard">
         <mat-label>Password:</mat-label>
         <input matInput formControlName="password" name="password" type="password" required>
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="standard">
         <mat-label>First Name: </mat-label>
         <input matInput formControlName="firstName" name="firstName" type="text" required>
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="standard">
         <mat-label>Last Name: </mat-label>
         <input matInput formControlName="lastName" name="lastName" type="text" required>
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="standard">
         <mat-label>E-mail: </mat-label>
         <input matInput formControlName="email" name="email" type="email" required>
       </mat-form-field>

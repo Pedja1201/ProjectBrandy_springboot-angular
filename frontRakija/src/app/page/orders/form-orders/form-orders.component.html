@@ -3,14 +3,14 @@
   <form [formGroup]="forma" ngNativeValidate>
     <mat-step [stepControl]="firstFormGroup">
       <ng-template matStepLabel>Primery data</ng-template>
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="standard">
         <mat-label>Date Of Purchase:</mat-label>
         <input matInput formControlName="dateOfPurchase" name="dateOfPurchase" [matDatepicker]="picker" required>
         <mat-hint>MM/DD/YYYY</mat-hint>
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="standard">
         <mat-label>Quantity:</mat-label>
         <input matInput formControlName="quantity" name="quantity" type="text"  required>
       </mat-form-field>
@@ -19,8 +19,8 @@
       </div>
     </mat-step>
     <mat-step [stepControl]="secondFormGroup" label="Secondary data">
-      <mat-form-field appearance="fill">
-        <mat-label>Rakija:</mat-label>
+      <mat-form-field appearance="standard">
+        <mat-label>Brandy:</mat-label>
         <mat-select name="brandy" formControlName="brandy" [compareWith]="comparator1" required>
           <mat-option *ngFor="let brandy of brandies" [value]="brandy">
             {{brandy.name}}
@@ -28,8 +28,8 @@
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Kupac:</mat-label>
+      <mat-form-field appearance="standard">
+        <mat-label>Customer:</mat-label>
         <mat-select name="customer" formControlName="customer" [compareWith]="comparator2" required>
           <mat-option *ngFor="let customer of customers" [value]="customer">
             {{customer.email}}
