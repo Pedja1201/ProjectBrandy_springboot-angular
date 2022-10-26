@@ -35,7 +35,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { AdminRegisterComponent } from './auth/register/admin-register/admin-register.component';
-import { KupacRegisterComponent } from './auth/register/kupac-register/kupac-register.component';
+import { CustomerRegisterComponent } from './auth/register/customer-register/customer-register.component';
 import { UsersComponent } from './page/users/users.component';
 import { DetailsUsersComponent } from './page/users/details-users/details-users.component';
 import { TableUsersComponent } from './page/users/table-users/table-users.component';
@@ -64,7 +64,7 @@ import { DetailsCustomersComponent } from './page/customers/details-customers/de
     LoginComponent,
     RegisterComponent,
     AdminRegisterComponent,
-    KupacRegisterComponent,
+    CustomerRegisterComponent,
     UsersComponent,
     DetailsUsersComponent,
     TableUsersComponent,

@@ -5,11 +5,11 @@ import { Router } from '@angular/router';
 import { Customer } from 'src/app/model/customer';
 
 @Component({
-  selector: 'app-kupac-register',
-  templateUrl: './kupac-register.component.html',
-  styleUrls: ['./kupac-register.component.css']
+  selector: 'app-customer-register',
+  templateUrl: './customer-register.component.html',
+  styleUrls: ['./customer-register.component.css']
 })
-export class KupacRegisterComponent implements OnInit {
+export class CustomerRegisterComponent implements OnInit {
 
   title='Register Customer'
   hide = true;
