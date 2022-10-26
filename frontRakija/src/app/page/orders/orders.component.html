@@ -1,0 +1,16 @@
+<div>
+    <h2>{{title}}</h2>
+
+    <mat-tab-group>
+        <mat-tab label="Table Orders" *ngIf="loginService.isLoggedIn()">
+            <app-table-orders [elements]="orders" (deleted)="delete($event)" (updated)="setUpdate($event)">
+            </app-table-orders>
+
+            <app-form-orders *ngIf="prikaz" [order]="orderUpdate" (createEvent)="update($event)">
+            </app-form-orders>
+        </mat-tab>
+        <mat-tab label="Add Order" *ngIf="loginService.isLoggedIn()">
+            <app-form-orders (createEvent)="create($event)"></app-form-orders>
+        </mat-tab>
+    </mat-tab-group>
+</div>

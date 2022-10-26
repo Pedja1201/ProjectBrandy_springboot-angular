@@ -3,18 +3,18 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
 import { LoginComponent } from './auth/login/login.component';
 import { AboutComponent } from './page/about/about.component';
-import { DetailsKupciComponent } from './page/customers/details-kupci/details-kupci.component';
-import { KupciComponent } from './page/customers/kupci.component';
+import { DetailsCustomersComponent } from './page/customers/details-customers/details-customers.component';
+import { CustomersComponent } from './page/customers/customers.component';
 import { NotFoundComponent } from './page/not-found/not-found.component';
-import { DetailsPorudzbineComponent } from './page/orders/details-porudzbine/details-porudzbine.component';
-import { PorudzbineComponent } from './page/orders/porudzbine.component';
-import { DetailsRakijeComponent } from './page/brandies/details-rakije/details-rakije.component';
-import { RakijeComponent } from './page/brandies/rakije.component';
+import { DetailsOrdersComponent } from './page/orders/details-orders/details-orders.component';
+import { OrdersComponent } from './page/orders/orders.component';
+import { DetailsBrandiesComponent } from './page/brandies/details-brandies/details-brandies.component';
+import { BrandiesComponent } from './page/brandies/brandies.component';
 import { DetailsUsersComponent } from './page/users/details-users/details-users.component';
 import { UsersComponent } from './page/users/users.component';
 import { WelcomeComponent } from './page/welcome/welcome.component';
 import { RegisterComponent } from './auth/register/register.component';
-import { FormRakijeComponent } from './page/brandies/form-rakije/form-rakije.component';
+import { FormBrandiesComponent } from './page/brandies/form-brandies/form-brandies.component';
 
 const routes: Routes = [
   {path: "", component: WelcomeComponent},
@@ -24,17 +24,17 @@ const routes: Routes = [
        {path: 'users/:id',component: DetailsUsersComponent},
       
   //Kupci
-  {path: "customers", component: KupciComponent, canActivate: [AuthGuard]}, //Login pre otvaranja
-  {path: "customers/:id", component: DetailsKupciComponent},
+  {path: "customers", component: CustomersComponent, canActivate: [AuthGuard]}, //Login pre otvaranja
+  {path: "customers/:id", component: DetailsCustomersComponent},
 
   //Rakije
-  {path: 'brandies', component: RakijeComponent,   canActivate: [AuthGuard]},//Login pre otvaranja
-  {path: "brandies/:id", component: DetailsRakijeComponent},
-  {path: 'add-brandy', component: FormRakijeComponent}, 
+  {path: 'brandies', component: BrandiesComponent,   canActivate: [AuthGuard]},//Login pre otvaranja
+  {path: "brandies/:id", component: DetailsBrandiesComponent},
+  {path: 'add-brandy', component: FormBrandiesComponent}, 
 
   //Porudzbine
-  {path: 'orders', component: PorudzbineComponent},
-  {path: "orders/:id", component: DetailsPorudzbineComponent},
+  {path: 'orders', component: OrdersComponent},
+  {path: "orders/:id", component: DetailsOrdersComponent},
 
 
   //About

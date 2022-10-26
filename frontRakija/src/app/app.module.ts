@@ -30,7 +30,7 @@ import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { WelcomeComponent } from './page/welcome/welcome.component';
 import { NotFoundComponent } from './page/not-found/not-found.component';
-import { MeniComponent } from './meni/meni.component';
+import { MenuComponent } from './menu/menu.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
@@ -41,24 +41,24 @@ import { DetailsUsersComponent } from './page/users/details-users/details-users.
 import { TableUsersComponent } from './page/users/table-users/table-users.component';
 import { FormUsersComponent } from './page/users/form-users/form-users.component';
 import { AboutComponent } from './page/about/about.component';
-import { RakijeComponent } from './page/brandies/rakije.component';
-import { TableRakijeComponent } from './page/brandies/table-rakije/table-rakije.component';
-import { FormRakijeComponent } from './page/brandies/form-rakije/form-rakije.component';
-import { SearchRakijeComponent } from './page/brandies/search-rakije/search-rakije.component';
-import { DetailsRakijeComponent } from './page/brandies/details-rakije/details-rakije.component';
-import { PorudzbineComponent } from './page/orders/porudzbine.component';
-import { TablePorudzbineComponent } from './page/orders/table-porudzbine/table-porudzbine.component';
-import { FormPorudzbineComponent } from './page/orders/form-porudzbine/form-porudzbine.component';
-import { DetailsPorudzbineComponent } from './page/orders/details-porudzbine/details-porudzbine.component';
-import { KupciComponent } from './page/customers/kupci.component';
-import { TableKupciComponent } from './page/customers/table-kupci/table-kupci.component';
-import { FormKupciComponent } from './page/customers/form-kupci/form-kupci.component';
-import { DetailsKupciComponent } from './page/customers/details-kupci/details-kupci.component';
+import { BrandiesComponent } from './page/brandies/brandies.component';
+import { TableBrandiesComponent } from './page/brandies/table-brandies/table-brandies.component';
+import { FormBrandiesComponent } from './page/brandies/form-brandies/form-brandies.component';
+import { SearchBrandiesComponent } from './page/brandies/search-brandies/search-brandies.component';
+import { DetailsBrandiesComponent } from './page/brandies/details-brandies/details-brandies.component';
+import { OrdersComponent } from './page/orders/orders.component';
+import { TableOrdersComponent } from './page/orders/table-orders/table-orders.component';
+import { FormOrdersComponent } from './page/orders/form-orders/form-orders.component';
+import { DetailsOrdersComponent } from './page/orders/details-orders/details-orders.component';
+import { CustomersComponent } from './page/customers/customers.component';
+import { TableCustomersComponent } from './page/customers/table-customers/table-customers.component';
+import { FormCustomersComponent } from './page/customers/form-kupci/form-customers.component';
+import { DetailsCustomersComponent } from './page/customers/details-customers/details-customers.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MeniComponent,
+    MenuComponent,
     WelcomeComponent,
     NotFoundComponent,
     LoginComponent,
@@ -70,19 +70,19 @@ import { DetailsKupciComponent } from './page/customers/details-kupci/details-ku
     TableUsersComponent,
     FormUsersComponent,
     AboutComponent,
-    RakijeComponent,
-    TableRakijeComponent,
-    FormRakijeComponent,
-    SearchRakijeComponent,
-    DetailsRakijeComponent,
-    PorudzbineComponent,
-    TablePorudzbineComponent,
-    FormPorudzbineComponent,
-    DetailsPorudzbineComponent,
-    KupciComponent,
-    TableKupciComponent,
-    FormKupciComponent,
-    DetailsKupciComponent,
+    BrandiesComponent,
+    TableBrandiesComponent,
+    FormBrandiesComponent,
+    SearchBrandiesComponent,
+    DetailsBrandiesComponent,
+    OrdersComponent,
+    TableOrdersComponent,
+    FormOrdersComponent,
+    DetailsOrdersComponent,
+    CustomersComponent,
+    TableCustomersComponent,
+    FormCustomersComponent,
+    DetailsCustomersComponent,
   ],
   imports: [
     BrowserModule,
