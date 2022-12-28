@@ -86,7 +86,7 @@ public class LoginController { //TODO:RAspodeliti uloge prilikom register: ROLE_
         newCustomer = customerService.save(newCustomer);
         // Dodavanje prava pristupa.
         newCustomer.setUserPermissions(new HashSet<UserPermission>());
-        newCustomer.getUserPermissions()                                   //Trazimo id=2 zato sto je Kupac Korisnik (ROLE_KUPAC)
+        newCustomer.getUserPermissions()                                   //Trazimo id=2 zato sto je Kupac Korisnik (ROLE_CUSTOMER)
                 .add(new UserPermission(null, newCustomer, permissionService.findOne(2l).get()));
         customerService.save(newCustomer);
 
