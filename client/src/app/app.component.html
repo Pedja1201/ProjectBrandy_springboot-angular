@@ -1,0 +1,26 @@
+<html class="black">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+</style>
+</head>
+<body>
+
+<ul class="topnav">
+  <li><a class="active" href="/home" [routerLink]="['/home']">Online store</a></li>
+  <li><a href="#news">News</a></li>
+  <li><a href="#contact">Contact</a></li>
+  <li class="right"><a *ngIf="isLoggedIn" [routerLink]="['/home']" (click)="logout()">Log out</a></li>
+  <li class="right"><a *ngIf="isLoggedIn">{{ username }}</a></li>
+  <li class="right"><a [routerLink]="['/login']" *ngIf="!isLoggedIn">Log in</a></li>
+  <li class="right"><a [routerLink]="['/register']" *ngIf="!isLoggedIn">Register</a></li>
+</ul>
+
+
+<app-main-menu></app-main-menu>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
+
+</body>
+</html>

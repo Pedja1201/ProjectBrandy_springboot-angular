@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html style="background-color: black;">
+<head>
+    <title>Glassmorphism login Form Tutorial in html css</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <!--Stylesheet-->
+    <style media="screen">
+    </style>
+</head>
+<body>
+    <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    <form (submit)="saveUser()" [formGroup]="formRegistrationUser" novalidate>
+        <h3>Register</h3>
+
+        <label for="username">Username</label>
+        <input type="text" placeholder="Username" id="username" formControlName="username" required>
+
+        <label for="password">Password</label>
+        <input type="password" placeholder="Password" id="password" formControlName="password" required>
+
+        <label for="email">Email</label>
+        <input type="email" placeholder="Email" id="email" formControlName="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+
+        <div style="text-align: center; padding-top: 15px;" [hidden]="!formRegistrationUser.controls['email'].errors?.['pattern']">
+            Please enter correct format
+        </div>
+
+        <label for="firstName">Name</label>
+        <input type="text" placeholder="firstName" id="text" formControlName="firstName" required>
+
+        <label for="lastName">Surname</label>
+        <input type="lastName" placeholder="lastName" id="lastName" formControlName="lastName" required>
+
+        <div class="alert alert-warning" *ngIf="isSignUpFailed" style="text-align: center; padding-top: 15px;">
+            Registration failed!<br />{{ errorMessage }}
+        </div>
+
+        <button type="submit" style="color: black;">Register</button>
+    </form>
+</body>
+</html>
