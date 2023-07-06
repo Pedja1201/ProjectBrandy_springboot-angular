@@ -2,7 +2,6 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from 'src/app/model/user';
 
-const API_URL = 'http://localhost:8080/api/menu/';
 const USER_URL = 'http://localhost:8080/api/users/';
 
 @Injectable({
@@ -18,7 +17,7 @@ export class UserServiceService {
   }
 
   getOne(username : string) {
-    return this.http.get<User>(USER_URL + username);
+    return this.http.get<User>(USER_URL + username + "/details");
   }
   
   create(user: User) {

@@ -1,2 +1,16 @@
-<p style="color: black;">Home radi</p>
-<p style="color: white;">Lista artikala</p>
+<html>
+    <head>
+        </head>
+        <body>
+<!-- <h2 style="text-align:center">Product Card</h2> -->
+<br>
+
+<div class="container">
+    <div class="card" *ngFor="let f of filtered" (click)="about(f)">
+      <img src="https://pruna.rs/wp-content/uploads/2020/10/Single-Barrel-rakija-Granny-Smith-%E2%80%93-srpski-hrast-07L.jpg" style="width:100%">
+      <h1>{{f.name}} <span *ngIf="f.quantity" class="green-circle"></span></h1>
+      <p class="price">Price: {{f.price}}</p>
+    </div>
+  </div>
+        </body>
+</html>

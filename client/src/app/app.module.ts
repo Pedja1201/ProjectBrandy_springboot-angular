@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgxNotificationMsgModule } from 'ngx-notification-msg';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MainMenuComponent } from './components/main-menu/main-menu.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/home/login/login.component';
 import { RegisterComponent } from './components/home/register/register.component';
@@ -31,14 +30,17 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { AboutBrandyComponent } from './components/about-brandy/about-brandy.component';
+import { OrderComponent } from './components/order/order.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MainMenuComponent,
     HomeComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    AboutBrandyComponent,
+    OrderComponent
   ],
   imports: [
     AppRoutingModule,

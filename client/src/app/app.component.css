@@ -1,5 +1,5 @@
 .black {
-    background-color: lightslategray;
+    background-color: lightslategrey;
 }
 
 body {margin: 0;}
@@ -24,7 +24,7 @@ ul.topnav li a {
 
 ul.topnav li a:hover:not(.active) {background-color: #111;}
 
-ul.topnav li a.active {background-color: #04AA6D;}
+ul.topnav li a.active {background-color: #404040;}
 
 ul.topnav li.right {float: right;}
 
@@ -32,3 +32,20 @@ ul.topnav li.right {float: right;}
   ul.topnav li.right, 
   ul.topnav li {float: none;}
 }
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.cart-icon {
+  animation: blink 1s infinite;
+}
+

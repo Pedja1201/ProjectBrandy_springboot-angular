@@ -38,7 +38,7 @@ public class BrandyController {
         Page<BrandyDTO> brandies = brandy.map(new Function<Brandy, BrandyDTO>() {
             public BrandyDTO apply(Brandy brandy) {
                 BrandyDTO brandyDTO = new BrandyDTO(brandy.getId(), brandy.getName(), brandy.getType(),
-                        brandy.getPrice(), brandy.getYear(),brandy.getStrength()
+                        brandy.getPrice(), brandy.getYear(),brandy.getStrength(), brandy.isQuantity()
                 );
                 // Conversion logic
                 return brandyDTO;
@@ -47,13 +47,13 @@ public class BrandyController {
         return new ResponseEntity<Page<BrandyDTO>>(brandies, HttpStatus.OK);
     }
 
-    @RequestMapping(path = "/{brandyId}", method = RequestMethod.GET)
-    @Secured({"ROLE_ADMIN"})
+    @GetMapping("/{brandyId}")
+    //@Secured({"ROLE_ADMIN"})
     public ResponseEntity<BrandyDTO> get(@PathVariable("brandyId") Long brandyId) {
         Optional<Brandy> brandy = brandyService.findOne(brandyId);
         if (brandy.isPresent()) {
             BrandyDTO brandyDTO = new BrandyDTO(brandy.get().getId(),brandy.get().getName(),brandy.get().getType(),
-                    brandy.get().getPrice(),brandy.get().getYear(), brandy.get().getStrength());
+                    brandy.get().getPrice(),brandy.get().getYear(), brandy.get().getStrength(), brandy.get().isQuantity());
             return new ResponseEntity<BrandyDTO>(brandyDTO, HttpStatus.OK);
         }
         return new ResponseEntity<BrandyDTO>(HttpStatus.NOT_FOUND);
@@ -65,7 +65,7 @@ public class BrandyController {
         try {
             brandyService.save(brandy);
             BrandyDTO brandyDTO = new BrandyDTO(brandy.getId(), brandy.getName(), brandy.getType(),
-                    brandy.getPrice(), brandy.getYear(), brandy.getStrength());
+                    brandy.getPrice(), brandy.getYear(), brandy.getStrength(), brandy.isQuantity());
 
             return new ResponseEntity<BrandyDTO>(brandyDTO, HttpStatus.CREATED);
         } catch (Exception e) {
@@ -83,7 +83,7 @@ public class BrandyController {
             updatedBrandy.setId(brandyId);
             updatedBrandy = brandyService.save(updatedBrandy);
             BrandyDTO rakijaDTO = new BrandyDTO(updatedBrandy.getId(), updatedBrandy.getName(),updatedBrandy.getType(),
-                    updatedBrandy.getPrice(), updatedBrandy.getYear(), updatedBrandy.getStrength());
+                    updatedBrandy.getPrice(), updatedBrandy.getYear(), updatedBrandy.getStrength(), updatedBrandy.isQuantity());
             return new ResponseEntity<BrandyDTO>(rakijaDTO, HttpStatus.OK);
         }
         return new ResponseEntity<BrandyDTO>(HttpStatus.NOT_FOUND);

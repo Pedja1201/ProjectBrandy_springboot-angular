@@ -1,0 +1,37 @@
+<html>
+    <head>
+    </head>
+    <body>
+        <div class="container">
+            <div class="product" [formGroup]="createOrder" novalidate>
+                <div class="product-image">
+                    <img src="https://pruna.rs/wp-content/uploads/2020/10/Single-Barrel-rakija-Granny-Smith-%E2%80%93-srpski-hrast-07L.jpg" alt="Product Image">
+                </div>
+                <div class="product-details">
+                    <h1 class="product-title" style="font-size: px;">{{brandy.name}}</h1>
+                    <p class="product-price" style="font-size: 33px;">Price: {{brandy.price}} RSD</p>
+                    <!-- <p class="product-description">Opis proizvoda</p> -->
+                    <br>
+                    <div class="product-features">
+                        <ul>
+                            <li style="font-size: 22px;">Strength: {{brandy.strength}}</li>
+                            <li style="font-size: 22px;">Type: {{brandy.type}}</li>
+                            <li style="font-size: 22px;">Year: {{brandy.year}}</li>
+                        </ul>
+                    </div>
+                    <div class="out-of-stock" *ngIf="!brandy.quantity">
+                        <p style="text-align: center; font-size: 40px;">Out of stock!</p>
+                    </div>                      
+                    <div class="product-quantity" *ngIf="cart">
+                        <label class="quantity-label">Quantity:</label>
+                        <input class="quantity-input" formControlName="quantity" type="number" min="1" [value]="1">
+                    </div>
+                    <div class="product-cta">
+                        <button (click)="orderBrandy()" *ngIf="cart">Add to cart</button>
+                        <button style="margin-left: 160px;" (click)="goBack()">Back</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

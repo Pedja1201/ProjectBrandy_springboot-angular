@@ -1,0 +1,133 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: lightslategrey;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.product {
+    display: flex;
+    max-width: 800px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center;
+}
+
+.product-image {
+    flex: 0 0 50%;
+    margin-right: 20px;
+}
+
+.product-image img {
+    border-radius: 8px;
+    width: 100%;
+    height: auto;
+}
+
+.product-details {
+    flex: 1;
+    text-align: left;
+}
+
+.product-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.product-price {
+    font-size: 20px;
+    color: #d60000;
+    margin-bottom: 10px;
+}
+
+.product-description {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.product-features {
+    margin-bottom: 20px;
+}
+
+.product-features ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.product-features li {
+    margin-bottom: 5px;
+}
+
+.product-cta {
+    margin-top: 30px;
+    /* margin-bottom: 20px; */
+}
+
+.product-cta button {
+    border: none;
+    outline: none;
+    padding: 12px 20px;
+    background-color: black;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 25px;
+}
+
+.product-cta button:hover {
+    background-color: black;
+}
+
+.product-quantity {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.quantity-label {
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.quantity-input {
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 60px;
+}  
+
+.out-of-stock {
+    animation: blinker 2s linear infinite;
+  }
+  
+  @keyframes blinker {
+    50% {
+      opacity: 0;
+    }
+  }
+  
+  .green-circle {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    background-color: green;
+    border-radius: 50%;
+    margin-left: 10px;
+}

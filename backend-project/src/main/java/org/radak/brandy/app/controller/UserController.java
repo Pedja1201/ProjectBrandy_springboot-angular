@@ -10,11 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 import java.util.function.Function;
@@ -92,4 +88,18 @@ public class UserController {
         }
         return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
     }
+
+    @GetMapping("/{username}/details")
+    public ResponseEntity<UserDTO> getUserByUsername(@PathVariable("username") String username) {
+        Optional<User> user = userService.findByUsername(username);
+        if (user.isPresent()) {
+            UserDTO userDTO = new UserDTO(user.get().getId(), user.get().getUsername(), user.get().getPassword());
+            System.out.println("User founded by username");
+            return new ResponseEntity<UserDTO>(userDTO, HttpStatus.OK);
+        }
+        System.out.println("User not founded");
+        return new ResponseEntity<UserDTO>(HttpStatus.NOT_FOUND);
+    }
+
+
 }

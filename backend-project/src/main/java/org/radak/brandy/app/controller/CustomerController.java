@@ -104,7 +104,7 @@ public class CustomerController {
         return new ResponseEntity<Customer>(HttpStatus.NOT_FOUND);
     }
 
-    //Metoda za preuzimanje PDF dokumenta - Potrebno (PdfService, pom.xml, resources)
+    //PDF Download Method - Required (PdfService, pom.xml, resources)
     @RequestMapping(path = "/export", method = RequestMethod.GET)
     public void downloadPdf(HttpServletResponse response){
         try{

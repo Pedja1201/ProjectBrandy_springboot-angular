@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title></title>
+    <style>
+        body {
+            font-family: Roboto, Helvetica Neue Light, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;
+            font-size: 15px;
+            text-align: justify;
+        }
+        @page {
+            size: letter;
+        }
+        .header{
+            display: -webkit-flex;
+            webkit-justify-content: center;
+        }
+        .table-orders{
+            padding-top: 0px;
+            width: 100%;
+            color: black;
+            font-family: Roboto, Helvetica Neue Light, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;
+            font-size: 10px;
+            border-spacing: 2px;
+        }
+
+        .table-orders th{
+            background-color: rgb(160, 160, 160);
+            padding: 16px;
+        }
+        .table-orders td{
+            background-color: rgb(204, 235, 255);
+            padding: 10px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<h1> Order Shop List </h1>
+
+<table class="table-orders paginate-table">
+    <thead>
+    <tr>
+        <th class="tittle-container">ID</th>
+        <th class="tittle-container">Quantuty</th>
+        <th class="tittle-container">Date of Purchase</th>
+        <th class="tittle-container">Customer</th>
+        <th class="tittle-container">Brandy</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order: ${orders}">
+        <td th:text="${order.getId()}">
+        </td>
+        <td th:text="${order.getQuantity()}">
+        </td>
+        <td th:text="${order.getDateOfPurchase()}">
+        </td>
+        <td th:text="${order.getCustomer()}">
+        </td>
+        <td th:text="${order.getBrandy()}">
+        </td>
+
+    </tr>
+    </tbody>
+</table>
+<span th:text="'Count:' + ${#lists.size(orders)}"></span>
+</body>
+
+</html>
+
+</html>

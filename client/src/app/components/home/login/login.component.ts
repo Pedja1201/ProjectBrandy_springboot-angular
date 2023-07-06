@@ -35,13 +35,11 @@ export class LoginComponent {
         
         this.tokenStorage.saveUser(data);
         this.isLoginFailed = false;
-        //this.roles = this.tokenStorage.getUser().roles;
+        
         console.log("Uspesan login")
         this.reloadPage();
-        //console.log("Ulogovan si");
       },
       err => {
-        this.errorMessage = err.error.message;
         this.isLoginFailed = true;
       }
     );
