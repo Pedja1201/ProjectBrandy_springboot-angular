@@ -3,8 +3,9 @@ import { Customer } from "./customer";
 
 export interface Order{
     id:number;
-    quantity:String;
+    quantity:string;
     dateOfPurchase:Date;
     customer:Customer;
     brandy:Brandy;
+    total?:number;
 }

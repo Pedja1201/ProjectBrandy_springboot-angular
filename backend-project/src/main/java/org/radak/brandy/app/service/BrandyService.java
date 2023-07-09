@@ -60,6 +60,10 @@ public class BrandyService {
         brandyRepository.delete(brandy);
     }
 
+    public Optional<Brandy> findBrandyName(String name) {
+        return brandyRepository.findBrandyName(name);
+    }
+
     public boolean postaviPopust(Long id, double sale) {
         Optional<Brandy> brandy = brandyRepository.findById(id);
         if(brandy.isPresent()) {

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Brandy, BrandyPage } from 'src/app/model/brandy';
 import { User } from 'src/app/model/user';
@@ -12,6 +12,7 @@ import { Order } from 'src/app/model/order';
 import { Location } from '@angular/common';
 import { EventEmitter } from '@angular/core';
 import { single } from 'rxjs';
+import { sign } from 'jsonwebtoken';
 
 @Component({
   selector: 'app-about-brandy',
@@ -26,10 +27,12 @@ export class AboutBrandyComponent implements OnInit{
   blink = false;
   logged = false;
   signal = false;
+  process = false;
+  message = '';
 
   createOrder : FormGroup = new FormGroup({
     "id" : new FormControl(null),
-    "quantity" : new FormControl(1),
+    "quantity" : new FormControl(1, [Validators.required, Validators.pattern("^[0-9]+$")]),
     "dateOfPurchase" : new FormControl(new Date()),
     "customer" : new FormControl(null),
     "brandy" : new FormControl(null)
@@ -54,7 +57,7 @@ export class AboutBrandyComponent implements OnInit{
 
     this.us.getOne(this.username).subscribe((user:User) => {
       this.user = user
-      this.order.getOrderByUserId(user.id).subscribe((orders:Order) => {
+      this.order.getOrderByUserId(user.id).subscribe((orders:Order[]) => {
         console.log("Orders of user: ", orders)
       })
      })
@@ -70,11 +73,19 @@ export class AboutBrandyComponent implements OnInit{
           console.log(data)
           console.log("Order uspesan")
           this.signal = true
-          this.ngxNotificationMsgService.open({
-            status: NgxNotificationStatusMsg.SUCCESS,
-            header: 'Order successful',
-            messages: ['You have succesfully ordered item.']
-          });
+          // this.ngxNotificationMsgService.open({
+          //   status: NgxNotificationStatusMsg.SUCCESS,
+          //   header: 'Please wait, your order is in processing.',
+          //   messages: ['You have succesfully ordered item.']
+          // });
+          this.process = true
+          setTimeout(()=>{
+            window.location.reload()
+            this.signal = true
+          },5000)
+          setTimeout(()=>{
+            this.message = 'You have succesfully ordered item.'
+          },2000)
         },
         err => {
           console.log("Neuspesan order")

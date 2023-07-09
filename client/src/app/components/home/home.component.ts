@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ApiResponseBrandy } from 'src/app/model/apiResponseBrandy';
 import { Brandy, BrandyPage } from 'src/app/model/brandy';
 import { BrandyServiceService } from 'src/app/service/brandies/brandy-service.service';
+import { TokenStorageService } from 'src/app/service/token-storage/token-storage.service';
 
 @Component({
   selector: 'app-home',
@@ -16,7 +17,7 @@ export class HomeComponent {
   brandyPage: BrandyPage<Brandy> = new BrandyPage<Brandy>();
   filtered: Brandy [] = [];
 
-  constructor(private router: Router, private brandy: BrandyServiceService){}
+  constructor(private router: Router, private brandy: BrandyServiceService, private tokenStorageService: TokenStorageService){}
 
   ngOnInit(): void {
     this.loadBrandyList();

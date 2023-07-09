@@ -128,8 +128,8 @@ public class OrderController {
         return new ResponseEntity<OrderDTO>(HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(path = "/{orderId}", method = RequestMethod.DELETE)
-    @Secured({"ROLE_ADMIN", "ROLE_CUSTOMER"})
+    @RequestMapping(path = "/{orderId}/delete", method = RequestMethod.DELETE)
+    //@Secured({"ROLE_ADMIN", "ROLE_CUSTOMER"})
     public ResponseEntity<OrderDTO> delete(@PathVariable("orderId") Long orderId) {
         if (orderService.findOne(orderId).isPresent()) {
             orderService.delete(orderId);
@@ -188,7 +188,7 @@ public class OrderController {
             return new ResponseEntity<>(orderDTOs, HttpStatus.OK);
         }
         System.out.println("User has no orders!");
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 

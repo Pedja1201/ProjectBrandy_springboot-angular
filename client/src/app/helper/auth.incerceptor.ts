@@ -4,7 +4,6 @@ import { HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http'
 
 import { TokenStorageService } from '../service/token-storage/token-storage.service';
 import { Observable } from 'rxjs';
-import { catchError } from "rxjs/operators";
 
 
 

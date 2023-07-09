@@ -18,4 +18,16 @@ export class BrandyServiceService {
   getOne(id : number) {
     return this.http.get<Brandy>(this.API_URL + "/" + id);
   }
+
+  create(brandy: Brandy) {
+    return this.http.post(this.API_URL, brandy);
+  }
+
+  update(id : number, brandy : Brandy) {
+    return this.http.put(this.API_URL + "/" +  id, brandy);
+  }
+
+  delete(id: number) {
+    return this.http.delete(this.API_URL + "/" + id);
+  }
 }

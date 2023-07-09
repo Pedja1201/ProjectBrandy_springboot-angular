@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Order } from 'src/app/model/order';
 
 const ORDER_URL = 'http://localhost:8080/api/orders';
@@ -15,8 +16,8 @@ export class OrderService {
     return this.http.post(ORDER_URL, order);
   }
 
-  getOrderByUserId(id : number) {
-    return this.http.get<Order>(ORDER_URL + "/" + id + "/orders");
+  getOrderByUserId(id: number): Observable<Order[]> {
+    return this.http.get<Order[]>(ORDER_URL + "/" + id + "/orders");
   }
 
   getOne(id : number) {
@@ -25,5 +26,9 @@ export class OrderService {
 
   update(id : number, order : Order) {
     return this.http.put(ORDER_URL + "/" + id, order + "/update");
+  }
+
+  delete(id: number) {
+    return this.http.delete(ORDER_URL + "/" + id + "/delete");
   }
 }

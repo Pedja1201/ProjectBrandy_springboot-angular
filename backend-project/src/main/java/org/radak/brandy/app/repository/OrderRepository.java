@@ -15,4 +15,6 @@ public interface OrderRepository extends PagingAndSortingRepository<OrderShop, L
 
     @Query(value = "SELECT order_shop.* FROM order_shop WHERE order_shop.customer_id = :customer_id", nativeQuery = true)
     List<OrderShop> getOrderByUserId(@Param("customer_id") Long id);
+
+
 }

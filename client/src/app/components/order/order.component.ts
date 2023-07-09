@@ -13,6 +13,10 @@ import { UserServiceService } from 'src/app/service/user/user-service.service';
 export class OrderComponent implements OnInit {
   username!: string;
   user!: User;
+  orders: Order []=[]
+  count!: number;
+  totalPriceAll!: number;
+  showProceed = false;
 
   constructor(private tokenStorageService: TokenStorageService, private us: UserServiceService, private order: OrderService,){ }
 
@@ -22,9 +26,41 @@ export class OrderComponent implements OnInit {
 
     this.us.getOne(this.username).subscribe((user:User) => {
       this.user = user
-      this.order.getOrderByUserId(user.id).subscribe((orders:Order) => {
-        console.log("Orders of user: ", orders)
-      })
+      this.allOrders(user.id)
      })
+  }
+
+  allOrders(id: number) {
+    this.order.getOrderByUserId(id).subscribe((orders: Order[]) => {
+      if (orders && orders.length > 0) {
+        this.count = orders.length;
+        this.total(orders);
+      } else {
+        this.count = 0;
+        this.orders = []
+      }
+    });
+  }
+  
+  total(or: Order[]){
+    let temp = 0;
+    if(this.count > 0){
+      this.showProceed = true
+      for(let o of or){
+        o.total = Number(o.quantity) * o.brandy.price
+        this.totalPriceAll = o.total
+        temp +=this.totalPriceAll
+        this.totalPriceAll = 0
+        this.totalPriceAll = temp
+      }
+      this.orders = or
+    }
+  }
+
+  cancelOrder(id: number){
+    this.order.delete(id).subscribe(x => {
+      this.allOrders(this.user.id);
+      window.location.reload()
+    })
   }
 }

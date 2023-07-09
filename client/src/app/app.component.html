@@ -2,17 +2,16 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
 </style>
 </head>
 <body>
-
   <ul class="topnav">
     <li><a class="active" href="/home" [routerLink]="['/home']">Brandy shop</a></li>
-    <!-- <li><a href="#news">News</a></li>
-    <li><a href="#contact">Contact</a></li> -->
+    <li *ngIf="admin"><a class="fa fa-bars" style="font-size: 20px; cursor: pointer;"></a></li>
     <li class="right"><a *ngIf="isLoggedIn" [routerLink]="['/home']" (click)="logout()">Log out</a></li>
-    <li class="right"><a *ngIf="isLoggedIn">{{ username }}</a></li>
+    <li class="right"><a *ngIf="isLoggedIn" style="cursor: pointer;">{{ username }}</a></li>
     <li class="right"><a [routerLink]="['/login']" *ngIf="!isLoggedIn">Log in</a></li>
     <li class="right"><a [routerLink]="['/register']" *ngIf="!isLoggedIn">Register</a></li>
     <li class="right">

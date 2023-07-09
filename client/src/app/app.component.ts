@@ -19,7 +19,8 @@ export class AppComponent implements OnInit{
   cart = false;
   isLoggedIn = false;
   username!: string;
-  private roles!: string[];
+  admin = false;
+  message='Login succesfull'
 
   constructor(private readonly ngxNotificationMsgService: NgxNotificationMsgService, private router : Router, private order: OrderService , private tokenStorageService: TokenStorageService, private us: UserServiceService) {}
 
@@ -32,12 +33,12 @@ export class AppComponent implements OnInit{
       let roles = [];
       this.username = user1.sub
       roles.push(...user1.roles)
-
+      console.log(roles)
       this.us.getOne(this.username).subscribe((user:User) => {
         //console.log("ID usera: ", user.id)
-        this.order.getOrderByUserId(user.id).subscribe((orders:Order) => {
+        this.order.getOrderByUserId(user.id).subscribe((orders:Order[]) => {
           // console.log("Orders of user: ", orders)
-          if(orders){
+          if(orders.length > 0){
             this.cart = true
           }
         })
@@ -46,10 +47,11 @@ export class AppComponent implements OnInit{
 
   }
 
-  
-
   logout(): void {
     this.tokenStorageService.signOut();
-    window.location.reload();
+    this.username = '';
+    this.isLoggedIn=false;
+    this.cart = false;
+    this.router.navigate(['/home']);
   }
 }
