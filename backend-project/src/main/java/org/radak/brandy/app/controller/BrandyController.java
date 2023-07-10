@@ -101,4 +101,17 @@ public class BrandyController {
         }
         return new ResponseEntity<BrandyDTO>(HttpStatus.NOT_FOUND);
     }
+
+    @GetMapping("/{name}/brandy")
+    //@Secured({"ROLE_ADMIN"})
+    public ResponseEntity<BrandyDTO> getBrandyByName(@PathVariable("name") String name) {
+        Optional<Brandy> brandy = brandyService.findBrandyName(name);
+        if (brandy.isPresent()) {
+            BrandyDTO brandyDTO = new BrandyDTO(brandy.get().getId(),brandy.get().getName(),brandy.get().getType(),
+                    brandy.get().getPrice(),brandy.get().getYear(), brandy.get().getStrength(),
+                    brandy.get().isQuantity(), brandy.get().getUrl());
+            return new ResponseEntity<BrandyDTO>(brandyDTO, HttpStatus.OK);
+        }
+        return new ResponseEntity<BrandyDTO>(HttpStatus.NOT_FOUND);
+    }
 }

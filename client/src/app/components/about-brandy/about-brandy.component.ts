@@ -29,6 +29,7 @@ export class AboutBrandyComponent implements OnInit{
   signal = false;
   process = false;
   message = '';
+  //linkToImage ='https://drive.google.com/uc?export=download&id=1sUWQwbtcVXAJIBwY62mIBaIKtFhiVy1A'
 
   createOrder : FormGroup = new FormGroup({
     "id" : new FormControl(null),
@@ -38,7 +39,7 @@ export class AboutBrandyComponent implements OnInit{
     "brandy" : new FormControl(null)
   });
 
-  constructor(private route: ActivatedRoute, private router : Router,private location: Location, private os: OrderService, private b : BrandyServiceService, private readonly ngxNotificationMsgService: NgxNotificationMsgService, private us: UserServiceService, private order: OrderService, private tokenStorageService: TokenStorageService){}
+  constructor(private route: ActivatedRoute, private router : Router, private location: Location, private os: OrderService, private b : BrandyServiceService, private readonly ngxNotificationMsgService: NgxNotificationMsgService, private us: UserServiceService, private order: OrderService, private tokenStorageService: TokenStorageService){}
 
   ngOnInit(): void{
     this.brandy = JSON.parse(this.route.snapshot.paramMap.get('objDetails')!);

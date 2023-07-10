@@ -1,6 +1,11 @@
+.roundBottles {
+    background-image: url('https://drive.google.com/uc?export=download&id=1GxyIrIWymaiNjyLTndB5K8Cj_OfPN_oM');
+    background-position: center;
+    background-size: cover;
+  }
+
 body {
     font-family: Arial, sans-serif;
-    background-color: lightslategrey;
     margin: 0;
     padding: 0;
 }

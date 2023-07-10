@@ -50,7 +50,7 @@ public class OrderController {
                         new BrandyDTO(order.getBrandy().getId(), order.getBrandy().getName(),
                                 order.getBrandy().getType(),order.getBrandy().getPrice(),
                                 order.getBrandy().getYear(),order.getBrandy().getStrength(),
-                                order.getBrandy().isQuantity(), null)
+                                order.getBrandy().isQuantity(), order.getBrandy().getUrl())
                 );
                 // Conversion logic
 
@@ -73,7 +73,7 @@ public class OrderController {
                     new BrandyDTO(order.get().getBrandy().getId(),order.get().getBrandy().getName(),
                             order.get().getBrandy().getType(), order.get().getBrandy().getPrice(),
                             order.get().getBrandy().getYear(),order.get().getBrandy().getStrength(),
-                            order.get().getBrandy().isQuantity(), null)
+                            order.get().getBrandy().isQuantity(), order.get().getBrandy().getUrl())
                      );
             return new ResponseEntity<OrderDTO>(orderDTO, HttpStatus.OK);
         }
@@ -182,7 +182,7 @@ public class OrderController {
                                 order.getBrandy().getYear(),
                                 order.getBrandy().getStrength(),
                                 order.getBrandy().isQuantity(),
-                                null
+                                order.getBrandy().getUrl()
                         )
                 );
                 orderDTOs.add(orderDTO);

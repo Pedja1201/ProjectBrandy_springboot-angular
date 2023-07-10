@@ -19,6 +19,10 @@ export class BrandyServiceService {
     return this.http.get<Brandy>(this.API_URL + "/" + id);
   }
 
+  getBrandyByName(name : string) {
+    return this.http.get<Brandy>(this.API_URL + "/" + name + "/brandy");
+  }
+
   create(brandy: Brandy) {
     return this.http.post(this.API_URL, brandy);
   }

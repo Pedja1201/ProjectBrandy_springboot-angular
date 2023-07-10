@@ -1,4 +1,4 @@
-<html class="black">
+<html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -6,7 +6,7 @@
 <style>
 </style>
 </head>
-<body>
+<body class="black">
   <ul class="topnav">
     <li><a class="active" href="/home" [routerLink]="['/home']">Brandy shop</a></li>
     <li *ngIf="admin"><a class="fa fa-bars" style="font-size: 20px; cursor: pointer;"></a></li>
@@ -21,7 +21,7 @@
     </li>
   </ul>
 
-<div class="black" >
+<div >
   <router-outlet></router-outlet>
 </div>
 

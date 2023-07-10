@@ -1,10 +1,10 @@
-<html style="background-color: lightslategrey;">
+<html >
     <head>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
     </head>
-    <body>
+    <body >
         <div class="cart_section">
             <div class="container-fluid">
                 <div class="row">
@@ -14,11 +14,11 @@
                             <div class="cart_items">
                                 <ul class="cart_list" *ngFor="let o of orders">
                                     <li class="cart_item clearfix">
-                                        <div class="cart_item_image"><img src="https://pruna.rs/wp-content/uploads/2020/10/Single-Barrel-rakija-Granny-Smith-%E2%80%93-srpski-hrast-07L.jpg" alt=""></div>
+                                        <div class="cart_item_image"><img src="{{o.brandy.url}}" alt=""></div>
                                         <div class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
                                             <div class="cart_item_name cart_info_col">
                                                 <div class="cart_item_title">Name</div>
-                                                <div class="cart_item_text" style="cursor: pointer;">{{o.brandy.name}}</div>
+                                                <div class="cart_item_text" style="cursor: pointer;" (click)="about(o.brandy.name)">{{o.brandy.name}}</div>
                                             </div>
                                             <div class="cart_item_quantity cart_info_col">
                                                 <div class="cart_item_title">Date of purchase</div>

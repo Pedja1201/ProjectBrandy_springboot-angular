@@ -13,6 +13,7 @@ export class BrandyPage<Brandy> {
         year:number;
         strength:String;
         quantity:boolean;
+        url:String;
     
         constructor(){
           this.id=0;
@@ -22,5 +23,6 @@ export class BrandyPage<Brandy> {
           this.year= 0,
           this.strength=''
           this.quantity= false
+          this.url=''
         }
     }

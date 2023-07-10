@@ -2,6 +2,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  
 }
 
 .card {
@@ -12,11 +13,27 @@
   font-family: arial;
   cursor: pointer;
   transition: transform 0.3s;
-  border-radius: 40px; /*curve around card item*/
+  border-radius: 40px;
+  background-color: #373636;
+  opacity: 0.9;
 }
 
 .card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
   transform: scale(1.05);
+  opacity: 1.0;
+  background-color: #181818;
+}
+
+.card.special {
+  background-color: #f7c367;
+}
+
+.card-title, .card-price {
+  background-color: #333333;
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
 }
 
 .price {
@@ -73,4 +90,8 @@
   cursor: pointer;
   font-size: 24px;
   font-weight: bold;
+}
+
+.roundBottles {
+  background-image: url('https://drive.google.com/uc?export=download&id=1GxyIrIWymaiNjyLTndB5K8Cj_OfPN_oM');
 }
