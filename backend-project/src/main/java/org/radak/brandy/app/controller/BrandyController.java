@@ -38,8 +38,8 @@ public class BrandyController {
         Page<BrandyDTO> brandies = brandy.map(new Function<Brandy, BrandyDTO>() {
             public BrandyDTO apply(Brandy brandy) {
                 BrandyDTO brandyDTO = new BrandyDTO(brandy.getId(), brandy.getName(), brandy.getType(),
-                        brandy.getPrice(), brandy.getYear(),brandy.getStrength(), brandy.isQuantity()
-                );
+                        brandy.getPrice(), brandy.getYear(),brandy.getStrength(), brandy.isQuantity(),
+                        brandy.getUrl());
                 // Conversion logic
                 return brandyDTO;
             }
@@ -53,7 +53,8 @@ public class BrandyController {
         Optional<Brandy> brandy = brandyService.findOne(brandyId);
         if (brandy.isPresent()) {
             BrandyDTO brandyDTO = new BrandyDTO(brandy.get().getId(),brandy.get().getName(),brandy.get().getType(),
-                    brandy.get().getPrice(),brandy.get().getYear(), brandy.get().getStrength(), brandy.get().isQuantity());
+                    brandy.get().getPrice(),brandy.get().getYear(), brandy.get().getStrength(),
+                    brandy.get().isQuantity(), brandy.get().getUrl());
             return new ResponseEntity<BrandyDTO>(brandyDTO, HttpStatus.OK);
         }
         return new ResponseEntity<BrandyDTO>(HttpStatus.NOT_FOUND);
@@ -65,7 +66,8 @@ public class BrandyController {
         try {
             brandyService.save(brandy);
             BrandyDTO brandyDTO = new BrandyDTO(brandy.getId(), brandy.getName(), brandy.getType(),
-                    brandy.getPrice(), brandy.getYear(), brandy.getStrength(), brandy.isQuantity());
+                    brandy.getPrice(), brandy.getYear(), brandy.getStrength(),
+                    brandy.isQuantity(), brandy.getUrl());
 
             return new ResponseEntity<BrandyDTO>(brandyDTO, HttpStatus.CREATED);
         } catch (Exception e) {
@@ -83,7 +85,8 @@ public class BrandyController {
             updatedBrandy.setId(brandyId);
             updatedBrandy = brandyService.save(updatedBrandy);
             BrandyDTO rakijaDTO = new BrandyDTO(updatedBrandy.getId(), updatedBrandy.getName(),updatedBrandy.getType(),
-                    updatedBrandy.getPrice(), updatedBrandy.getYear(), updatedBrandy.getStrength(), updatedBrandy.isQuantity());
+                    updatedBrandy.getPrice(), updatedBrandy.getYear(), updatedBrandy.getStrength(),
+                    updatedBrandy.isQuantity(), updatedBrandy.getUrl());
             return new ResponseEntity<BrandyDTO>(rakijaDTO, HttpStatus.OK);
         }
         return new ResponseEntity<BrandyDTO>(HttpStatus.NOT_FOUND);

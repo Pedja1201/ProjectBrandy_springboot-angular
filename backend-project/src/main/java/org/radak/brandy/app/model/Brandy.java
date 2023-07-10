@@ -22,6 +22,8 @@ public class Brandy {
     private String strength;
     @Column(nullable = false)
     private boolean quantity;
+    @Column(nullable = true)
+    private String url;
 
     @OneToMany(mappedBy = "brandy")
     private Set<OrderShop> orders = new HashSet<OrderShop>();
@@ -29,7 +31,7 @@ public class Brandy {
     public Brandy() {super();
     }
 
-    public Brandy(Long id, String name, String type, double price, int year, String strength, boolean quantity) {
+    public Brandy(Long id, String name, String type, double price, int year, String strength, boolean quantity, String url) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -37,6 +39,7 @@ public class Brandy {
         this.year = year;
         this.strength = strength;
         this.quantity = quantity;
+        this.url = url;
     }
 
     public Long getId() {
@@ -93,6 +96,14 @@ public class Brandy {
 
     public void setQuantity(boolean quantity) {
         this.quantity = quantity;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public Set<OrderShop> getOrders() {

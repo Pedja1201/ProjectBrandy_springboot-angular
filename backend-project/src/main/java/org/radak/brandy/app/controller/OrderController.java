@@ -49,7 +49,8 @@ public class OrderController {
                                 order.getCustomer().getEmail()),
                         new BrandyDTO(order.getBrandy().getId(), order.getBrandy().getName(),
                                 order.getBrandy().getType(),order.getBrandy().getPrice(),
-                                order.getBrandy().getYear(),order.getBrandy().getStrength(), order.getBrandy().isQuantity())
+                                order.getBrandy().getYear(),order.getBrandy().getStrength(),
+                                order.getBrandy().isQuantity(), null)
                 );
                 // Conversion logic
 
@@ -71,7 +72,8 @@ public class OrderController {
                             order.get().getCustomer().getLastName(), order.get().getCustomer().getEmail()),
                     new BrandyDTO(order.get().getBrandy().getId(),order.get().getBrandy().getName(),
                             order.get().getBrandy().getType(), order.get().getBrandy().getPrice(),
-                            order.get().getBrandy().getYear(),order.get().getBrandy().getStrength(), order.get().getBrandy().isQuantity())
+                            order.get().getBrandy().getYear(),order.get().getBrandy().getStrength(),
+                            order.get().getBrandy().isQuantity(), null)
                      );
             return new ResponseEntity<OrderDTO>(orderDTO, HttpStatus.OK);
         }
@@ -87,7 +89,7 @@ public class OrderController {
             BrandyDTO brandyDTO =  new BrandyDTO(order.getBrandy().getId(),
                     order.getBrandy().getName(), order.getBrandy().getType(),
                     order.getBrandy().getPrice(), order.getBrandy().getYear(),
-                    order.getBrandy().getStrength(), order.getBrandy().isQuantity());
+                    order.getBrandy().getStrength(), order.getBrandy().isQuantity(), null);
             CustomerDTO customerDTO =  new CustomerDTO(order.getCustomer().getId(),
                     order.getCustomer().getUsername(),null,
                     order.getCustomer().getFirstName(),order.getCustomer().getLastName(),
@@ -114,7 +116,7 @@ public class OrderController {
             BrandyDTO brandyDTO =  new BrandyDTO(updatedOrder.getBrandy().getId(),
                     updatedOrder.getBrandy().getName(), updatedOrder.getBrandy().getType(),
                     updatedOrder.getBrandy().getPrice(), updatedOrder.getBrandy().getYear(),
-                    updatedOrder.getBrandy().getStrength(), updatedOrder.getBrandy().isQuantity());
+                    updatedOrder.getBrandy().getStrength(), updatedOrder.getBrandy().isQuantity(), null);
             CustomerDTO customerDTO =  new CustomerDTO(updatedOrder.getCustomer().getId(),
                     updatedOrder.getCustomer().getUsername(),null,
                     updatedOrder.getCustomer().getFirstName(),updatedOrder.getCustomer().getLastName(),
@@ -179,7 +181,8 @@ public class OrderController {
                                 order.getBrandy().getPrice(),
                                 order.getBrandy().getYear(),
                                 order.getBrandy().getStrength(),
-                                order.getBrandy().isQuantity()
+                                order.getBrandy().isQuantity(),
+                                null
                         )
                 );
                 orderDTOs.add(orderDTO);

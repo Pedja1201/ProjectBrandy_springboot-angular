@@ -10,13 +10,14 @@ public class BrandyDTO {
     private int year;
     private String strength;
     private boolean quantity;
+    private String url;
 
     private ArrayList<OrderDTO> orders = new ArrayList<OrderDTO>();
 
     public BrandyDTO() {super();
     }
 
-    public BrandyDTO(Long id, String name, String type, double price, int year, String strength, boolean quantity, ArrayList<OrderDTO> orders) {
+    public BrandyDTO(Long id, String name, String type, double price, int year, String strength, boolean quantity, String url, ArrayList<OrderDTO> orders) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -24,10 +25,11 @@ public class BrandyDTO {
         this.year = year;
         this.strength = strength;
         this.quantity = quantity;
+        this.url = url;
         this.orders = orders;
     }
 
-    public BrandyDTO(Long id, String name, String type, double price, int year, String strength, boolean quantity) {
+    public BrandyDTO(Long id, String name, String type, double price, int year, String strength, boolean quantity, String url) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -35,6 +37,7 @@ public class BrandyDTO {
         this.year = year;
         this.strength = strength;
         this.quantity = quantity;
+        this.url = url;
     }
 
     public Long getId() {
@@ -91,6 +94,14 @@ public class BrandyDTO {
 
     public void setQuantity(boolean quantity) {
         this.quantity = quantity;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public ArrayList<OrderDTO> getOrders() {
