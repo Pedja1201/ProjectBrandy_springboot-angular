@@ -7,6 +7,7 @@ import org.radak.brandy.app.dto.BrandyDTO;
 import org.radak.brandy.app.dto.CustomerDTO;
 import org.radak.brandy.app.dto.OrderDTO;
 import org.radak.brandy.app.model.OrderShop;
+import org.radak.brandy.app.service.EmailService;
 import org.radak.brandy.app.service.OrderService;
 import org.radak.brandy.app.service.PdfService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,8 @@ public class OrderController {
     private OrderService orderService;
     @Autowired
     private PdfService pdfService;
+    @Autowired
+    private EmailService emailService;
 
     @LoggedOrder
     @RequestMapping(path = "", method = RequestMethod.GET)
@@ -97,6 +100,9 @@ public class OrderController {
 
             OrderDTO orderDTO = new OrderDTO(order.getId(), order.getQuantity(),
                     order.getDateOfPurchase(), customerDTO, brandyDTO);
+                        // Sent mail after create order TODO:Get the whole order in mail!!!
+            emailService.sendEmail("stan6d1a@gmail.com",
+                    "Naslov", String.valueOf(orderDTO));
 
             return new ResponseEntity<OrderDTO>(orderDTO, HttpStatus.CREATED);
         } catch (Exception e) {
