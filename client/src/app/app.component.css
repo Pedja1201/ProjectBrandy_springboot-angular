@@ -77,3 +77,32 @@ ul.topnav li.right {float: right;}
   font-size: 24px;
   font-weight: bold;
 }
+
+
+.submenu {
+  display: none;
+  position: absolute;
+  background-color: #000000;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border-radius: 20px;
+}
+
+.submenu li {
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
+  border-radius: 20px;
+}
+
+.submenu li:hover {
+  background-color: #000000;
+  border-radius: 20px;
+}
+
+.topnav li:hover .submenu {
+  display: block;
+  border-radius: 20px;
+}

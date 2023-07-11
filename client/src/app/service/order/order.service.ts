@@ -12,6 +12,10 @@ export class OrderService {
 
   constructor(private http: HttpClient) { }
 
+  getAll(){
+    return this.http.get<Order[]>(ORDER_URL + "/allorders")
+  }
+
   create(order: Order) {
     return this.http.post(ORDER_URL, order);
   }

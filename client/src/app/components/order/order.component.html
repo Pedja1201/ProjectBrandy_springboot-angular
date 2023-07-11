@@ -5,6 +5,15 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
     </head>
     <body >
+
+        <div class="overlay" *ngIf="process">
+            <div class="notification">
+              <span class="close">&times;</span>
+              <h2 style="font-size: 25px;">Please wait, your order is in processing.</h2>
+              <!-- <p style="font-size: 20px;">{{message}}</p> -->
+            </div>
+        </div>
+
         <div class="cart_section">
             <div class="container-fluid">
                 <div class="row">
@@ -18,7 +27,7 @@
                                         <div class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
                                             <div class="cart_item_name cart_info_col">
                                                 <div class="cart_item_title">Name</div>
-                                                <div class="cart_item_text" style="cursor: pointer;" (click)="about(o.brandy.name)">{{o.brandy.name}}</div>
+                                                <div class="cart_item_text" style="cursor: pointer;" (click)="about(o.brandy.name)" title="Show details">{{o.brandy.name}}</div>
                                             </div>
                                             <div class="cart_item_quantity cart_info_col">
                                                 <div class="cart_item_title">Date of purchase</div>

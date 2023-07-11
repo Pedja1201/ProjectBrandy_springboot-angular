@@ -2,6 +2,7 @@ package org.radak.brandy.app.controller;
 
 
 import org.radak.brandy.app.dto.AdminDTO;
+import org.radak.brandy.app.dto.MessageResponseDTO;
 import org.radak.brandy.app.model.Admin;
 import org.radak.brandy.app.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 import java.util.function.Function;
@@ -43,13 +40,14 @@ public class AdminController {
         return new ResponseEntity<Page<AdminDTO>>(administratori, HttpStatus.OK);
     }
 
-    @RequestMapping(path = "/{administratorId}", method = RequestMethod.GET)
-    @Secured({"ROLE_ADMIN"})
-    public ResponseEntity<AdminDTO> get(@PathVariable("administratorId") Long administratorId) {
-        Optional<Admin> administrator = adminService.findOne(administratorId);
+    @RequestMapping(path = "/{username}", method = RequestMethod.GET)
+    //@Secured({"ROLE_ADMIN"})
+    public ResponseEntity<AdminDTO> getByUsername(@PathVariable("username") String username) {
+        Optional<Admin> administrator = adminService.findByUsername(username);
         if (administrator.isPresent()) {
             AdminDTO administratorDTO = new AdminDTO(administrator.get().getId(),administrator.get().getUsername(),administrator.get().getPassword(),
                     administrator.get().getFirstName(),administrator.get().getLastName(),administrator.get().getEmail(),administrator.get().getUpin());
+            System.out.println("Admin founded");
             return new ResponseEntity<AdminDTO>(administratorDTO, HttpStatus.OK);
         }
         return new ResponseEntity<AdminDTO>(HttpStatus.NOT_FOUND);
@@ -70,7 +68,7 @@ public class AdminController {
     }
 
     @RequestMapping(path = "/{administratorId}", method = RequestMethod.PUT)
-    @Secured({"ROLE_ADMIN"})
+    //@Secured({"ROLE_ADMIN"})
     public ResponseEntity<AdminDTO> update(@PathVariable("administratorId") Long administratorId,
                                                    @RequestBody Admin updatedAdministrator) {
         Admin administrator = adminService.findOne(administratorId).orElse(null);
@@ -78,7 +76,8 @@ public class AdminController {
             updatedAdministrator.setId(administratorId);
             adminService.save(updatedAdministrator);
             AdminDTO administratorDTO = new AdminDTO(updatedAdministrator.getId(),updatedAdministrator.getUsername(),
-                    updatedAdministrator.getPassword(), updatedAdministrator.getFirstName(), updatedAdministrator.getLastName(),
+                    updatedAdministrator.getPassword()
+                    , updatedAdministrator.getFirstName(), updatedAdministrator.getLastName(),
                     updatedAdministrator.getEmail(), updatedAdministrator.getUpin());
             return new ResponseEntity<AdminDTO>(administratorDTO, HttpStatus.OK);
         }
@@ -94,4 +93,33 @@ public class AdminController {
         }
         return new ResponseEntity<Admin>(HttpStatus.NOT_FOUND);
     }
+
+    @GetMapping("/checkEmail/{userId}/{mail}")
+    //@PreAuthorize("hasRole('ADMINISTRATOR')")
+    public ResponseEntity<?> checkEmail(@PathVariable("userId") String userId, @PathVariable("mail") String mail) {
+        if (adminService.existsByEmail(mail) == true) {
+            if(!userId.equals("null")) {
+                Optional<Admin> admin = adminService.findOne(Long.parseLong((userId)));
+                if(!mail.equals(admin.get().getEmail())) { return ResponseEntity.badRequest().body(new MessageResponseDTO("E-Mail is already taken!")); }
+            } else {
+                return ResponseEntity.badRequest().body(new MessageResponseDTO("E-Mail is already taken!"));
+            }
+        }
+        return ResponseEntity.ok(new MessageResponseDTO("E-Mail is free!"));
+    }
+
+    @GetMapping("/checkUsername/{userId}/{username}")
+    //@PreAuthorize("hasRole('ADMINISTRATOR')")
+    public ResponseEntity<?> checkUsername(@PathVariable("userId") String userId, @PathVariable("username") String username) {
+        if (adminService.existsByUsername(username) == true) {
+            if(!userId.equals("null")) {
+                Optional<Admin> admin = adminService.findOne(Long.parseLong(userId));
+                if(!username.equals(admin.get().getUsername())) { return ResponseEntity.badRequest().body(new MessageResponseDTO("Username is already taken!")); }
+            } else {
+                return ResponseEntity.badRequest().body(new MessageResponseDTO("Username is already taken!"));
+            }
+        }
+        return ResponseEntity.ok(new MessageResponseDTO("Username is free!"));
+    }
+
 }

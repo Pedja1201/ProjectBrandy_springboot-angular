@@ -1,6 +1,7 @@
 package org.radak.brandy.app.controller;
 
 import org.radak.brandy.app.dto.CustomerDTO;
+import org.radak.brandy.app.dto.MessageResponseDTO;
 import org.radak.brandy.app.model.Customer;
 import org.radak.brandy.app.service.CustomerService;
 import org.radak.brandy.app.service.PdfService;
@@ -11,11 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.nio.file.Files;
@@ -48,15 +45,16 @@ public class CustomerController {
         return new ResponseEntity<Page<CustomerDTO>>(customers, HttpStatus.OK);
     }
 
-    @RequestMapping(path = "/{customerId}", method = RequestMethod.GET)
-    @Secured({"ROLE_ADMIN"})
-    public ResponseEntity<CustomerDTO> get(@PathVariable("customerId") Long customerId) {
-        Optional<Customer> customer = customerService.findOne(customerId);
+    @RequestMapping(path = "/{username}", method = RequestMethod.GET)
+//    @Secured({"ROLE_ADMIN"})
+    public ResponseEntity<CustomerDTO> get(@PathVariable("username") String username) {
+        Optional<Customer> customer = customerService.findOneCustomer(username);
         if (customer.isPresent()) {
             CustomerDTO customerDTO = new CustomerDTO(customer.get().getId(),
                     customer.get().getUsername(), customer.get().getPassword(),
                     customer.get().getFirstName(), customer.get().getLastName(),
                     customer.get().getEmail());
+            System.out.println("Customer founded");
             return new ResponseEntity<CustomerDTO>(customerDTO, HttpStatus.OK);
         }
         return new ResponseEntity<CustomerDTO>(HttpStatus.NOT_FOUND);
@@ -78,7 +76,7 @@ public class CustomerController {
     }
 
     @RequestMapping(path = "/{customerId}", method = RequestMethod.PUT)
-    @Secured({"ROLE_ADMIN"})
+    //@Secured({"ROLE_ADMIN"})
     public ResponseEntity<CustomerDTO> update(@PathVariable("customerId") Long customerId,
                                               @RequestBody Customer updatedCustomer) {
         Customer customer = customerService.findOne(customerId).orElse(null);
@@ -102,6 +100,34 @@ public class CustomerController {
             return new ResponseEntity<Customer>(HttpStatus.OK);
         }
         return new ResponseEntity<Customer>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/checkEmail/{userId}/{mail}")
+    //@PreAuthorize("hasRole('ADMINISTRATOR')")
+    public ResponseEntity<?> checkEmail(@PathVariable("userId") String userId, @PathVariable("mail") String mail) {
+        if (customerService.existsByEmail(mail) == true) {
+            if(!userId.equals("null")) {
+                Optional<Customer> customer = customerService.findOne(Long.parseLong((userId)));
+                if(!mail.equals(customer.get().getEmail())) { return ResponseEntity.badRequest().body(new MessageResponseDTO("E-Mail is already taken!")); }
+            } else {
+                return ResponseEntity.badRequest().body(new MessageResponseDTO("E-Mail is already taken!"));
+            }
+        }
+        return ResponseEntity.ok(new MessageResponseDTO("E-Mail is free!"));
+    }
+
+    @GetMapping("/checkUsername/{userId}/{username}")
+    //@PreAuthorize("hasRole('ADMINISTRATOR')")
+    public ResponseEntity<?> checkUsername(@PathVariable("userId") String userId, @PathVariable("username") String username) {
+        if (customerService.existsByUsername(username) == true) {
+            if(!userId.equals("null")) {
+                Optional<Customer> customer = customerService.findOne(Long.parseLong(userId));
+                if(!username.equals(customer.get().getUsername())) { return ResponseEntity.badRequest().body(new MessageResponseDTO("Username is already taken!")); }
+            } else {
+                return ResponseEntity.badRequest().body(new MessageResponseDTO("Username is already taken!"));
+            }
+        }
+        return ResponseEntity.ok(new MessageResponseDTO("Username is free!"));
     }
 
     //PDF Download Method - Required (PdfService, pom.xml, resources)

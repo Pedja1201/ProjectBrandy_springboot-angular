@@ -5,6 +5,9 @@ import { LoginComponent } from './components/home/login/login.component';
 import { RegisterComponent } from './components/home/register/register.component';
 import { AboutBrandyComponent } from './components/about-brandy/about-brandy.component';
 import { OrderComponent } from './components/order/order.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { UserOrdersAdminComponent } from './components/orders-admin/user-orders-admin.component';
+import { UsersAdminComponent } from './components/users-admin/users-admin.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -12,6 +15,9 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'aboutBrandy', component: AboutBrandyComponent },
   { path: 'order', component: OrderComponent },
+  { path: 'profile', component: ProfileComponent },
+  { path: 'editUsersOrdersAdmin', component: UserOrdersAdminComponent },
+  { path: 'usersAdmin', component: UsersAdminComponent },
 
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];

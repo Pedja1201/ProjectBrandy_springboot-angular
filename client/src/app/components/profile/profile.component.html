@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+
+input[type=submit] {
+  background-color: #04AA6D;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+.container {
+  margin: auto;
+  margin-top: 180px;
+  max-width: 600px;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+  border-radius: 40px;
+}
+
+/* Responsivni stilovi */
+@media only screen and (max-width: 600px) {
+  .container {
+    max-width: 100%;
+    padding: 10px;
+  }
+  
+  input[type=text], select, textarea {
+    width: 100%;
+  }
+  
+  button {
+    margin-left: 0;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="container" *ngIf="cust">
+    <h3 style="color: black; margin-left: 220px;">User details</h3>
+  <form [formGroup]="form">
+    <label for="fname">First Name</label>
+    <input type="text" formControlName="firstName" id="fname" name="firstname" style="border-radius: 30px;" placeholder="First name">
+
+    <label for="lname">Last Name</label>
+    <input type="text" formControlName="lastName" id="lname" name="lastname" style="border-radius: 30px;" placeholder="Last name">
+
+    <label for="email">Email</label>
+    <input type="text" formControlName="email" id="uname" name="email" style="border-radius: 30px;" (change)="checkEmailCustomer()" placeholder="Email">
+
+    <label for="uname">Username</label>
+    <input type="text" formControlName="username" style="border-radius: 30px;" (change)="checkUsernameCustomer($event)" placeholder="Username">
+
+    <!-- <label for="pword">Password</label>
+    <input type="text" formControlName="username" id="pword" name="password" style="border-radius: 30px;" placeholder="Password"> -->
+
+    <div *ngIf="upin">
+    <label for="pword">UPIN</label>
+    <input type="text" formControlName="upin" id="pword" name="upin" style="border-radius: 30px;" placeholder="UPIN">
+    </div>
+
+    <div *ngIf="poruka">
+        <p style="text-align: center; font-size: 30px">{{message}}</p>
+    </div>
+
+    <button (click)="updateCustomer()"  class="save-button" style="background-color: lightblue; cursor: pointer; border-radius: 30px;">Save</button>
+  
+  </form>
+</div>
+
+<div class="container" *ngIf="admin">
+  <h3 style="color: black; margin-left: 220px;">User details</h3>
+<form [formGroup]="form">
+  <label for="fname">First Name</label>
+  <input type="text" formControlName="firstName" id="fname" name="firstname" style="border-radius: 30px;" placeholder="First name">
+
+  <label for="lname">Last Name</label>
+  <input type="text" formControlName="lastName" id="lname" name="lastname" style="border-radius: 30px;" placeholder="Last name">
+
+  <label for="email">Email</label>
+  <input type="text" formControlName="email" id="uname" name="email" style="border-radius: 30px;" (change)="checkEmailAdmin()" placeholder="Email">
+
+  <label for="uname">Username</label>
+  <input type="text" formControlName="username" id="uname" name="username" style="border-radius: 30px;" (change)="checkUsernameAdmin()" placeholder="Username">
+
+  <!-- <label for="pword">Password</label>
+  <input type="text" formControlName="password" id="pword" name="password" style="border-radius: 30px;" placeholder="Password"> -->
+
+  <div *ngIf="upin">
+  <label for="pword">UPIN</label>
+  <input type="text" formControlName="upin" id="pword" name="upin" style="border-radius: 30px;" placeholder="UPIN">
+  </div>
+
+  <div *ngIf="poruka">
+      <p style="text-align: center; font-size: 30px">{{message}}</p>
+  </div>
+
+  <button (click)="updateAdmin()" class="save-button" style="background-color: lightblue; cursor: pointer; border-radius: 30px;">Save</button>
+</form>
+</div>
+
+</body>
+</html>

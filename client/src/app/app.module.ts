@@ -32,7 +32,9 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AboutBrandyComponent } from './components/about-brandy/about-brandy.component';
 import { OrderComponent } from './components/order/order.component';
-import { UserOrdersAdminComponent } from './components/user-orders-admin/user-orders-admin.component';
+import { UserOrdersAdminComponent } from './components/orders-admin/user-orders-admin.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { UsersAdminComponent } from './components/users-admin/users-admin.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import { UserOrdersAdminComponent } from './components/user-orders-admin/user-or
     RegisterComponent,
     AboutBrandyComponent,
     OrderComponent,
-    UserOrdersAdminComponent
+    UserOrdersAdminComponent,
+    ProfileComponent,
+    UsersAdminComponent
   ],
   imports: [
     AppRoutingModule,

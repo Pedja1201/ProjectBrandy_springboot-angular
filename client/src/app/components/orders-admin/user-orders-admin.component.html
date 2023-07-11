@@ -1,0 +1,53 @@
+<div class="overlay" *ngIf="process">
+    <div class="notification">
+      <h2 style="font-size: 25px;">No orders.</h2>
+      <button [routerLink]="['/home']" style="background-color: lightblue; border-radius: 10px; cursor: pointer; font-size: 25px; margin-right: 10px;">Home</button>
+      <button (click)="closeOrderNotification()" [routerLink]="['/usersAdmin']" style="background-color: lightblue; border-radius: 10px; cursor: pointer; font-size: 25px; margin-left: 10px;">Users</button>
+      <!-- <button (click)="closeOrderNotification()" style="background-color: lightblue; border-radius: 10px; cursor: pointer; font-size: 25px; margin-left: 10px;">Close</button> -->
+    </div>
+</div>
+
+<div class="order-list-container" *ngIf="order">
+    <h2 style="color: black; text-align: center; font-size: 30px;">Orders list</h2>
+    <ul *ngFor="let o of orders">
+      <li>
+        <div class="order-item">
+          <div class="order-label">Order ID:</div>
+          <div class="order-value">{{o.id}}</div>
+          
+          <div class="order-label">Date of Purchase:</div>
+          <div class="order-value">{{o.dateOfPurchase}}</div>
+          
+          <div class="order-label">Quantity:</div>
+          <div class="order-value">{{o.quantity}}</div>
+          
+          <div class="order-label">Brandy Name:</div>
+          <div class="order-value" style="cursor: pointer;">{{o.brandy.name}}</div>
+          
+          <div class="order-label">Brandy Quantity:</div>
+          <div class="order-value">{{o.brandy.quantity ? 'Yes' : 'No' }}</div>
+
+          <!-- <div class="order-label">Price:</div>
+          <div class="order-value">{{o.brandy.price}}</div> -->
+          
+          <div class="order-label">Total:</div>
+          <div class="order-value">{{o.total}}</div>
+          
+          <div class="order-label">Customer First Name:</div>
+          <div class="order-value">{{o.customer.firstName}}</div>
+          
+          <div class="order-label">Customer Last Name:</div>
+          <div class="order-value">{{o.customer.lastName}}</div>
+          
+          <div class="order-label">Customer Username:</div>
+          <div class="order-value">{{o.customer.username}}</div>
+          
+        <button (click)="delete(o.id)" style="background-color: lightblue; border-radius: 10px; cursor: pointer; font-size: 25px;">Delete order</button>
+          
+        </div>
+        
+      </li>
+    </ul>
+  </div>
+  
+  

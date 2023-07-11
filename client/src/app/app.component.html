@@ -9,9 +9,15 @@
 <body class="black">
   <ul class="topnav">
     <li><a class="active" href="/home" [routerLink]="['/home']">Brandy shop</a></li>
-    <li *ngIf="admin"><a class="fa fa-bars" style="font-size: 20px; cursor: pointer;"></a></li>
+    <li *ngIf="admin">
+      <a class="fa fa-bars" [routerLink]="['/editUsersOrdersAdmin']" style="font-size: 20px; cursor: pointer;"></a>
+      <ul class="submenu">
+        <li><a href="#" [routerLink]="['/editUsersOrdersAdmin']">Orders</a></li>
+        <li><a href="#" [routerLink]="['/usersAdmin']">Users</a></li>
+      </ul>
+    </li>
     <li class="right"><a *ngIf="isLoggedIn" [routerLink]="['/home']" (click)="logout()">Log out</a></li>
-    <li class="right"><a *ngIf="isLoggedIn" style="cursor: pointer;">{{ username }}</a></li>
+    <li class="right"><a *ngIf="isLoggedIn" style="cursor: pointer;" [routerLink]="['/profile']">{{ username }}</a></li>
     <li class="right"><a [routerLink]="['/login']" *ngIf="!isLoggedIn">Log in</a></li>
     <li class="right"><a [routerLink]="['/register']" *ngIf="!isLoggedIn">Register</a></li>
     <li class="right">
@@ -20,6 +26,7 @@
       </a>
     </li>
   </ul>
+  
 
 <div >
   <router-outlet></router-outlet>

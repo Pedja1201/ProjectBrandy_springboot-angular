@@ -29,7 +29,8 @@ export class AboutBrandyComponent implements OnInit{
   signal = false;
   process = false;
   message = '';
-  //linkToImage ='https://drive.google.com/uc?export=download&id=1sUWQwbtcVXAJIBwY62mIBaIKtFhiVy1A'
+  roles:String[]=[]
+  admin = false
 
   createOrder : FormGroup = new FormGroup({
     "id" : new FormControl(null),
@@ -47,8 +48,9 @@ export class AboutBrandyComponent implements OnInit{
 
     const user1 = this.tokenStorageService.getUser();
     this.username = user1.sub
+    this.roles = [...user1.roles]
 
-      if(user1 && this.brandy.quantity == true){
+      if(user1 && this.brandy.quantity == true && this.roles.includes('ROLE_CUSTOMER')){
         this.cart = true
       }else if(this.brandy.quantity == false){
         this.blink = true
@@ -83,10 +85,10 @@ export class AboutBrandyComponent implements OnInit{
           setTimeout(()=>{
             window.location.reload()
             this.signal = true
-          },5000)
+          },3500)
           setTimeout(()=>{
             this.message = 'You have succesfully ordered item.'
-          },2000)
+          },1500)
         },
         err => {
           console.log("Neuspesan order")

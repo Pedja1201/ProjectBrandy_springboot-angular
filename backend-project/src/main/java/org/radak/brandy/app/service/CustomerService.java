@@ -39,4 +39,16 @@ public class CustomerService {
     public void delete(Customer customer) {
         customerRepository.delete(customer);
     }
+
+    public Optional<Customer> findOneCustomer(String username) {
+        return customerRepository.findByIdCustomer(username);
+    }
+
+    public boolean existsByUsername(String username) {
+        return customerRepository.existsByUsername(username);
+    }
+
+    public boolean existsByEmail(String email) {
+        return customerRepository.existsByEmail(email);
+    }
 }

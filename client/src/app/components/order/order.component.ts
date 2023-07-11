@@ -20,6 +20,7 @@ export class OrderComponent implements OnInit {
   count!: number;
   totalPriceAll!: number;
   showProceed = false;
+  process = false;
 
   constructor(private b:BrandyServiceService,private tokenStorageService: TokenStorageService, private router: Router, private us: UserServiceService, private order: OrderService,){ }
 
@@ -70,9 +71,8 @@ export class OrderComponent implements OnInit {
   about(name: any){
     let n = String(name)
     this.b.getBrandyByName(n).subscribe(x=>{
-      console.log(x)
+      //console.log(x)
       this.router.navigate(['/aboutBrandy', {objDetails: JSON.stringify(x)}], { queryParams:  x , skipLocationChange: true});
     })
-
   }
 }

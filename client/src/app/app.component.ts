@@ -34,8 +34,11 @@ export class AppComponent implements OnInit{
       this.username = user1.sub
       roles.push(...user1.roles)
       console.log(roles)
+      if(roles.includes('ROLE_ADMIN')){
+        this.admin = true
+      }
       this.us.getOne(this.username).subscribe((user:User) => {
-        //console.log("ID usera: ", user.id)
+        //console.log("ID usera: ", user)
         this.order.getOrderByUserId(user.id).subscribe((orders:Order[]) => {
           // console.log("Orders of user: ", orders)
           if(orders.length > 0){

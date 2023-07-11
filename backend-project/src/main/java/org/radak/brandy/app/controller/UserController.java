@@ -1,7 +1,10 @@
 package org.radak.brandy.app.controller;
 
+import org.radak.brandy.app.dto.MessageResponseDTO;
 import org.radak.brandy.app.dto.UserDTO;
 import org.radak.brandy.app.model.User;
+import org.radak.brandy.app.service.AdminService;
+import org.radak.brandy.app.service.CustomerService;
 import org.radak.brandy.app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,6 +24,12 @@ import java.util.function.Function;
 public class UserController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private CustomerService customerService;
+
+    @Autowired
+    private AdminService adminService;
 
     @RequestMapping(path = "", method = RequestMethod.GET)
 //    @Secured({"ROLE_ADMIN"})
@@ -99,6 +108,20 @@ public class UserController {
         }
         System.out.println("User not founded");
         return new ResponseEntity<UserDTO>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/checkUsername/{userId}/{username}")
+    //@PreAuthorize("hasRole('ADMINISTRATOR')")
+    public ResponseEntity<?> checkUsername(@PathVariable("userId") String userId, @PathVariable("username") String username) {
+        if (userService.existsByUsername(username) == true) {
+            if(!userId.equals("null")) {
+                Optional<User> user = userService.findOne(Long.parseLong(userId));
+                if(!username.equals(user.get().getUsername())) { return ResponseEntity.badRequest().body(new MessageResponseDTO("Error: Username is already taken!")); }
+            } else {
+                return ResponseEntity.badRequest().body(new MessageResponseDTO("Error: Username is already taken!"));
+            }
+        }
+        return ResponseEntity.ok(new MessageResponseDTO("Username is free!"));
     }
 
 

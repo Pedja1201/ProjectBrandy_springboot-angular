@@ -42,4 +42,13 @@ public class UserService {
     public void delete(User user) {
         userRepository.delete(user);
     }
+
+    public boolean existsByUsername(String username) {
+        return userRepository.existsByUsername(username);
+    }
+
+    public boolean existsByEmail(String email) {
+        return userRepository.existsByEmail(email);
+    }
+
 }

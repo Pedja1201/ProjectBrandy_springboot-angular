@@ -17,5 +17,12 @@ public interface UserRepository extends PagingAndSortingRepository<User, Long> {
     @Query(value = "SELECT user.* FROM user WHERE user.username = :username", nativeQuery = true)
     Optional<User> findByUsername(@Param("username") String username);
 
+    @Query(value = "SELECT CASE WHEN COUNT(*) >= 1 THEN 'true' ELSE 'false' END FROM user WHERE user.username = :username", nativeQuery = true)
+    Boolean existsByUsername(@Param("username") String username);
+
+    @Query(value = "SELECT CASE WHEN COUNT(*) >= 1 THEN 'true' ELSE 'false' END FROM user WHERE user.email = :email", nativeQuery = true)
+    Boolean existsByEmail(@Param("email") String email);
+
+
 }
 

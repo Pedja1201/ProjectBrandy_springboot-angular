@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Customer } from 'src/app/model/customer';
 import { User } from 'src/app/model/user';
 
 const USER_URL = 'http://localhost:8080/api/users/';
