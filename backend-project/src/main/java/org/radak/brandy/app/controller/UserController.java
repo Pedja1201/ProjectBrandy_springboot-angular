@@ -1,7 +1,7 @@
 package org.radak.brandy.app.controller;
 
-import org.radak.brandy.app.dto.MessageResponseDTO;
 import org.radak.brandy.app.dto.UserDTO;
+import org.radak.brandy.app.excepetion.MessageResponse;
 import org.radak.brandy.app.model.User;
 import org.radak.brandy.app.service.AdminService;
 import org.radak.brandy.app.service.CustomerService;
@@ -116,12 +116,12 @@ public class UserController {
         if (userService.existsByUsername(username) == true) {
             if(!userId.equals("null")) {
                 Optional<User> user = userService.findOne(Long.parseLong(userId));
-                if(!username.equals(user.get().getUsername())) { return ResponseEntity.badRequest().body(new MessageResponseDTO("Error: Username is already taken!")); }
+                if(!username.equals(user.get().getUsername())) { return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken!")); }
             } else {
-                return ResponseEntity.badRequest().body(new MessageResponseDTO("Error: Username is already taken!"));
+                return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken!"));
             }
         }
-        return ResponseEntity.ok(new MessageResponseDTO("Username is free!"));
+        return ResponseEntity.ok(new MessageResponse("Username is free!"));
     }
 
 

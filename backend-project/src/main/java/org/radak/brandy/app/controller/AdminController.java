@@ -2,7 +2,7 @@ package org.radak.brandy.app.controller;
 
 
 import org.radak.brandy.app.dto.AdminDTO;
-import org.radak.brandy.app.dto.MessageResponseDTO;
+import org.radak.brandy.app.excepetion.MessageResponse;
 import org.radak.brandy.app.model.Admin;
 import org.radak.brandy.app.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,12 +100,12 @@ public class AdminController {
         if (adminService.existsByEmail(mail) == true) {
             if(!userId.equals("null")) {
                 Optional<Admin> admin = adminService.findOne(Long.parseLong((userId)));
-                if(!mail.equals(admin.get().getEmail())) { return ResponseEntity.badRequest().body(new MessageResponseDTO("E-Mail is already taken!")); }
+                if(!mail.equals(admin.get().getEmail())) { return ResponseEntity.badRequest().body(new MessageResponse("E-Mail is already taken!")); }
             } else {
-                return ResponseEntity.badRequest().body(new MessageResponseDTO("E-Mail is already taken!"));
+                return ResponseEntity.badRequest().body(new MessageResponse("E-Mail is already taken!"));
             }
         }
-        return ResponseEntity.ok(new MessageResponseDTO("E-Mail is free!"));
+        return ResponseEntity.ok(new MessageResponse("E-Mail is free!"));
     }
 
     @GetMapping("/checkUsername/{userId}/{username}")
@@ -114,12 +114,12 @@ public class AdminController {
         if (adminService.existsByUsername(username) == true) {
             if(!userId.equals("null")) {
                 Optional<Admin> admin = adminService.findOne(Long.parseLong(userId));
-                if(!username.equals(admin.get().getUsername())) { return ResponseEntity.badRequest().body(new MessageResponseDTO("Username is already taken!")); }
+                if(!username.equals(admin.get().getUsername())) { return ResponseEntity.badRequest().body(new MessageResponse("Username is already taken!")); }
             } else {
-                return ResponseEntity.badRequest().body(new MessageResponseDTO("Username is already taken!"));
+                return ResponseEntity.badRequest().body(new MessageResponse("Username is already taken!"));
             }
         }
-        return ResponseEntity.ok(new MessageResponseDTO("Username is free!"));
+        return ResponseEntity.ok(new MessageResponse("Username is free!"));
     }
 
 }

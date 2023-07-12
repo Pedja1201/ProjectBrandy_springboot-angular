@@ -1,9 +1,9 @@
-package org.radak.brandy.app.dto;
+package org.radak.brandy.app.excepetion;
 
-public class MessageResponseDTO {
+public class MessageResponse {
     private String message;
 
-    public MessageResponseDTO(String message) {
+    public MessageResponse(String message) {
         this.message = message;
     }
 

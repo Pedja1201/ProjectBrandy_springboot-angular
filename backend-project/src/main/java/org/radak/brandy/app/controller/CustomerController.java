@@ -1,7 +1,7 @@
 package org.radak.brandy.app.controller;
 
 import org.radak.brandy.app.dto.CustomerDTO;
-import org.radak.brandy.app.dto.MessageResponseDTO;
+import org.radak.brandy.app.excepetion.MessageResponse;
 import org.radak.brandy.app.model.Customer;
 import org.radak.brandy.app.service.CustomerService;
 import org.radak.brandy.app.service.PdfService;
@@ -108,12 +108,12 @@ public class CustomerController {
         if (customerService.existsByEmail(mail) == true) {
             if(!userId.equals("null")) {
                 Optional<Customer> customer = customerService.findOne(Long.parseLong((userId)));
-                if(!mail.equals(customer.get().getEmail())) { return ResponseEntity.badRequest().body(new MessageResponseDTO("E-Mail is already taken!")); }
+                if(!mail.equals(customer.get().getEmail())) { return ResponseEntity.badRequest().body(new MessageResponse("E-Mail is already taken!")); }
             } else {
-                return ResponseEntity.badRequest().body(new MessageResponseDTO("E-Mail is already taken!"));
+                return ResponseEntity.badRequest().body(new MessageResponse("E-Mail is already taken!"));
             }
         }
-        return ResponseEntity.ok(new MessageResponseDTO("E-Mail is free!"));
+        return ResponseEntity.ok(new MessageResponse("E-Mail is free!"));
     }
 
     @GetMapping("/checkUsername/{userId}/{username}")
@@ -122,12 +122,12 @@ public class CustomerController {
         if (customerService.existsByUsername(username) == true) {
             if(!userId.equals("null")) {
                 Optional<Customer> customer = customerService.findOne(Long.parseLong(userId));
-                if(!username.equals(customer.get().getUsername())) { return ResponseEntity.badRequest().body(new MessageResponseDTO("Username is already taken!")); }
+                if(!username.equals(customer.get().getUsername())) { return ResponseEntity.badRequest().body(new MessageResponse("Username is already taken!")); }
             } else {
-                return ResponseEntity.badRequest().body(new MessageResponseDTO("Username is already taken!"));
+                return ResponseEntity.badRequest().body(new MessageResponse("Username is already taken!"));
             }
         }
-        return ResponseEntity.ok(new MessageResponseDTO("Username is free!"));
+        return ResponseEntity.ok(new MessageResponse("Username is free!"));
     }
 
     //PDF Download Method - Required (PdfService, pom.xml, resources)
