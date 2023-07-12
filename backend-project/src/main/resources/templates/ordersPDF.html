@@ -62,9 +62,9 @@
         </td>
         <td th:text="${order.getDateOfPurchase()}">
         </td>
-        <td th:text="${order.getCustomer()}">
+        <td th:text="${order.getCustomer().getUsername() + order.getCustomer().getEmail()}">
         </td>
-        <td th:text="${order.getBrandy()}">
+        <td th:text="${order.getBrandy().getId() +', '+ order.getBrandy().getName() +', '+ order.getBrandy().getPrice()}">
         </td>
 
     </tr>

@@ -16,7 +16,7 @@ import java.io.*;
 
 @Service
 public class PdfService {
-    private static final String PDF_RESOURCES = "/pdf-resources/";
+    private static final String PDF_RESOURCES = "/resources/";
 
     private SpringTemplateEngine springTemplateEngine;
     private CustomerService customerService;

@@ -9,7 +9,6 @@ import org.radak.brandy.app.dto.OrderDTO;
 import org.radak.brandy.app.model.Brandy;
 import org.radak.brandy.app.model.Customer;
 import org.radak.brandy.app.model.OrderShop;
-import org.radak.brandy.app.service.EmailService;
 import org.radak.brandy.app.service.OrderService;
 import org.radak.brandy.app.service.PdfService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,10 +37,7 @@ public class OrderController {
     private OrderService orderService;
     @Autowired
     private PdfService pdfService;
-    @Autowired
-    private EmailService emailService;
 
-    @LoggedOrder
     @RequestMapping(path = "", method = RequestMethod.GET)
 //    @Secured({"ROLE_ADMIN", "ROLE_CUSTOMER"})
     public ResponseEntity<Page<OrderDTO>> getAll(Pageable pageable) {
@@ -142,9 +138,6 @@ public class OrderController {
 
             OrderDTO orderDTO = new OrderDTO(order.getId(), order.getQuantity(),
                     order.getDateOfPurchase(), customerDTO, brandyDTO);
-                        // Sent mail after create order TODO:Get the whole order in mail!!!
-            emailService.sendEmail("stan6d1a@gmail.com",
-                    "Naslov", String.valueOf(orderDTO));
 
             return new ResponseEntity<OrderDTO>(orderDTO, HttpStatus.CREATED);
         } catch (Exception e) {
@@ -153,7 +146,7 @@ public class OrderController {
         return new ResponseEntity<OrderDTO>(HttpStatus.BAD_REQUEST);
     }
 
-    @RequestMapping(path = "/{orderId}/update", method = RequestMethod.PUT)
+    @RequestMapping(path = "/{orderId}", method = RequestMethod.PUT)
     //@Secured({"ROLE_ADMIN", "ROLE_CUSTOMER"})
     public ResponseEntity<OrderDTO> update(@PathVariable("orderId") Long orderId,
                                                    @RequestBody OrderShop updatedOrder) {
@@ -178,7 +171,7 @@ public class OrderController {
         return new ResponseEntity<OrderDTO>(HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(path = "/{orderId}/delete", method = RequestMethod.DELETE)
+    @RequestMapping(path = "/{orderId}", method = RequestMethod.DELETE)
     //@Secured({"ROLE_ADMIN", "ROLE_CUSTOMER"})
     public ResponseEntity<OrderDTO> delete(@PathVariable("orderId") Long orderId) {
         if (orderService.findOne(orderId).isPresent()) {
