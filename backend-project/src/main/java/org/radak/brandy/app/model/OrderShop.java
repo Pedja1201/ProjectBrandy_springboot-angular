@@ -10,7 +10,7 @@ public class OrderShop {
     private Long id;
 
     @Column(nullable = false)
-    private String quantity;
+    private double quantity;
 
     @Temporal(TemporalType.DATE)
     private Date dateOfPurchase;
@@ -24,7 +24,7 @@ public class OrderShop {
     public OrderShop() {super();
     }
 
-    public OrderShop(Long id, String quantity, Date dateOfPurchase, Customer customer, Brandy brandy) {
+    public OrderShop(Long id, double quantity, Date dateOfPurchase, Customer customer, Brandy brandy) {
         this.id = id;
         this.quantity = quantity;
         this.dateOfPurchase = dateOfPurchase;
@@ -40,11 +40,11 @@ public class OrderShop {
         this.id = id;
     }
 
-    public String getQuantity() {
+    public double getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(double quantity) {
         this.quantity = quantity;
     }
 

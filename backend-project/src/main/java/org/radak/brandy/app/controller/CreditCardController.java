@@ -76,7 +76,7 @@ public class CreditCardController {
             service.save(card);
             CreditCardDTO creditCardDTO = new CreditCardDTO(card.getId(),
                     card.getAmount(), new OrderDTO(card.getOrder().getId(),
-                    null,null,null,null),
+                    0,null,null,null),
                     card.getNumber(), card.getType(),
                     card.getExpireDate());
             return new ResponseEntity<CreditCardDTO>(creditCardDTO, HttpStatus.CREATED);

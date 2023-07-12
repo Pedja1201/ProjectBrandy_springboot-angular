@@ -70,7 +70,7 @@ public class CashController {
             service.save(cash);
             CashDTO cashDTO = new CashDTO(cash.getId(),
                     cash.getAmount(), new OrderDTO(cash.getOrder().getId(),
-                    null,null,null,null),
+                    0,null,null,null),
                     cash.getCashTendered());
             return new ResponseEntity<CashDTO>(cashDTO, HttpStatus.CREATED);
         } catch (Exception e) {

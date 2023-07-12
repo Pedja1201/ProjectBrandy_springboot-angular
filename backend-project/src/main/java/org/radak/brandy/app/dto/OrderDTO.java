@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class OrderDTO {
     private Long id;
-    private String quantity;
+    private double quantity;
     private Date dateOfPurchase;
     private CustomerDTO customer;
     private BrandyDTO brandy;
@@ -12,7 +12,7 @@ public class OrderDTO {
     public OrderDTO() {super();
     }
 
-    public OrderDTO(Long id, String quantity, Date dateOfPurchase,CustomerDTO customer, BrandyDTO brandy) {
+    public OrderDTO(Long id, double quantity, Date dateOfPurchase,CustomerDTO customer, BrandyDTO brandy) {
         this.id = id;
         this.quantity = quantity;
         this.dateOfPurchase = dateOfPurchase;
@@ -28,11 +28,11 @@ public class OrderDTO {
         this.id = id;
     }
 
-    public String getQuantity() {
+    public double getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(double quantity) {
         this.quantity = quantity;
     }
 

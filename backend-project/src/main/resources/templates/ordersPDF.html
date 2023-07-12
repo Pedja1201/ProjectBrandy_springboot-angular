@@ -51,6 +51,7 @@
         <th class="tittle-container">Date of Purchase</th>
         <th class="tittle-container">Customer</th>
         <th class="tittle-container">Brandy</th>
+        <th class="tittle-container">Total price</th>
 
     </tr>
     </thead>
@@ -58,13 +59,15 @@
     <tr th:each="order: ${orders}">
         <td th:text="${order.getId()}">
         </td>
-        <td th:text="${order.getQuantity()}">
+        <td th:text="${order.getQuantity()+'L'}">
         </td>
         <td th:text="${order.getDateOfPurchase()}">
         </td>
         <td th:text="${order.getCustomer().getUsername() + order.getCustomer().getEmail()}">
         </td>
         <td th:text="${order.getBrandy().getId() +', '+ order.getBrandy().getName() +', '+ order.getBrandy().getPrice()}">
+        </td>
+        <td th:text="${order.getQuantity()*order.getBrandy().getPrice()}">
         </td>
 
     </tr>
