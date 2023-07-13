@@ -1,1 +1,43 @@
-<p style="color: white;">users-admin works!</p>
+<html>
+    <body>
+
+        <div class="overlay" *ngIf="process">
+            <div class="notification">
+                <div class="form-container">
+                    <button (click)="closeDialog()" style="cursor: pointer; font-size: 18px; margin-left: 355px; margin-top: 5px; background-color: lightblue; border-radius: 15px; font-size: 25px;">Close</button>
+                    <p style="font-size: 35px; margin-bottom: 35px; font-weight: bold;">User details</p>
+                    <form>
+                        <label for="ID">ID</label>
+                        <input type="text" id="ID" disabled>
+                        <br>
+                        <label for="first-name">First Name</label>
+                        <input type="text" id="first-name">
+                        <br>
+                        <label for="last-name">Last Name</label>
+                        <input type="text" id="last-name">
+                        <br>
+                        <label for="email">Email</label>
+                        <input type="text" id="email">
+                        <br>
+                        <label for="username">Username</label>
+                        <input type="text" id="username">
+                        <br>
+                        <div *ngIf="password">
+                        <label for="password">Password</label>
+                        <input type="text" id="password">
+                        </div>
+                    </form>
+                    <button style="cursor: pointer; font-size: 18px; margin-right: 15px; background-color: lightblue; border-radius: 15px; font-size: 25px; margin-top: 5px; margin-bottom: 5px;">Save</button>
+                    <button (click)="changePass()" style="cursor: pointer; font-size: 18px; margin-left: 15px; background-color: lightblue; border-radius: 15px; font-size: 25px; margin-bottom: 5px;">Change password</button>
+                </div>
+        </div>
+        </div>
+        <div class="card" *ngFor="let o of customers">
+            <img src="https://st5.depositphotos.com/1915171/64699/v/600/depositphotos_646996714-stock-illustration-user-profile-icon-vector-avatar.jpg" alt="Profile Picture">
+            <h3 class="name">{{o.username}}</h3>
+            <button (click)="moreDetails()" class="btn" style="cursor: pointer; font-size: 18px; margin-right: 10px;">Edit user</button>
+            <button (click)="deleteUser()" class="btn" style="cursor: pointer; font-size: 18px; margin-left: 10px;">Delete user</button>
+        </div>
+          
+    </body>
+</html>

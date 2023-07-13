@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TokenStorageService } from './service/token-storage/token-storage.service';
 import jwt_decode from 'jwt-decode';
@@ -15,7 +15,7 @@ import { AboutBrandyComponent } from './components/about-brandy/about-brandy.com
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
-  
+
   cart = false;
   isLoggedIn = false;
   username!: string;

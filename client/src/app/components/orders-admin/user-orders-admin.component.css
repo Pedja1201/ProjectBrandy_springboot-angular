@@ -85,4 +85,12 @@
     font-weight: bold;
   }
   
-  
+  .dugme{
+    background-color: lightblue; 
+    border-radius: 10px; cursor: pointer; 
+    font-size: 25px;
+  }
+
+  .dugme:hover{
+    background-color: rgb(94, 207, 244);
+  }

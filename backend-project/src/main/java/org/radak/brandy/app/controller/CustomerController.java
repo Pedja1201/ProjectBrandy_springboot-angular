@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -29,6 +31,9 @@ public class CustomerController {
     private CustomerService customerService;
     @Autowired
     private PdfService pdfService;
+
+    @Autowired
+    private PasswordEncoder encoder;
 
     @RequestMapping(path = "", method = RequestMethod.GET)
 //    @Secured({"ROLE_ADMIN"})
@@ -43,6 +48,24 @@ public class CustomerController {
             }
         });
         return new ResponseEntity<Page<CustomerDTO>>(customers, HttpStatus.OK);
+    }
+
+    //gets all customers but without pagination
+    @RequestMapping(path = "/allCustomers", method = RequestMethod.GET)
+// @Secured({"ROLE_ADMIN"})
+    public ResponseEntity<Iterable<CustomerDTO>> getAllCustomers() {
+        Iterable<Customer> customers = customerService.findAll();
+        Iterable<CustomerDTO> customerDTOs = new ArrayList<>();
+            for (Customer customer : customers) {
+                CustomerDTO customerDTO = new CustomerDTO(customer.getId(),
+                        customer.getUsername(), customer.getPassword(),
+                        customer.getFirstName(), customer.getLastName(),
+                        customer.getEmail());
+                ((ArrayList<CustomerDTO>) customerDTOs).add(customerDTO);
+            }
+            System.out.println("Customers found");
+            return new ResponseEntity<>(customerDTOs, HttpStatus.OK);
+
     }
 
     @RequestMapping(path = "/{username}", method = RequestMethod.GET)
@@ -61,7 +84,7 @@ public class CustomerController {
     }
 
     @RequestMapping(path = "", method = RequestMethod.POST)
-    @Secured({"ROLE_ADMIN"})
+    //@Secured({"ROLE_ADMIN"})
     public ResponseEntity<CustomerDTO> create(@RequestBody Customer customer) {
         try {
             customerService.save(customer);
@@ -82,7 +105,15 @@ public class CustomerController {
         Customer customer = customerService.findOne(customerId).orElse(null);
         if (customer != null) {
             updatedCustomer.setId(customerId);
-            customerService.save(updatedCustomer);  //DONE:Sa ovim radi bez BUG-a (Beskonacna rekurzija!)-Roditelj
+            if(updatedCustomer.getPassword().isEmpty()){
+                updatedCustomer.setPassword(customer.getPassword());
+                customerService.save(updatedCustomer);
+            } else if (updatedCustomer.getPassword().equals(customer.getPassword()) == true) {
+                customerService.save(updatedCustomer);
+            }else{
+                updatedCustomer.setPassword(encoder.encode(updatedCustomer.getPassword()));
+                customerService.save(updatedCustomer); //DONE:Sa ovim radi bez BUG-a (Beskonacna rekurzija!)-Roditelj
+            }
             CustomerDTO customerDTO = new CustomerDTO(updatedCustomer.getId(),
                     updatedCustomer.getUsername(), updatedCustomer.getPassword(),
                     updatedCustomer.getFirstName(), updatedCustomer.getLastName(),
@@ -93,7 +124,7 @@ public class CustomerController {
     }
 
     @RequestMapping(path = "/{customerId}", method = RequestMethod.DELETE)
-    @Secured({"ROLE_ADMIN"})
+    //@Secured({"ROLE_ADMIN"})
     public ResponseEntity<Customer> delete(@PathVariable("customerId") Long customerId) {
         if (customerService.findOne(customerId).isPresent()) {
             customerService.delete(customerId);
@@ -103,7 +134,6 @@ public class CustomerController {
     }
 
     @GetMapping("/checkEmail/{userId}/{mail}")
-    //@PreAuthorize("hasRole('ADMINISTRATOR')")
     public ResponseEntity<?> checkEmail(@PathVariable("userId") String userId, @PathVariable("mail") String mail) {
         if (customerService.existsByEmail(mail) == true) {
             if(!userId.equals("null")) {
@@ -117,7 +147,6 @@ public class CustomerController {
     }
 
     @GetMapping("/checkUsername/{userId}/{username}")
-    //@PreAuthorize("hasRole('ADMINISTRATOR')")
     public ResponseEntity<?> checkUsername(@PathVariable("userId") String userId, @PathVariable("username") String username) {
         if (customerService.existsByUsername(username) == true) {
             if(!userId.equals("null")) {

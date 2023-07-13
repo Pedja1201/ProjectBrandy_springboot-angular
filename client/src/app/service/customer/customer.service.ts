@@ -11,6 +11,10 @@ export class CustomerService {
 
   constructor(private http: HttpClient) { }
 
+  getAll(){
+    return this.http.get<Customer[]>(CUSTOMER_URL + "allCustomers")
+  }
+
   getOne(username : string) {
     return this.http.get<Customer>(CUSTOMER_URL + username);
   }
@@ -18,6 +22,7 @@ export class CustomerService {
   update(id : number, user : Customer) {
     return this.http.put(CUSTOMER_URL + id, user);
   }
+  
 
   checkEmail(mail: string, id : string) {
     return this.http.get(CUSTOMER_URL + "checkEmail/" + id + "/" + mail);

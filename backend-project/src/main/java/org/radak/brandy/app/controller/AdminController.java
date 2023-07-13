@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +25,8 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
+    @Autowired
+    private PasswordEncoder encoder;
 
     @RequestMapping(path = "", method = RequestMethod.GET)
     @Secured({"ROLE_ADMIN"})
@@ -74,7 +77,16 @@ public class AdminController {
         Admin administrator = adminService.findOne(administratorId).orElse(null);
         if (administrator != null) {
             updatedAdministrator.setId(administratorId);
-            adminService.save(updatedAdministrator);
+//            adminService.save(updatedAdministrator);
+            if(updatedAdministrator.getPassword().isEmpty()){
+                updatedAdministrator.setPassword(administrator.getPassword());
+                adminService.save(updatedAdministrator);
+            } else if (updatedAdministrator.getPassword().equals(administrator.getPassword()) == true) {
+                adminService.save(updatedAdministrator);
+            }else{
+                updatedAdministrator.setPassword(encoder.encode(updatedAdministrator.getPassword()));
+                adminService.save(updatedAdministrator); //DONE:Sa ovim radi bez BUG-a (Beskonacna rekurzija!)-Roditelj
+            }
             AdminDTO administratorDTO = new AdminDTO(updatedAdministrator.getId(),updatedAdministrator.getUsername(),
                     updatedAdministrator.getPassword()
                     , updatedAdministrator.getFirstName(), updatedAdministrator.getLastName(),

@@ -79,8 +79,10 @@ input[type=submit]:hover {
     <label for="uname">Username</label>
     <input type="text" formControlName="username" style="border-radius: 30px;" (change)="checkUsernameCustomer($event)" placeholder="Username">
 
-    <!-- <label for="pword">Password</label>
-    <input type="text" formControlName="username" id="pword" name="password" style="border-radius: 30px;" placeholder="Password"> -->
+    <div *ngIf="password">
+    <label for="pword">Password</label>
+    <input type="text" formControlName="password" id="pword" name="password" style="border-radius: 30px;" placeholder="Password">
+    </div>
 
     <div *ngIf="upin">
     <label for="pword">UPIN</label>
@@ -91,8 +93,9 @@ input[type=submit]:hover {
         <p style="text-align: center; font-size: 30px">{{message}}</p>
     </div>
 
-    <button (click)="updateCustomer()"  class="save-button" style="background-color: lightblue; cursor: pointer; border-radius: 30px;">Save</button>
-  
+    <button (click)="updateCustomer()" class="save-button" >Save</button>
+    
+    <button (click)="changePassword()" class="save-button" >Change password</button>
   </form>
 </div>
 
@@ -111,8 +114,10 @@ input[type=submit]:hover {
   <label for="uname">Username</label>
   <input type="text" formControlName="username" id="uname" name="username" style="border-radius: 30px;" (change)="checkUsernameAdmin()" placeholder="Username">
 
-  <!-- <label for="pword">Password</label>
-  <input type="text" formControlName="password" id="pword" name="password" style="border-radius: 30px;" placeholder="Password"> -->
+  <div *ngIf="password">
+    <label for="pword">Password</label>
+    <input type="text" formControlName="password" id="pword" name="password" style="border-radius: 30px;" placeholder="Password">
+  </div>
 
   <div *ngIf="upin">
   <label for="pword">UPIN</label>
@@ -123,7 +128,8 @@ input[type=submit]:hover {
       <p style="text-align: center; font-size: 30px">{{message}}</p>
   </div>
 
-  <button (click)="updateAdmin()" class="save-button" style="background-color: lightblue; cursor: pointer; border-radius: 30px;">Save</button>
+  <button (click)="updateAdmin()" class="save-button">Save</button>
+  <button (click)="changePassword()" class="save-button" >Change password</button>
 </form>
 </div>
 

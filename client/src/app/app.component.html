@@ -10,7 +10,7 @@
   <ul class="topnav">
     <li><a class="active" href="/home" [routerLink]="['/home']">Brandy shop</a></li>
     <li *ngIf="admin">
-      <a class="fa fa-bars" [routerLink]="['/editUsersOrdersAdmin']" style="font-size: 20px; cursor: pointer;"></a>
+      <a class="fa fa-bars" style="font-size: 20px; cursor: pointer;"></a>
       <ul class="submenu">
         <li><a href="#" [routerLink]="['/editUsersOrdersAdmin']">Orders</a></li>
         <li><a href="#" [routerLink]="['/usersAdmin']">Users</a></li>
@@ -28,8 +28,8 @@
   </ul>
   
 
-<div >
-  <router-outlet></router-outlet>
+<div>
+  <router-outlet ></router-outlet>
 </div>
 
 </body>

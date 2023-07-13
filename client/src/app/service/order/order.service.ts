@@ -33,6 +33,6 @@ export class OrderService {
   }
 
   delete(id: number) {
-    return this.http.delete(ORDER_URL + "/" + id + "/delete");
+    return this.http.delete(ORDER_URL + "/" + id);
   }
 }

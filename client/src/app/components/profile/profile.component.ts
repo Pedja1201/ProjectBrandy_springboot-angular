@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Admin } from 'src/app/model/admin';
@@ -24,6 +24,9 @@ export class ProfileComponent implements OnInit{
   cust = false;
   admin = false;
   roles:String[]=[]
+  password=false;
+  c!:Customer;
+  a!:Admin;
 
   form : FormGroup = new FormGroup({
     "id" : new FormControl(null),
@@ -49,6 +52,7 @@ export class ProfileComponent implements OnInit{
       this.upin = false
       this.customer.getOne(this.username).subscribe((customer:Customer)=>{
         this.form.patchValue(customer)
+        this.c=customer;
       })
     }
 
@@ -58,6 +62,7 @@ export class ProfileComponent implements OnInit{
       this.upin = true
       this.adminservice.getOne(this.username).subscribe((admin:Admin)=>{
         this.form.patchValue(admin)
+        this.a=admin;
       })
       
     }
@@ -66,8 +71,8 @@ export class ProfileComponent implements OnInit{
 
   updateAdmin(){
     if(this.form.valid){
-      if(this.form.value["username"] != this.username){
-        if(this.roles.includes('ROLE_ADMIN') && this.roles.includes('ROLE_CUSTOMER')){
+      if(this.form.value["username"] != this.username || this.form.value["password"] != this.a.password){
+        if(this.roles.includes('ROLE_ADMIN')){
           this.adminservice.update(this.form.value.id, this.form.value).subscribe(x=>{
             console.log("UPDATE uspesan")
             this.tokenStorageService.signOut();
@@ -90,10 +95,10 @@ export class ProfileComponent implements OnInit{
       }
     }
     }
-
+    
   updateCustomer(){
     if(this.form.valid){
-      if(this.form.value["username"] != this.username){
+      if(this.form.value["username"] != this.username || this.form.value["password"] != this.c.password){
         if(this.roles.includes('ROLE_CUSTOMER')){
           this.customer.update(this.form.value.id, this.form.value).subscribe(x=>{
             this.tokenStorageService.signOut()
@@ -132,22 +137,17 @@ export class ProfileComponent implements OnInit{
   }
 
   checkEmailCustomer(){
-    // if(this.form.get("email")?.valid == true){
       this.customer.checkEmail(this.form.value.email, this.form.value.id).subscribe(data => {
         this.poruka = false;
-        //this.form.controls.email.setErrors(null);
       }, err => {
-        //this.form.controls.email.setErrors({'incorrect': true});
         this.poruka = false
         this.message = err.error.message;
         this.poruka = true;
       });
-    // }
 
   }
 
   checkUsernameAdmin(){
-    if(this.form.get("username")?.valid == true){
       if(this.form.get("username")?.valid == true){
         this.adminservice.checkUsername(this.form.value.username, this.form.value.id).subscribe(data =>{
           this.poruka = false
@@ -158,7 +158,7 @@ export class ProfileComponent implements OnInit{
           this.poruka = true
         })
       }
-    }
+    
   }
 
   checkEmailAdmin(){
@@ -172,5 +172,10 @@ export class ProfileComponent implements OnInit{
         this.poruka = true;
       });
     }
+  }
+
+  changePassword(){
+    this.password = true
+    this.form.controls['password'].setValue('')
   }
 }
