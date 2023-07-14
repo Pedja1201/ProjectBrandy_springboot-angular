@@ -22,8 +22,11 @@ export class CustomerService {
   update(id : number, user : Customer) {
     return this.http.put(CUSTOMER_URL + id, user);
   }
-  
 
+  delete(id: number) {
+    return this.http.delete(CUSTOMER_URL + id);
+  }
+  
   checkEmail(mail: string, id : string) {
     return this.http.get(CUSTOMER_URL + "checkEmail/" + id + "/" + mail);
   }
