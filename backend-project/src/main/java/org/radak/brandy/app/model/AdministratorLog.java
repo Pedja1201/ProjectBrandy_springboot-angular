@@ -16,7 +16,7 @@ public class AdministratorLog {
         super();
     }
 
-    public AdministratorLog(String id, String name, String signature, String poruka, LocalDateTime dateTime) {
+    public AdministratorLog(String id, String name, String signature, String message, LocalDateTime dateTime) {
         this.id = id;
         this.name = name;
         this.signature = signature;

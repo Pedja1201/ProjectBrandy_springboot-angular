@@ -3,8 +3,10 @@ package org.radak.brandy.app.controller;
 import org.radak.brandy.app.dto.CustomerDTO;
 import org.radak.brandy.app.excepetion.MessageResponse;
 import org.radak.brandy.app.model.Customer;
+import org.radak.brandy.app.model.UserPermission;
 import org.radak.brandy.app.service.CustomerService;
 import org.radak.brandy.app.service.PdfService;
+import org.radak.brandy.app.service.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +22,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -34,6 +37,9 @@ public class CustomerController {
 
     @Autowired
     private PasswordEncoder encoder;
+
+    @Autowired
+    private PermissionService permissionService;
 
     @RequestMapping(path = "", method = RequestMethod.GET)
 //    @Secured({"ROLE_ADMIN"})
@@ -87,6 +93,11 @@ public class CustomerController {
     //@Secured({"ROLE_ADMIN"})
     public ResponseEntity<CustomerDTO> create(@RequestBody Customer customer) {
         try {
+            customer.setPassword(encoder.encode(customer.getPassword()));
+            customerService.save(customer);
+            customer.setUserPermissions(new HashSet<UserPermission>());
+            customer.getUserPermissions()
+                    .add(new UserPermission(null, customer, permissionService.findOne(2l).get()));
             customerService.save(customer);
             CustomerDTO customerDTO = new CustomerDTO(customer.getId(),
                     customer.getUsername(), customer.getPassword(),
