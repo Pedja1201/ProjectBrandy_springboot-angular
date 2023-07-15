@@ -35,7 +35,7 @@ public class AdminController {
         Page<AdminDTO> administratori = administrator.map(new Function<Admin, AdminDTO>() {
             public AdminDTO apply(Admin administrator) {
                 AdminDTO administratorDTO = new AdminDTO(administrator.getId(),administrator.getUsername(), administrator.getPassword(),
-                        administrator.getFirstName(), administrator.getLastName(), administrator.getEmail(), administrator.getUpin());
+                        administrator.isActive(), administrator.getFirstName(), administrator.getLastName(), administrator.getEmail(), administrator.getUpin());
                 // Conversion logic
                 return administratorDTO;
             }
@@ -49,7 +49,7 @@ public class AdminController {
         Optional<Admin> administrator = adminService.findByUsername(username);
         if (administrator.isPresent()) {
             AdminDTO administratorDTO = new AdminDTO(administrator.get().getId(),administrator.get().getUsername(),administrator.get().getPassword(),
-                    administrator.get().getFirstName(),administrator.get().getLastName(),administrator.get().getEmail(),administrator.get().getUpin());
+                    administrator.get().isActive(), administrator.get().getFirstName(),administrator.get().getLastName(),administrator.get().getEmail(),administrator.get().getUpin());
             System.out.println("Admin founded");
             return new ResponseEntity<AdminDTO>(administratorDTO, HttpStatus.OK);
         }
@@ -62,7 +62,7 @@ public class AdminController {
         try {
             adminService.save(administrator);
             AdminDTO administratorDTO = new AdminDTO(administrator.getId(),administrator.getUsername(),administrator.getPassword(),
-                    administrator.getFirstName(), administrator.getLastName(), administrator.getEmail(), administrator.getUpin());
+                    true,administrator.getFirstName(), administrator.getLastName(), administrator.getEmail(), administrator.getUpin());
             return new ResponseEntity<AdminDTO>(administratorDTO, HttpStatus.CREATED);
         } catch (Exception e) {
             e.printStackTrace();
@@ -88,8 +88,8 @@ public class AdminController {
                 adminService.save(updatedAdministrator); //DONE:Sa ovim radi bez BUG-a (Beskonacna rekurzija!)-Roditelj
             }
             AdminDTO administratorDTO = new AdminDTO(updatedAdministrator.getId(),updatedAdministrator.getUsername(),
-                    updatedAdministrator.getPassword()
-                    , updatedAdministrator.getFirstName(), updatedAdministrator.getLastName(),
+                    updatedAdministrator.getPassword(),updatedAdministrator.isActive(),
+                    updatedAdministrator.getFirstName(), updatedAdministrator.getLastName(),
                     updatedAdministrator.getEmail(), updatedAdministrator.getUpin());
             return new ResponseEntity<AdminDTO>(administratorDTO, HttpStatus.OK);
         }

@@ -4,17 +4,18 @@ public class UserDTO {
     private Long id;
     private String username;
     private String password;
+    private boolean active;
 
     public UserDTO() {
         super();
     }
 
-    public UserDTO(Long id, String username, String password) {
+    public UserDTO(Long id, String username, String password, boolean active) {
         super();
         this.id = id;
         this.username = username;
         this.password = password;
-
+        this.active = active;
     }
 
     public Long getId() {
@@ -39,5 +40,13 @@ public class UserDTO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

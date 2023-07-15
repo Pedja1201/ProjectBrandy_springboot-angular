@@ -9,8 +9,8 @@ public class AdminDTO extends UserDTO {
     public AdminDTO() {super();
     }
 
-    public AdminDTO(Long id, String username, String password, String firstName, String lastName, String email, String upin) {
-        super(id, username, password);
+    public AdminDTO(Long id, String username, String password, boolean active, String firstName, String lastName, String email, String upin) {
+        super(id, username, password, active);
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

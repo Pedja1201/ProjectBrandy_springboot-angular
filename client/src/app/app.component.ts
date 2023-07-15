@@ -55,6 +55,7 @@ export class AppComponent implements OnInit{
     this.username = '';
     this.isLoggedIn=false;
     this.cart = false;
+    this.admin=false
     this.router.navigate(['/home']);
   }
 }

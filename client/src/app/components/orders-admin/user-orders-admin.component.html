@@ -22,7 +22,7 @@
           <div class="order-value">{{o.quantity}}</div>
           
           <div class="order-label">Brandy Name:</div>
-          <div class="order-value" style="cursor: pointer;">{{o.brandy.name}}</div>
+          <div class="order-value brandy" (click)="getBrandyByName(o.brandy.name)">{{o.brandy.name}}</div>
           
           <div class="order-label">Brandy Quantity:</div>
           <div class="order-value">{{o.brandy.quantity ? 'Yes' : 'No' }}</div>

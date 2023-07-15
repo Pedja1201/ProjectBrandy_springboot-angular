@@ -45,7 +45,7 @@ public class OrderController {
         Page<OrderDTO> orders = order.map(new Function<OrderShop, OrderDTO>() {
             public OrderDTO apply(OrderShop order) {
                 OrderDTO porudzbinaDTO = new OrderDTO(order.getId(), order.getQuantity(), order.getDateOfPurchase(),order.isConfirm(),
-                        new CustomerDTO(order.getCustomer().getId(), order.getCustomer().getUsername(),null,
+                        new CustomerDTO(order.getCustomer().getId(), order.getCustomer().getUsername(),null,order.getCustomer().isActive(),
                                 order.getCustomer().getFirstName(),order.getCustomer().getLastName(),
                                 order.getCustomer().getEmail()),
                         new BrandyDTO(order.getBrandy().getId(), order.getBrandy().getName(),
@@ -109,7 +109,7 @@ public class OrderController {
             OrderDTO orderDTO = new OrderDTO(order.get().getId(),order.get().getQuantity(),
                     order.get().getDateOfPurchase(),order.get().isConfirm(),
                     new CustomerDTO(order.get().getCustomer().getId(), order.get().getCustomer().getUsername(),
-                            order.get().getCustomer().getPassword(),order.get().getCustomer().getFirstName(),
+                            order.get().getCustomer().getPassword(), order.get().getCustomer().isActive(),order.get().getCustomer().getFirstName(),
                             order.get().getCustomer().getLastName(), order.get().getCustomer().getEmail()),
                     new BrandyDTO(order.get().getBrandy().getId(),order.get().getBrandy().getName(),
                             order.get().getBrandy().getType(), order.get().getBrandy().getPrice(),
@@ -132,7 +132,7 @@ public class OrderController {
                     order.getBrandy().getPrice(), order.getBrandy().getYear(),
                     order.getBrandy().getStrength(), order.getBrandy().isQuantity(), null);
             CustomerDTO customerDTO =  new CustomerDTO(order.getCustomer().getId(),
-                    order.getCustomer().getUsername(),null,
+                    order.getCustomer().getUsername(),null,order.getCustomer().isActive(),
                     order.getCustomer().getFirstName(),order.getCustomer().getLastName(),
                     order.getCustomer().getEmail());
 
@@ -159,7 +159,7 @@ public class OrderController {
                     updatedOrder.getBrandy().getPrice(), updatedOrder.getBrandy().getYear(),
                     updatedOrder.getBrandy().getStrength(), updatedOrder.getBrandy().isQuantity(), null);
             CustomerDTO customerDTO =  new CustomerDTO(updatedOrder.getCustomer().getId(),
-                    updatedOrder.getCustomer().getUsername(),null,
+                    updatedOrder.getCustomer().getUsername(),null,updatedOrder.getCustomer().isActive(),
                     updatedOrder.getCustomer().getFirstName(),updatedOrder.getCustomer().getLastName(),
                     updatedOrder.getCustomer().getEmail());
 
@@ -212,6 +212,7 @@ public class OrderController {
                                 order.getCustomer().getId(),
                                 order.getCustomer().getUsername(),
                                 order.getCustomer().getPassword(),
+                                order.getCustomer().isActive(),
                                 order.getCustomer().getFirstName(),
                                 order.getCustomer().getLastName(),
                                 order.getCustomer().getEmail()

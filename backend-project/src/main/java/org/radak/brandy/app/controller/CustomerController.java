@@ -48,7 +48,7 @@ public class CustomerController {
         Page<CustomerDTO> customers = customer.map(new Function<Customer, CustomerDTO>() {
             public CustomerDTO apply(Customer customer) {
                 CustomerDTO customerDTO = new CustomerDTO(customer.getId(), customer.getUsername(),
-                        customer.getPassword(), customer.getFirstName(), customer.getLastName(), customer.getEmail());
+                        customer.getPassword(), customer.isActive(), customer.getFirstName(), customer.getLastName(), customer.getEmail());
                 // Conversion logic
                 return customerDTO;
             }
@@ -64,7 +64,7 @@ public class CustomerController {
         Iterable<CustomerDTO> customerDTOs = new ArrayList<>();
             for (Customer customer : customers) {
                 CustomerDTO customerDTO = new CustomerDTO(customer.getId(),
-                        customer.getUsername(), customer.getPassword(),
+                        customer.getUsername(), customer.getPassword(),customer.isActive(),
                         customer.getFirstName(), customer.getLastName(),
                         customer.getEmail());
                 ((ArrayList<CustomerDTO>) customerDTOs).add(customerDTO);
@@ -80,7 +80,7 @@ public class CustomerController {
         Optional<Customer> customer = customerService.findOneCustomer(username);
         if (customer.isPresent()) {
             CustomerDTO customerDTO = new CustomerDTO(customer.get().getId(),
-                    customer.get().getUsername(), customer.get().getPassword(),
+                    customer.get().getUsername(), customer.get().getPassword(),customer.get().isActive(),
                     customer.get().getFirstName(), customer.get().getLastName(),
                     customer.get().getEmail());
             System.out.println("Customer founded");
@@ -100,7 +100,7 @@ public class CustomerController {
                     .add(new UserPermission(null, customer, permissionService.findOne(2l).get()));
             customerService.save(customer);
             CustomerDTO customerDTO = new CustomerDTO(customer.getId(),
-                    customer.getUsername(), customer.getPassword(),
+                    customer.getUsername(), customer.getPassword(),true,
                     customer.getFirstName(), customer.getLastName(), customer.getEmail());
             return new ResponseEntity<CustomerDTO>(customerDTO, HttpStatus.CREATED);
         } catch (Exception e) {
@@ -126,7 +126,7 @@ public class CustomerController {
                 customerService.save(updatedCustomer); //DONE:Sa ovim radi bez BUG-a (Beskonacna rekurzija!)-Roditelj
             }
             CustomerDTO customerDTO = new CustomerDTO(updatedCustomer.getId(),
-                    updatedCustomer.getUsername(), updatedCustomer.getPassword(),
+                    updatedCustomer.getUsername(), updatedCustomer.getPassword(),updatedCustomer.isActive(),
                     updatedCustomer.getFirstName(), updatedCustomer.getLastName(),
                     updatedCustomer.getEmail());
             return new ResponseEntity<CustomerDTO>(customerDTO, HttpStatus.OK);

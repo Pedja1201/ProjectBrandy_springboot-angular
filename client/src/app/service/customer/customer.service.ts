@@ -19,6 +19,10 @@ export class CustomerService {
     return this.http.get<Customer>(CUSTOMER_URL + username);
   }
 
+  create(user: Customer) {
+    return this.http.post(CUSTOMER_URL, user);
+  }
+
   update(id : number, user : Customer) {
     return this.http.put(CUSTOMER_URL + id, user);
   }

@@ -16,6 +16,9 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    @Column(nullable = true)
+    private boolean active;
+
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<UserPermission> userPermissions = new HashSet<UserPermission>();
@@ -24,11 +27,12 @@ public class User {
         super();
     }
 
-    public User(Long id, String username, String password) {
+    public User(Long id, String username, String password, boolean active) {
         super();
         this.id = id;
         this.username = username;
         this.password = password;
+        this.active = active;
     }
 
     public Long getId() {
@@ -53,6 +57,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public Set<UserPermission> getUserPermissions() {

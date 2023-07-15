@@ -94,3 +94,15 @@
   .dugme:hover{
     background-color: rgb(94, 207, 244);
   }
+
+  .brandy{
+    cursor: pointer;
+  }
+
+  .brandy:hover{
+    font-size: 30px;
+    border-radius: 20px;
+    border: 2px solid rgb(15, 54, 183); 
+    padding: 10px; 
+    background-color: rgb(123, 161, 255);
+  }

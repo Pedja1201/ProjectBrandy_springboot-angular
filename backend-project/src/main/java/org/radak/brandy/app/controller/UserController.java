@@ -38,7 +38,7 @@ public class UserController {
         Page<UserDTO> users = user.map(new Function<User, UserDTO>() {
             public UserDTO apply(User user) {
                 UserDTO userDTO = new UserDTO(user.getId(), user.getUsername(),
-                        user.getPassword()
+                        user.getPassword(), user.isActive()
                 );
                 // Conversion logic
                 return userDTO;
@@ -53,7 +53,7 @@ public class UserController {
         Optional<User> user = userService.findOne(userId);
         if (user.isPresent()) {
             UserDTO userDTO = new UserDTO(user.get().getId(),
-                    user.get().getUsername(), user.get().getPassword());
+                    user.get().getUsername(), user.get().getPassword(), user.get().isActive());
             return new ResponseEntity<UserDTO>(userDTO, HttpStatus.OK);
         }
         return new ResponseEntity<UserDTO>(HttpStatus.NOT_FOUND);
@@ -65,7 +65,7 @@ public class UserController {
         try {
             userService.save(user);
             UserDTO userDTO = new UserDTO(user.getId(),
-                    user.getUsername(), user.getPassword());
+                    user.getUsername(), user.getPassword(), true);
             return new ResponseEntity<UserDTO>(userDTO, HttpStatus.CREATED);
         } catch (Exception e) {
             e.printStackTrace();
@@ -82,7 +82,7 @@ public class UserController {
             updatedUser.setId(userId);
             userService.save(updatedUser);
             UserDTO korisnikDTO = new UserDTO(updatedUser.getId(),
-                    updatedUser.getUsername(), updatedUser.getPassword());
+                    updatedUser.getUsername(), updatedUser.getPassword(), updatedUser.isActive());
             return new ResponseEntity<UserDTO>(korisnikDTO, HttpStatus.OK);
         }
         return new ResponseEntity<UserDTO>(HttpStatus.NOT_FOUND);
@@ -102,7 +102,7 @@ public class UserController {
     public ResponseEntity<UserDTO> getUserByUsername(@PathVariable("username") String username) {
         Optional<User> user = userService.findByUsername(username);
         if (user.isPresent()) {
-            UserDTO userDTO = new UserDTO(user.get().getId(), user.get().getUsername(), user.get().getPassword());
+            UserDTO userDTO = new UserDTO(user.get().getId(), user.get().getUsername(), user.get().getPassword(), user.get().isActive());
             System.out.println("User founded by username");
             return new ResponseEntity<UserDTO>(userDTO, HttpStatus.OK);
         }

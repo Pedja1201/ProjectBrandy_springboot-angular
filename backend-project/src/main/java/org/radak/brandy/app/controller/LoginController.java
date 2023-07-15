@@ -84,7 +84,7 @@ public class LoginController { //TODO:RAspodeliti uloge prilikom register: ROLE_
         // Novi korisnik se registruje kreiranjem instance korisnika
         // cija je lozinka enkodovana.
         Customer newCustomer = new Customer(null, customer.getUsername(),
-                passwordEncoder.encode(customer.getPassword()), customer.getFirstName(),
+                passwordEncoder.encode(customer.getPassword()), true, customer.getFirstName(),
                 customer.getLastName(), customer.getEmail());
         newCustomer = customerService.save(newCustomer);
         // Dodavanje prava pristupa.
@@ -94,7 +94,7 @@ public class LoginController { //TODO:RAspodeliti uloge prilikom register: ROLE_
         customerService.save(newCustomer);
 
         return new ResponseEntity<CustomerDTO>(
-                new CustomerDTO(newCustomer.getId(), newCustomer.getUsername(), null,
+                new CustomerDTO(newCustomer.getId(), newCustomer.getUsername(), null, newCustomer.isActive(),
                         newCustomer.getFirstName(), newCustomer.getLastName(), newCustomer.getEmail()), HttpStatus.OK);
     }
 
@@ -104,7 +104,7 @@ public class LoginController { //TODO:RAspodeliti uloge prilikom register: ROLE_
         // Novi korisnik se registruje kreiranjem instance korisnika
         // cija je lozinka enkodovana.
         Admin newAdmin = new Admin(null, admin.getUsername(),
-                passwordEncoder.encode(admin.getPassword()), admin.getFirstName(),
+                passwordEncoder.encode(admin.getPassword()), true,admin.getFirstName(),
                 admin.getLastName(), admin.getEmail(), admin.getUpin());
         newAdmin = adminService.save(newAdmin);
         // Dodavanje prava pristupa.
@@ -114,7 +114,7 @@ public class LoginController { //TODO:RAspodeliti uloge prilikom register: ROLE_
         adminService.save(newAdmin);
 
         return new ResponseEntity<AdminDTO>(
-                new AdminDTO(newAdmin.getId(), newAdmin.getUsername(), null,
+                new AdminDTO(newAdmin.getId(), newAdmin.getUsername(), null,newAdmin.isActive(),
                         newAdmin.getFirstName(), newAdmin.getLastName(),
                         newAdmin.getEmail(), newAdmin.getUpin() ), HttpStatus.OK);
     }

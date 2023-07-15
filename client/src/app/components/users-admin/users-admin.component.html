@@ -1,13 +1,15 @@
 <html>
+    <button (click)="createUserNote()" *ngIf="confirmNote" class="button">Create user</button>
     <body>
+
 
         <div id="obavestenje" class="skriveno">
             <button (click)="closeNote()" id="closeBtn">&times;</button>
             <br>
-            <h1>Update successful!</h1>
-            <p style="font-size: 20px;">You have successfuly updated user with ID: {{custId}}</p>
-          </div>
-
+            <h1>{{messageForNoteTitle}}</h1>
+            <p style="font-size: 20px;">{{messageBody}}</p>
+        </div>
+         
         <div class="overlay" *ngIf="process">
             <div class="notification">
                 <div class="form-container">
@@ -24,18 +26,59 @@
                         <input type="text" formControlName="lastName" id="last-name">
                         <br>
                         <label for="email">Email</label>
-                        <input type="text" formControlName="email" id="email">
+                        <input type="text" formControlName="email" id="email" (change)="checkEmailCustomer()" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+                        <div style="text-align: center; padding-top: 15px; font-size: 25px;" [hidden]="!form.controls['email'].errors?.['pattern']">
+                            Please enter correct email format
+                        </div>
                         <br>
                         <label for="username">Username</label>
-                        <input type="text" formControlName="username" id="username">
+                        <input type="text" formControlName="username" id="username" (change)="checkUsernameCustomer()">
                         <br>
                         <div *ngIf="password">
                         <label for="password">Password</label>
                         <input type="text" formControlName="password" id="password" placeholder="password">
                         </div>
+                        <div *ngIf="poruka">
+                            <p style="text-align: center; font-size: 30px">{{message}}</p>
+                        </div>
+                        <br>
                     </form>
                     <button (click)="updateCustomer()" style="cursor: pointer; font-size: 18px; margin-right: 15px; background-color: lightblue; border-radius: 15px; font-size: 25px; margin-top: 5px; margin-bottom: 5px;">Update</button>
                     <button (click)="changePass()" style="cursor: pointer; font-size: 18px; margin-left: 15px; background-color: lightblue; border-radius: 15px; font-size: 25px; margin-bottom: 5px;">Change password</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="overlay" *ngIf="create">
+            <div class="notification">
+                <div class="form-container">
+                    <button (click)="closeDialogCreate()" style="cursor: pointer; font-size: 18px; margin-left: 355px; margin-top: 5px; background-color: lightblue; border-radius: 15px; font-size: 25px;">Close</button>
+                    <p style="font-size: 35px; margin-bottom: 35px; font-weight: bold;">{{mess}}</p>
+                    <form [formGroup]="form">
+                        <label for="first-name">First Name</label>
+                        <input type="text" formControlName="firstName" id="first-name">
+                        <br>
+                        <label for="last-name">Last Name</label>
+                        <input type="text" formControlName="lastName" id="last-name">
+                        <br>
+                        <label for="email">Email</label>
+                        <input type="text" formControlName="email" id="email" (change)="checkEmailCustomer()" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+                        
+                        <div style="text-align: center; padding-top: 15px; font-size: 25px;" [hidden]="!form.controls['email'].errors?.['pattern']">
+                            Please enter correct email format
+                        </div>
+                        <br>
+                        <label for="username">Username</label>
+                        <input type="text" formControlName="username" id="username" (change)="checkUsernameCustomer()">
+                        <br>
+                        <label for="password">Password</label>
+                        <input type="text" formControlName="password" id="password">
+                        <div *ngIf="poruka">
+                            <p style="text-align: center; font-size: 30px">{{message}}</p>
+                        </div>
+                        <br>
+                    </form>
+                    <button (click)="createCustomer()" style="cursor: pointer; font-size: 18px; margin-right: 15px; background-color: lightblue; border-radius: 15px; font-size: 25px; margin-top: 5px; margin-bottom: 5px;">Create</button>
                 </div>
             </div>
         </div>
@@ -48,7 +91,7 @@
 
             <div class="overlay" *ngIf="deleteNote">
                 <div class="notification">
-                    <p style="margin-bottom: 15px; font-size: 25px;">Are you sure you want to delete customer with ID: {{custId}}</p>
+                    <p style="margin-bottom: 15px; font-size: 25px;">Are you sure you want to delete user with ID: {{custId}}</p>
                     <button (click)="deleteUser()" style="cursor: pointer; font-size: 18px; margin-right: 15px; background-color: lightblue; border-radius: 15px; font-size: 25px; margin-top: 5px; margin-bottom: 5px;">Delete</button>
                     <button (click)="noteDeleteCloseDialog()" style="cursor: pointer; font-size: 18px; margin-left: 15px; background-color: lightblue; border-radius: 15px; font-size: 25px; margin-bottom: 5px;">Close</button>
                 </div>
@@ -60,6 +103,8 @@
                 <p style="margin-bottom: 15px; font-size: 25px; font-weight: bold;">No users.</p>
                 <button [routerLink]="['/home']" style="background-color: lightblue; border-radius: 10px; cursor: pointer; font-size: 25px; margin-right: 10px;">Home</button>
                 <button [routerLink]="['/editUsersOrdersAdmin']" style="background-color: lightblue; border-radius: 10px; cursor: pointer; font-size: 25px; margin-right: 10px;">Orders</button>
+                <button (click)="createUserNote()" style="background-color: lightblue; border-radius: 10px; cursor: pointer; font-size: 25px; margin-right: 10px;">Create user</button>
+                <button (click)="closeNoUsers()" style="background-color: lightblue; border-radius: 10px; cursor: pointer; font-size: 25px; margin-right: 10px;">Close</button>
             </div>
         </div>
           

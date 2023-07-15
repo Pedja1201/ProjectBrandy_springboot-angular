@@ -13,15 +13,15 @@ public class CustomerDTO extends UserDTO {
 
     }
 
-    public CustomerDTO(Long id, String username, String password, String firstName, String lastName, String email) {
-        super(id, username, password);
+    public CustomerDTO(Long id, String username, String password, boolean active, String firstName, String lastName, String email) {
+        super(id, username, password, active);
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
     }
 
-    public CustomerDTO(Long id, String username, String password, String firstName, String lastName, String email, ArrayList<OrderDTO> orders) {
-        super(id, username, password);
+    public CustomerDTO(Long id, String username, String password, boolean active, String firstName, String lastName, String email, ArrayList<OrderDTO> orders) {
+        super(id, username, password, active);
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

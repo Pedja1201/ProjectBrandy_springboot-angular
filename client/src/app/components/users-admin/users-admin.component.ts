@@ -17,6 +17,13 @@ export class UsersAdminComponent implements OnInit{
   confirmNote = true
   deleteNote = false
   no = false
+  username!:string
+  create = false
+  mess=''
+  messageForNoteTitle=''
+  messageBody=''
+  poruka = false;
+  message=''
 
   form : FormGroup = new FormGroup({
     "id" : new FormControl(null),
@@ -42,7 +49,15 @@ export class UsersAdminComponent implements OnInit{
     })
   }
 
+  createUserNote(){
+    this.form.reset()
+    this.mess='Create user'
+    this.create = true
+    this.no = false
+  }
+
   moreDetails(username:any){
+    this.username = username
     this.form.reset()
     this.customerService.getOne(String(username)).subscribe((x:Customer)=>{
       this.form.patchValue(x)
@@ -74,9 +89,54 @@ export class UsersAdminComponent implements OnInit{
             this.process = false
             this.custId = Number(this.form.value.id)
             this.confirmNote=false
+            this.messageForNoteTitle = 'Update successful!'
+            this.messageBody = 'You have successfuly updated user with ID: ' + this.custId
             this.note()
+            this.password=false
           })
     }
+  }
+
+  createCustomer(){
+    if(this.form.valid){
+      this.customerService.create(this.form.value).subscribe(x=>{
+       this.messageForNoteTitle = 'User created successfuly!'
+       this.messageBody = 'You have successfully created user.'
+       this.note();
+       this.confirmNote=false;
+        this.create = false;
+        this.getAll();
+      })
+    }
+  }
+
+  checkUsernameCustomer(){
+    // if(this.form.get("username")?.valid == true){
+      this.customerService.checkUsername(this.form.value.username, this.form.value.id).subscribe(data =>{
+        this.poruka = false
+       // this.form.controls['username'].setErrors(null);
+      }, err => {
+        //this.form.controls['username'].setErrors({'incorrect': true});
+        this.poruka = false
+        this.message = err.error.message;
+        this.poruka = true;
+      })
+    // }
+  }
+
+  checkEmailCustomer(){
+      this.customerService.checkEmail(this.form.value.email, this.form.value.id).subscribe(data => {
+        this.poruka = false;
+      }, err => {
+        this.poruka = false
+        this.message = err.error.message;
+        this.poruka = true;
+      });
+
+  }
+
+  closeDialogCreate(){
+    this.create=false
   }
 
   note(){
@@ -101,6 +161,10 @@ export class UsersAdminComponent implements OnInit{
   closeDialog(){
     this.process=false
     this.password = false
+  }
+
+  closeNoUsers(){
+    this.no=false
   }
 
   changePass(){

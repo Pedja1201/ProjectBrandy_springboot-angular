@@ -21,9 +21,9 @@ public class Customer extends User {
     public Customer() {super();
     }
 
-    public Customer(Long id, String username, String password, String firstName,
+    public Customer(Long id, String username, String password, boolean active, String firstName,
                     String lastName, String email) {
-        super(id, username, password);
+        super(id, username, password, active);
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

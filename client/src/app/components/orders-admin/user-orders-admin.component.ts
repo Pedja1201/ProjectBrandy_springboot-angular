@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
+import { Brandy } from 'src/app/model/brandy';
 import { Order } from 'src/app/model/order';
+import { BrandyServiceService } from 'src/app/service/brandies/brandy-service.service';
 import { OrderService } from 'src/app/service/order/order.service';
 
 @Component({
@@ -14,7 +17,7 @@ export class UserOrdersAdminComponent implements OnInit{
   order = true
   process = false
 
-  constructor(private o:OrderService) {}
+  constructor(private o:OrderService, private brandyService:BrandyServiceService, private router:Router) {}
 
   ngOnInit(): void {
    this.getAll()
@@ -46,5 +49,12 @@ export class UserOrdersAdminComponent implements OnInit{
 
   closeOrderNotification(){
     this.process = false
+  }
+
+  getBrandyByName(name:String){
+    this.brandyService.getBrandyByName(name).subscribe((x:Brandy)=>{
+      console.log(x)
+      this.router.navigate(['/aboutBrandy', {objDetails: JSON.stringify(x)}], { queryParams:  x , skipLocationChange: true});
+    })
   }
 }
