@@ -44,7 +44,7 @@ public class OrderController {
         Page<OrderShop> order = orderService.findAll(pageable);
         Page<OrderDTO> orders = order.map(new Function<OrderShop, OrderDTO>() {
             public OrderDTO apply(OrderShop order) {
-                OrderDTO porudzbinaDTO = new OrderDTO(order.getId(), order.getQuantity(), order.getDateOfPurchase(),
+                OrderDTO porudzbinaDTO = new OrderDTO(order.getId(), order.getQuantity(), order.getDateOfPurchase(),order.isConfirm(),
                         new CustomerDTO(order.getCustomer().getId(), order.getCustomer().getUsername(),null,
                                 order.getCustomer().getFirstName(),order.getCustomer().getLastName(),
                                 order.getCustomer().getEmail()),
@@ -107,7 +107,7 @@ public class OrderController {
         Optional<OrderShop> order = orderService.findOne(orderId);
         if (order.isPresent()) {
             OrderDTO orderDTO = new OrderDTO(order.get().getId(),order.get().getQuantity(),
-                    order.get().getDateOfPurchase(),
+                    order.get().getDateOfPurchase(),order.get().isConfirm(),
                     new CustomerDTO(order.get().getCustomer().getId(), order.get().getCustomer().getUsername(),
                             order.get().getCustomer().getPassword(),order.get().getCustomer().getFirstName(),
                             order.get().getCustomer().getLastName(), order.get().getCustomer().getEmail()),
@@ -137,7 +137,7 @@ public class OrderController {
                     order.getCustomer().getEmail());
 
             OrderDTO orderDTO = new OrderDTO(order.getId(), order.getQuantity(),
-                    order.getDateOfPurchase(), customerDTO, brandyDTO);
+                    order.getDateOfPurchase(),true, customerDTO, brandyDTO);
 
             return new ResponseEntity<OrderDTO>(orderDTO, HttpStatus.CREATED);
         } catch (Exception e) {
@@ -164,7 +164,7 @@ public class OrderController {
                     updatedOrder.getCustomer().getEmail());
 
             OrderDTO orderDTO = new OrderDTO(updatedOrder.getId(), updatedOrder.getQuantity(),
-                    updatedOrder.getDateOfPurchase(),customerDTO, brandyDTO);
+                    updatedOrder.getDateOfPurchase(), updatedOrder.isConfirm(), customerDTO, brandyDTO);
 
             return new ResponseEntity<OrderDTO>(orderDTO, HttpStatus.OK);
         }
@@ -207,6 +207,7 @@ public class OrderController {
                         order.getId(),
                         order.getQuantity(),
                         order.getDateOfPurchase(),
+                        order.isConfirm(),
                         new CustomerDTO(
                                 order.getCustomer().getId(),
                                 order.getCustomer().getUsername(),

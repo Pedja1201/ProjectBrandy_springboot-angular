@@ -6,16 +6,18 @@ public class OrderDTO {
     private Long id;
     private double quantity;
     private Date dateOfPurchase;
+    private boolean confirm;
     private CustomerDTO customer;
     private BrandyDTO brandy;
 
     public OrderDTO() {super();
     }
 
-    public OrderDTO(Long id, double quantity, Date dateOfPurchase,CustomerDTO customer, BrandyDTO brandy) {
+    public OrderDTO(Long id, double quantity, Date dateOfPurchase, boolean confirm, CustomerDTO customer, BrandyDTO brandy) {
         this.id = id;
         this.quantity = quantity;
         this.dateOfPurchase = dateOfPurchase;
+        this.confirm = confirm;
         this.customer = customer;
         this.brandy = brandy;
     }
@@ -42,6 +44,14 @@ public class OrderDTO {
 
     public void setDateOfPurchase(Date dateOfPurchase) {
         this.dateOfPurchase = dateOfPurchase;
+    }
+
+    public boolean isConfirm() {
+        return confirm;
+    }
+
+    public void setConfirm(boolean confirm) {
+        this.confirm = confirm;
     }
 
     public CustomerDTO getCustomer() {

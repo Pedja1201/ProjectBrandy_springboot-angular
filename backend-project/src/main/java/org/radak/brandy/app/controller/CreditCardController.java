@@ -31,7 +31,7 @@ public class CreditCardController {
         for (CreditCard card : service.findAll()) {
             cards.add(new CreditCardDTO(card.getId(),card.getAmount(),
                     new OrderDTO(card.getOrder().getId(), card.getOrder().getQuantity(),
-                            card.getOrder().getDateOfPurchase(),
+                            card.getOrder().getDateOfPurchase(),card.getOrder().isConfirm(),
                             new CustomerDTO(card.getOrder().getCustomer().getId(),
                                     card.getOrder().getCustomer().getUsername(),null,
                                     card.getOrder().getCustomer().getFirstName(),card.getOrder().getCustomer().getLastName(),
@@ -53,7 +53,7 @@ public class CreditCardController {
             CreditCardDTO creditCardDTO = new CreditCardDTO(card.get().getId(),
                     card.get().getAmount(),
                     new OrderDTO(card.get().getOrder().getId(),card.get().getOrder().getQuantity(),
-                            card.get().getOrder().getDateOfPurchase(),
+                            card.get().getOrder().getDateOfPurchase(),card.get().getOrder().isConfirm(),
                             new CustomerDTO(card.get().getOrder().getCustomer().getId(),
                                     card.get().getOrder().getCustomer().getUsername(),null,
                                     card.get().getOrder().getCustomer().getFirstName(),card.get().getOrder().getCustomer().getLastName(),
@@ -76,7 +76,7 @@ public class CreditCardController {
             service.save(card);
             CreditCardDTO creditCardDTO = new CreditCardDTO(card.getId(),
                     card.getAmount(), new OrderDTO(card.getOrder().getId(),
-                    0,null,null,null),
+                    0,null,false,null,null),
                     card.getNumber(), card.getType(),
                     card.getExpireDate());
             return new ResponseEntity<CreditCardDTO>(creditCardDTO, HttpStatus.CREATED);

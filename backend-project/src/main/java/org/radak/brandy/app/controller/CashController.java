@@ -27,7 +27,7 @@ public class CashController {
         for (Cash cash : service.findAll()) {
             cashed.add(new CashDTO(cash.getId(),cash.getAmount(),
                     new OrderDTO(cash.getOrder().getId(), cash.getOrder().getQuantity(),
-                            cash.getOrder().getDateOfPurchase(),
+                            cash.getOrder().getDateOfPurchase(),cash.getOrder().isConfirm(),
                             new CustomerDTO(cash.getOrder().getCustomer().getId(),
                                     cash.getOrder().getCustomer().getUsername(),null,
                                     cash.getOrder().getCustomer().getFirstName(),cash.getOrder().getCustomer().getLastName(),
@@ -48,7 +48,7 @@ public class CashController {
         if (cash.isPresent()) {
             CashDTO cashDTO = new CashDTO(cash.get().getId(),cash.get().getAmount(),
                     new OrderDTO(cash.get().getOrder().getId(),cash.get().getOrder().getQuantity(),
-                            cash.get().getOrder().getDateOfPurchase(),
+                            cash.get().getOrder().getDateOfPurchase(),cash.get().getOrder().isConfirm(),
                             new CustomerDTO(cash.get().getOrder().getCustomer().getId(),
                                     cash.get().getOrder().getCustomer().getUsername(),null,
                                     cash.get().getOrder().getCustomer().getFirstName(),cash.get().getOrder().getCustomer().getLastName(),
@@ -70,7 +70,7 @@ public class CashController {
             service.save(cash);
             CashDTO cashDTO = new CashDTO(cash.getId(),
                     cash.getAmount(), new OrderDTO(cash.getOrder().getId(),
-                    0,null,null,null),
+                    0,null,false,null,null),
                     cash.getCashTendered());
             return new ResponseEntity<CashDTO>(cashDTO, HttpStatus.CREATED);
         } catch (Exception e) {
