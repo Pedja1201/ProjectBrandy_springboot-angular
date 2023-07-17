@@ -41,4 +41,6 @@ public class OrderService {
     }
 
     public List<OrderShop> findOrderByUserId(Long customer_id) { return orderRepository.getOrderByUserId(customer_id); }
+
+    public List<OrderShop> getOrderByBrandyId(Long brandy_id) { return orderRepository.getOrderByBrandyId(brandy_id); }
 }

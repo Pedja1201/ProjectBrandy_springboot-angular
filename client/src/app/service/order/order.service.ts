@@ -24,12 +24,16 @@ export class OrderService {
     return this.http.get<Order[]>(ORDER_URL + "/" + id + "/orders");
   }
 
+  getOrderByBrandyId(id: number): Observable<Order[]> {
+    return this.http.get<Order[]>(ORDER_URL + "/" + id + "/orders/brandyId");
+  }
+
   getOne(id : number) {
     return this.http.get<Order>(ORDER_URL + "/" + id + "/getOne");
   }
 
   update(id : number, order : Order) {
-    return this.http.put(ORDER_URL + "/" + id, order + "/update");
+    return this.http.put(ORDER_URL + "/" + id, order);
   }
 
   delete(id: number) {

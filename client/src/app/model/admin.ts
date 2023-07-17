@@ -4,5 +4,5 @@ export interface Admin extends User{
     firstName: number,
     lastName: string,
     email: string,
-    upin:string;
+    upin: string;
 }

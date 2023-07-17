@@ -6,7 +6,8 @@
 <div class="container">
   <div class="card" *ngFor="let f of filtered" (click)="about(f)">
     <img src="{{f.url}}" style="width:100%">
-    <h1 style="color: white;">{{f.name}} <span *ngIf="f.quantity" class="green-circle"></span></h1>
+    <h1 *ngIf="f.quantity" style="color: white;">{{f.name}} <span class="green-circle"></span></h1>
+    <h1 *ngIf="!f.quantity" style="color: white;">{{f.name}} <span class="red-circle"></span></h1>
     <p style="font-size: 22px; color: white;">Price: {{f.price}}</p>
   </div>
 </div>

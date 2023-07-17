@@ -1,7 +1,9 @@
 import { Component, OnChanges, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Customer } from 'src/app/model/customer';
+import { Order } from 'src/app/model/order';
 import { CustomerService } from 'src/app/service/customer/customer.service';
+import { OrderService } from 'src/app/service/order/order.service';
 import { TokenStorageService } from 'src/app/service/token-storage/token-storage.service';
 
 @Component({
@@ -29,13 +31,14 @@ export class UsersAdminComponent implements OnInit{
     "id" : new FormControl(null),
     "firstName" : new FormControl(null, [Validators.required]),
     "lastName" : new FormControl(null, [Validators.required]),
+    "active" : new FormControl(null, Validators.nullValidator),
     "username" : new FormControl(null, [Validators.required]),
     "email" : new FormControl(null, [Validators.required, Validators.email]),
     "password" : new FormControl(null, Validators.nullValidator)
   });
 
-  constructor(private customerService:CustomerService, private tokenStorageService: TokenStorageService){ }
-  
+  constructor(private orderService:OrderService, private customerService:CustomerService, private tokenStorageService: TokenStorageService){ }
+   
   ngOnInit(): void {
     this.getAll();
   }
@@ -75,8 +78,8 @@ export class UsersAdminComponent implements OnInit{
     this.deleteNote = false
   }
 
-  deleteUser(){
-    this.customerService.delete(this.custId).subscribe(x=>{
+  deleteUser(id:number){
+    this.customerService.delete(id).subscribe(x=>{
       this.deleteNote = false;
       this.getAll()
     })
@@ -86,6 +89,23 @@ export class UsersAdminComponent implements OnInit{
     if(this.form.valid){
           this.customerService.update(this.form.value.id, this.form.value).subscribe(x=>{
             this.getAll()
+            if(this.form.value.active = true){
+              this.orderService.getOrderByUserId(this.form.value.id).subscribe((o:Order[])=>{
+                for(let r of o){
+                  if(r.brandy.quantity == false){
+                  r.confirm = false
+                  this.orderService.update(r.id, r).subscribe(x=>{
+                      console.log("Users orders updated on false!")
+                  })
+                  }else{
+                    r.confirm = true
+                  this.orderService.update(r.id, r).subscribe(x=>{
+                      console.log("Users orders updated on true!")
+                  })
+                  }
+                }
+              })
+            }
             this.process = false
             this.custId = Number(this.form.value.id)
             this.confirmNote=false
@@ -110,32 +130,48 @@ export class UsersAdminComponent implements OnInit{
     }
   }
 
-  checkUsernameCustomer(){
-    // if(this.form.get("username")?.valid == true){
-      this.customerService.checkUsername(this.form.value.username, this.form.value.id).subscribe(data =>{
-        this.poruka = false
-       // this.form.controls['username'].setErrors(null);
-      }, err => {
-        //this.form.controls['username'].setErrors({'incorrect': true});
-        this.poruka = false
-        this.message = err.error.message;
-        this.poruka = true;
+  logicalDelete(user:Customer){
+    if(user.active = true){
+      user.active = false
+      this.customerService.update(user.id, user).subscribe(x=>{
+        this.getAll()
+        this.orderService.getOrderByUserId(user.id).subscribe((o:Order[])=>{
+          for(let r of o){
+            // if(r.brandy.quantity == false){
+            r.confirm = false
+            this.orderService.update(r.id, r).subscribe(x=>{
+                console.log("Users orders updated!")
+            })
+            // }
+          }
+        })
       })
-    // }
+    }
   }
 
-  checkEmailCustomer(){
-      this.customerService.checkEmail(this.form.value.email, this.form.value.id).subscribe(data => {
-        this.poruka = false;
-      }, err => {
-        this.poruka = false
-        this.message = err.error.message;
-        this.poruka = true;
-      });
+  checkUsernameCustomer(){
+    this.customerService.checkUsername(this.form.value.username, this.form.value.id).subscribe(data =>{
+      this.poruka = false
+    }, err => {
+      this.poruka = false
+      this.message = err.error.message;
+      this.poruka = true;
+    })
+}
 
-  }
+checkEmailCustomer(){
+    this.customerService.checkEmail(this.form.value.email, this.form.value.id).subscribe(data => {
+      this.poruka = false;
+    }, err => {
+      this.poruka = false
+      this.message = err.error.message;
+      this.poruka = true;
+    });
+
+}
 
   closeDialogCreate(){
+    this.poruka =false
     this.create=false
   }
 
@@ -159,6 +195,7 @@ export class UsersAdminComponent implements OnInit{
   }
 
   closeDialog(){
+    this.poruka=false
     this.process=false
     this.password = false
   }

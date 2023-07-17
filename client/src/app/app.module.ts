@@ -35,6 +35,7 @@ import { OrderComponent } from './components/order/order.component';
 import { UserOrdersAdminComponent } from './components/orders-admin/user-orders-admin.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { UsersAdminComponent } from './components/users-admin/users-admin.component';
+import { AdminBrandyComponent } from './components/admin-brandy/admin-brandy.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { UsersAdminComponent } from './components/users-admin/users-admin.compon
     OrderComponent,
     UserOrdersAdminComponent,
     ProfileComponent,
-    UsersAdminComponent
+    UsersAdminComponent,
+    AdminBrandyComponent
   ],
   imports: [
     AppRoutingModule,

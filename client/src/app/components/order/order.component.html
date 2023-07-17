@@ -41,12 +41,16 @@
                                                 <div class="cart_item_title">Price</div>
                                                 <div class="cart_item_text">{{o.brandy.price}}</div>
                                             </div>
+                                            <div class="cart_item_price cart_info_col">
+                                                <div class="cart_item_title">Available</div>
+                                                <div class="cart_item_text">{{o.confirm ? 'Yes' : 'No' }}</div>
+                                            </div>
                                             <div class="cart_item_total cart_info_col">
                                                 <div class="cart_item_title">Total</div>
                                                 <div class="cart_item_text">{{o.total}}</div>
                                             </div>
                                             <div>
-                                                <button class="cancel_order_button" (click)="cancelOrder(o.id)">Cancel order</button>
+                                                <button class="cancel_order_button" *ngIf="o.confirm" (click)="cancelOrder(o)">Cancel order</button>
                                             </div>
                                         </div>
                                         

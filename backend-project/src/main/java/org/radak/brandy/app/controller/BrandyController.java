@@ -61,7 +61,7 @@ public class BrandyController {
     }
 
     @RequestMapping(path = "", method = RequestMethod.POST)
-    @Secured({"ROLE_ADMIN"})
+    //@Secured({"ROLE_ADMIN"})
     public ResponseEntity<BrandyDTO> create(@RequestBody Brandy brandy) {
         try {
             brandyService.save(brandy);
@@ -69,15 +69,17 @@ public class BrandyController {
                     brandy.getPrice(), brandy.getYear(), brandy.getStrength(),
                     brandy.isQuantity(), brandy.getUrl());
 
-            return new ResponseEntity<BrandyDTO>(brandyDTO, HttpStatus.CREATED);
+            System.out.println("Brandy added");
+        return new ResponseEntity<BrandyDTO>(brandyDTO, HttpStatus.CREATED);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        System.out.println("No brandy");
         return new ResponseEntity<BrandyDTO>(HttpStatus.BAD_REQUEST);
     }
 
     @RequestMapping(path = "/{brandyId}", method = RequestMethod.PUT)
-    @Secured({"ROLE_ADMIN"})
+    //@Secured({"ROLE_ADMIN"})
     public ResponseEntity<BrandyDTO> update(@PathVariable("brandyId") Long brandyId,
                                                   @RequestBody Brandy updatedBrandy) {
         Brandy brandy = brandyService.findOne(brandyId).orElse(null);
@@ -93,7 +95,7 @@ public class BrandyController {
     }
 
     @RequestMapping(path = "/{brandyId}", method = RequestMethod.DELETE)
-    @Secured({"ROLE_ADMIN"})
+    //@Secured({"ROLE_ADMIN"})
     public ResponseEntity<BrandyDTO> delete(@PathVariable("brandyId") Long brandyId) {
         if (brandyService.findOne(brandyId).isPresent()) {
             brandyService.delete(brandyId);

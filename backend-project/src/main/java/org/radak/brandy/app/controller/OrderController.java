@@ -71,6 +71,7 @@ public class OrderController {
             orderDTO.setId(order.getId());
             orderDTO.setQuantity(order.getQuantity());
             orderDTO.setDateOfPurchase(order.getDateOfPurchase());
+            orderDTO.setConfirm(order.isConfirm());
 
             Customer customer = order.getCustomer();
             CustomerDTO customerDTO = new CustomerDTO();
@@ -237,5 +238,44 @@ public class OrderController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @RequestMapping(path = "/{id}/orders/brandyId", method = RequestMethod.GET)
+    public ResponseEntity<List<OrderDTO>> getOrderByBrandyId(@PathVariable("id") Long id) {
+        List<OrderShop> orders = orderService.getOrderByBrandyId(id);
+        if (!orders.isEmpty()) {
+            List<OrderDTO> orderDTOs = new ArrayList<>();
+            for (OrderShop order : orders) {
+                OrderDTO orderDTO = new OrderDTO(
+                        order.getId(),
+                        order.getQuantity(),
+                        order.getDateOfPurchase(),
+                        order.isConfirm(),
+                        new CustomerDTO(
+                                order.getCustomer().getId(),
+                                order.getCustomer().getUsername(),
+                                order.getCustomer().getPassword(),
+                                order.getCustomer().isActive(),
+                                order.getCustomer().getFirstName(),
+                                order.getCustomer().getLastName(),
+                                order.getCustomer().getEmail()
 
+                        ),
+                        new BrandyDTO(
+                                order.getBrandy().getId(),
+                                order.getBrandy().getName(),
+                                order.getBrandy().getType(),
+                                order.getBrandy().getPrice(),
+                                order.getBrandy().getYear(),
+                                order.getBrandy().getStrength(),
+                                order.getBrandy().isQuantity(),
+                                order.getBrandy().getUrl()
+                        )
+                );
+                orderDTOs.add(orderDTO);
+            }
+            System.out.println("Orders founded by brandy ID!");
+            return new ResponseEntity<>(orderDTOs, HttpStatus.OK);
+        }
+        System.out.println("User has no orders by brandy ID!");
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

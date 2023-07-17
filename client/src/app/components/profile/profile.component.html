@@ -74,10 +74,10 @@ input[type=submit]:hover {
     <input type="text" formControlName="lastName" id="lname" name="lastname" style="border-radius: 30px;" placeholder="Last name">
 
     <label for="email">Email</label>
-    <input type="text" formControlName="email" id="uname" name="email" style="border-radius: 30px;" (change)="checkEmailCustomer()" placeholder="Email">
+    <input type="text" formControlName="email" id="uname" name="email" style="border-radius: 30px;" (input)="checkEmailCustomer()" placeholder="Email">
 
-    <label for="uname">Username</label>
-    <input type="text" formControlName="username" style="border-radius: 30px;" (change)="checkUsernameCustomer($event)" placeholder="Username">
+    <label for="username">Username</label>
+    <input type="text" id="username" formControlName="username" style="border-radius: 30px;" (input)="checkUsernameCustomer()" placeholder="Username">
 
     <div *ngIf="password">
     <label for="pword">Password</label>
@@ -109,10 +109,10 @@ input[type=submit]:hover {
   <input type="text" formControlName="lastName" id="lname" name="lastname" style="border-radius: 30px;" placeholder="Last name">
 
   <label for="email">Email</label>
-  <input type="text" formControlName="email" id="uname" name="email" style="border-radius: 30px;" (change)="checkEmailAdmin()" placeholder="Email">
+  <input type="text" formControlName="email" id="uname" name="email" style="border-radius: 30px;" (input)="checkEmailAdmin()" placeholder="Email">
 
   <label for="uname">Username</label>
-  <input type="text" formControlName="username" id="uname" name="username" style="border-radius: 30px;" (change)="checkUsernameAdmin()" placeholder="Username">
+  <input type="text" formControlName="username" id="uname" name="username" style="border-radius: 30px;" (input)="checkUsernameAdmin()" placeholder="Username">
 
   <div *ngIf="password">
     <label for="pword">Password</label>

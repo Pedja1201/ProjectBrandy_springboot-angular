@@ -16,6 +16,7 @@ export class UserOrdersAdminComponent implements OnInit{
   orders:Order[]=[];
   order = true
   process = false
+  physicalDelete = false
 
   constructor(private o:OrderService, private brandyService:BrandyServiceService, private router:Router) {}
 
@@ -45,6 +46,16 @@ export class UserOrdersAdminComponent implements OnInit{
       this.getAll()
       console.log("Order obrisan")
     })
+  }
+
+  deleteLogical(o:Order){
+    if(o.confirm == true){
+      this.physicalDelete = true;
+      o.confirm = false
+      this.o.update(o.id, o).subscribe(x=>{
+        this.getAll()
+      })
+    }
   }
 
   closeOrderNotification(){

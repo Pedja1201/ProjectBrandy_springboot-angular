@@ -66,6 +66,15 @@
   margin-left: 10px;
 }
 
+.red-circle {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  background-color: rgb(218, 0, 0);
+  border-radius: 50%;
+  margin-left: 10px;
+}
+
 
 .notification {
   background-color: white;

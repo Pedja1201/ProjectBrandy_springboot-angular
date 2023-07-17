@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { AfterViewInit, Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Admin } from 'src/app/model/admin';
@@ -15,7 +15,7 @@ import { NgxNotificationMsgService, NgxNotificationStatusMsg } from 'ngx-notific
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent implements OnInit{
+export class ProfileComponent implements OnInit, AfterViewInit{
 
   poruka = false;
   message=''
@@ -39,6 +39,9 @@ export class ProfileComponent implements OnInit{
   });
 
   constructor(private readonly ngxNotificationMsgService: NgxNotificationMsgService, private router: Router, private adminservice:AdminService,private tokenStorageService: TokenStorageService, private us: UserServiceService, private customer: CustomerService) {}
+  ngAfterViewInit(): void {
+    this.checkUsernameCustomer()
+  }
 
   ngOnInit(): void {
     const user1 = this.tokenStorageService.getUser();
@@ -121,19 +124,14 @@ export class ProfileComponent implements OnInit{
     }
   }
 
-  checkUsernameCustomer(event: any){
-    const value = event.target.value;
-    // if(this.form.get("username")?.valid == true){
+  checkUsernameCustomer(){
       this.customer.checkUsername(this.form.value.username, this.form.value.id).subscribe(data =>{
         this.poruka = false
-       // this.form.controls['username'].setErrors(null);
       }, err => {
-        //this.form.controls['username'].setErrors({'incorrect': true});
         this.poruka = false
         this.message = err.error.message;
         this.poruka = true;
       })
-    // }
   }
 
   checkEmailCustomer(){

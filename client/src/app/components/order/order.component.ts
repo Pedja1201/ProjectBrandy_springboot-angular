@@ -51,22 +51,32 @@ export class OrderComponent implements OnInit {
     if(this.count > 0){
       this.showProceed = true
       for(let o of or){
-        o.total = Number(o.quantity) * o.brandy.price
-        this.totalPriceAll = o.total
-        temp +=this.totalPriceAll
-        this.totalPriceAll = 0
-        this.totalPriceAll = temp
+        if(o.confirm == true){
+          o.total = Number(o.quantity) * o.brandy.price
+          this.totalPriceAll = o.total
+          temp += this.totalPriceAll
+          this.totalPriceAll = 0
+          this.totalPriceAll = temp
+        }
       }
       this.orders = or
     }
   }
 
-  cancelOrder(id: number){
-    this.order.delete(id).subscribe(x => {
-      this.allOrders(this.user.id);
-      window.location.reload()
-    })
+  cancelOrder(order:Order){
+      order.confirm = false
+      this.order.update(order.id, order).subscribe(x=>{
+        this.allOrders(this.user.id);
+        window.location.reload();
+      })
   }
+
+  // cancelOrder(id: number){
+  //   this.order.delete(id).subscribe(x=>{
+  //     this.allOrders(this.user.id);
+  //       window.location.reload()
+  //   })
+  // }
 
   about(name: any){
     let n = String(name)

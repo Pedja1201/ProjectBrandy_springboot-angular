@@ -8,4 +8,5 @@ export interface Order{
     customer:Customer;
     brandy:Brandy;
     total?:number;
+    confirm:boolean;
 }

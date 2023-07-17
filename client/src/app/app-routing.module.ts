@@ -8,6 +8,7 @@ import { OrderComponent } from './components/order/order.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { UserOrdersAdminComponent } from './components/orders-admin/user-orders-admin.component';
 import { UsersAdminComponent } from './components/users-admin/users-admin.component';
+import { AdminBrandyComponent } from './components/admin-brandy/admin-brandy.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent },
   { path: 'editUsersOrdersAdmin', component: UserOrdersAdminComponent },
   { path: 'usersAdmin', component: UsersAdminComponent },
+  { path: 'adminBrandy', component: AdminBrandyComponent },
 
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];

@@ -18,13 +18,13 @@
   }
 
   .button{
-    cursor: pointer; 
+    cursor: pointer;
     border-radius: 35px;
-    padding: 10px 10px; 
-    font-size: 30px; 
-    margin-left: 10px; 
-    margin-top: 10px; 
-    background-color: #3e98f9; 
+    padding: 10px 10px;
+    font-size: 30px;
+    margin-left: 10px;
+    margin-top: 10px;
+    background-color: #3e98f9;
     color: white;
     transition: background-color 0.3s ease-in-out;
   }
@@ -47,7 +47,7 @@
     background-color: #3e98f9;
     color: white;
     text-decoration: none;
-    border-radius: 5px;
+    border-radius: 35px;
     margin-top: 20px;
     transition: background-color 0.3s ease-in-out;
   }
@@ -151,28 +151,32 @@
 
 
 
+.green-circle {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  background-color: green;
+  border-radius: 50%;
+  margin-left: 10px;
+}
 
-#status {
-  font-size: 24px;
-  margin-top: 100px;
+.red-circle {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  background-color: rgb(218, 0, 0);
+  border-radius: 50%;
+  margin-left: 10px;
 }
 
 
 
-.active{
-  display: inline-block;
-  padding: 5px 10px;
-  border: 1px solid black;
-  border-radius: 20px;
-  background-color: rgb(59, 182, 59);
-  color: white;
+.out-of-stock {
+  animation: blinker 2s linear infinite;
 }
 
-.inactive{
-  display: inline-block;
-  padding: 5px 10px;
-  border: 1px solid black;
-  border-radius: 20px;
-  background-color: rgb(194, 44, 44);
-  color: white;
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
 }

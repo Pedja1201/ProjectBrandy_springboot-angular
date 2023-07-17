@@ -41,9 +41,14 @@
           
           <div class="order-label">Customer Username:</div>
           <div class="order-value">{{o.customer.username}}</div>
-          
-        <button (click)="delete(o.id)" class="dugme">Delete order</button>
-          
+
+          <div class="order-label">Available:</div>
+          <div class="order-value">{{o.confirm ? 'Yes' : 'No' }}</div>
+        
+          <div>
+            <!-- <button (click)="deleteLogical(o)" *ngIf="o.confirm" style="margin-right: 20px;" class="dugme">Delete</button> -->
+            <button (click)="delete(o.id)" *ngIf="!o.confirm" class="dugme">Delete</button>
+          </div>
         </div>
         
       </li>

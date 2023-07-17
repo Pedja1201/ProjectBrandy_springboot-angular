@@ -1,5 +1,5 @@
 <html>
-    <button (click)="createUserNote()" *ngIf="confirmNote" class="button">Create user</button>
+    <button (click)="createUserNote()" *ngIf="confirmNote" class="button">Create new</button>
     <body>
 
 
@@ -26,13 +26,19 @@
                         <input type="text" formControlName="lastName" id="last-name">
                         <br>
                         <label for="email">Email</label>
-                        <input type="text" formControlName="email" id="email" (change)="checkEmailCustomer()" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+                        <input type="text" formControlName="email" id="email" (input)="checkEmailCustomer()" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
                         <div style="text-align: center; padding-top: 15px; font-size: 25px;" [hidden]="!form.controls['email'].errors?.['pattern']">
                             Please enter correct email format
                         </div>
                         <br>
+                        <label for="active">Active</label>
+                        <select formControlName="active">
+                            <option [ngValue]="true">Yes</option>
+                            <option [ngValue]="false">No</option>
+                        </select> 
+                        <br>
                         <label for="username">Username</label>
-                        <input type="text" formControlName="username" id="username" (change)="checkUsernameCustomer()">
+                        <input type="text" formControlName="username" id="username" (input)="checkUsernameCustomer()">
                         <br>
                         <div *ngIf="password">
                         <label for="password">Password</label>
@@ -62,14 +68,20 @@
                         <input type="text" formControlName="lastName" id="last-name">
                         <br>
                         <label for="email">Email</label>
-                        <input type="text" formControlName="email" id="email" (change)="checkEmailCustomer()" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+                        <input type="text" formControlName="email" id="email" (input)="checkEmailCustomer()" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
                         
                         <div style="text-align: center; padding-top: 15px; font-size: 25px;" [hidden]="!form.controls['email'].errors?.['pattern']">
                             Please enter correct email format
                         </div>
                         <br>
+                        <label for="active">Active</label>
+                        <select formControlName="active">
+                            <option [ngValue]="true">Yes</option>
+                            <option [ngValue]="false">No</option>
+                        </select>  
+                        <br>
                         <label for="username">Username</label>
-                        <input type="text" formControlName="username" id="username" (change)="checkUsernameCustomer()">
+                        <input type="text" formControlName="username" id="username" (input)="checkUsernameCustomer()">
                         <br>
                         <label for="password">Password</label>
                         <input type="text" formControlName="password" id="password">
@@ -86,16 +98,21 @@
         <div class="card" *ngFor="let o of customers">
             <img src="https://st5.depositphotos.com/1915171/64699/v/600/depositphotos_646996714-stock-illustration-user-profile-icon-vector-avatar.jpg" alt="Profile Picture">
             <h3 class="name">{{o.username}}</h3>
-            <button (click)="moreDetails(o.username)" *ngIf="confirmNote" class="btn" style="cursor: pointer; font-size: 18px; margin-right: 10px;">Edit user</button>
-            <button (click)="noteDelete(o.id)" *ngIf="confirmNote" class="btn" style="cursor: pointer; font-size: 18px; margin-left: 10px;">Delete user</button>
-
-            <div class="overlay" *ngIf="deleteNote">
+            <h3 class="active" *ngIf="o.active">Active</h3>
+            <h3 class="inactive" *ngIf="!o.active">Inactive</h3>
+            <br>
+            <div *ngIf="confirmNote">
+                <button (click)="moreDetails(o.username)" class="btn" style="cursor: pointer; border-radius: 35px; font-size: 18px; margin-right: 10px;">Edit</button>
+                <button (click)="logicalDelete(o)" *ngIf="o.active" class="btn" style="cursor: pointer; border-radius: 35px; font-size: 18px; margin-left: 10px;">Delete</button>
+                <button (click)="deleteUser(o.id)" *ngIf="!o.active" class="btn" style="cursor: pointer; border-radius: 35px; font-size: 18px; margin-left: 10px;">Delete permanent</button>
+            </div>
+            <!-- <div class="overlay" *ngIf="deleteNote">
                 <div class="notification">
                     <p style="margin-bottom: 15px; font-size: 25px;">Are you sure you want to delete user with ID: {{custId}}</p>
-                    <button (click)="deleteUser()" style="cursor: pointer; font-size: 18px; margin-right: 15px; background-color: lightblue; border-radius: 15px; font-size: 25px; margin-top: 5px; margin-bottom: 5px;">Delete</button>
+                    <button (click)="deleteUser(o.id)" style="cursor: pointer; font-size: 18px; margin-right: 15px; background-color: lightblue; border-radius: 15px; font-size: 25px; margin-top: 5px; margin-bottom: 5px;">Delete</button>
                     <button (click)="noteDeleteCloseDialog()" style="cursor: pointer; font-size: 18px; margin-left: 15px; background-color: lightblue; border-radius: 15px; font-size: 25px; margin-bottom: 5px;">Close</button>
                 </div>
-            </div>
+            </div> -->
         </div>
 
         <div class="overlay" *ngIf="no">

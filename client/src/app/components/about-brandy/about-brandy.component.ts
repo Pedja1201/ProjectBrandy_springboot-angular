@@ -36,6 +36,7 @@ export class AboutBrandyComponent implements OnInit{
     "id" : new FormControl(null),
     "quantity" : new FormControl(1, [Validators.required, Validators.pattern("^[0-9]+$")]),
     "dateOfPurchase" : new FormControl(new Date()),
+    "confirm" : new FormControl(new Date()),
     "customer" : new FormControl(null),
     "brandy" : new FormControl(null)
   });
@@ -71,6 +72,7 @@ export class AboutBrandyComponent implements OnInit{
     if(this.createOrder.valid){
       this.createOrder.value.customer = this.user;
       this.createOrder.value.brandy = this.brandy;
+      this.createOrder.value.confirm = true;
       this.order.create(this.createOrder.value).subscribe(
         data => {
           console.log(data)
