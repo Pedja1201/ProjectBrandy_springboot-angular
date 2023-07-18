@@ -29,9 +29,5 @@ public class OrderLogger {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         orderLogService.save(new OrderLog(null, username, jp.getSignature().toLongString(), "Orders action", LocalDateTime.now()));
-        // Sent mail after create order TODO:Get the whole order in mail!!!
-        Object contnetObject = new OrderDTO();
-        emailService.sendEmailOrder("stan6d1a@gmail.com",
-                "Order!!!", contnetObject);
     }
 }

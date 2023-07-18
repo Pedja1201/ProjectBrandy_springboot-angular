@@ -9,6 +9,7 @@ import org.radak.brandy.app.dto.OrderDTO;
 import org.radak.brandy.app.model.Brandy;
 import org.radak.brandy.app.model.Customer;
 import org.radak.brandy.app.model.OrderShop;
+import org.radak.brandy.app.service.EmailService;
 import org.radak.brandy.app.service.OrderService;
 import org.radak.brandy.app.service.PdfService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,9 @@ public class OrderController {
     private OrderService orderService;
     @Autowired
     private PdfService pdfService;
+    @Autowired
+    private EmailService emailService;
+
 
     @RequestMapping(path = "", method = RequestMethod.GET)
 //    @Secured({"ROLE_ADMIN", "ROLE_CUSTOMER"})
@@ -139,7 +143,19 @@ public class OrderController {
 
             OrderDTO orderDTO = new OrderDTO(order.getId(), order.getQuantity(),
                     order.getDateOfPurchase(),true, customerDTO, brandyDTO);
+            // Kreirajte sadržaj emaila sa vrijednostima iz orderDTO objekta
+            String recipientEmail = "stan6d1a@email.com";
+            String subject = "Novi order kreiran!!!";
+            String emailContent = "Detalji novog ordera:\n" +
+                    "Order ID: " + orderDTO.getId() + "\n" +
+                    "Količina: " + orderDTO.getQuantity() + "L" + "\n" +
+                    "Datum kupovine: " + orderDTO.getDateOfPurchase() + "\n" +
+//                    "Kupac: " + orderDTO.getCustomer().getUsername() + orderDTO.getCustomer().getEmail() + "\n" +
+                    "Proizvod: " + orderDTO.getBrandy().getName() + ", " + orderDTO.getBrandy().getType() + ", " + orderDTO.getBrandy().getPrice() + "\n" +
+                    "Ukupno za naplatu: " + orderDTO.getQuantity() * orderDTO.getBrandy().getPrice();
 
+            // Pošalji email s kreiranim sadržajem
+            emailService.sendEmail(recipientEmail, subject, emailContent);
             return new ResponseEntity<OrderDTO>(orderDTO, HttpStatus.CREATED);
         } catch (Exception e) {
             e.printStackTrace();
