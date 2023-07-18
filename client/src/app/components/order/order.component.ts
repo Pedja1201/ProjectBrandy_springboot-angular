@@ -21,6 +21,7 @@ export class OrderComponent implements OnInit {
   totalPriceAll!: number;
   showProceed = false;
   process = false;
+  confirm = true
 
   constructor(private b:BrandyServiceService,private tokenStorageService: TokenStorageService, private router: Router, private us: UserServiceService, private order: OrderService,){ }
 
@@ -58,6 +59,7 @@ export class OrderComponent implements OnInit {
           this.totalPriceAll = 0
           this.totalPriceAll = temp
         }
+        this.confirm = false
       }
       this.orders = or
     }

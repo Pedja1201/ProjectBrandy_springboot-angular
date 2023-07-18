@@ -10,10 +10,10 @@ import { TokenStorageService } from 'src/app/service/token-storage/token-storage
 })
 export class LoginComponent {
 
-  public isLoginFailed = false;
   errorMessage = '';
   roles: string[] = [];
   hidePassword = true;
+  note=false
 
   formLogin : FormGroup = new FormGroup({
     "username" : new FormControl(null, [Validators.required]),
@@ -34,15 +34,20 @@ export class LoginComponent {
         this.tokenStorage.saveToken(data.accessToken);
         
         this.tokenStorage.saveUser(data);
-        this.isLoginFailed = false;
         
         console.log("Uspesan login")
         this.reloadPage();
       },
       err => {
-        this.isLoginFailed = true;
+        this.errorMessage = err.error.message
+        // console.log(this.errorMessage)
+        this.note = true
       }
     );
+  }
+
+  confirmNote(){
+    this.note = false
   }
 
   reloadPage(): void {

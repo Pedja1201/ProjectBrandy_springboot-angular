@@ -4,12 +4,15 @@ import org.radak.brandy.app.dto.AdminDTO;
 import org.radak.brandy.app.dto.CustomerDTO;
 import org.radak.brandy.app.dto.TokenDTO;
 import org.radak.brandy.app.dto.UserDTO;
+import org.radak.brandy.app.excepetion.MessageResponse;
 import org.radak.brandy.app.model.Admin;
 import org.radak.brandy.app.model.Customer;
+import org.radak.brandy.app.model.User;
 import org.radak.brandy.app.model.UserPermission;
 import org.radak.brandy.app.service.AdminService;
 import org.radak.brandy.app.service.CustomerService;
 import org.radak.brandy.app.service.PermissionService;
+import org.radak.brandy.app.service.UserService;
 import org.radak.brandy.app.utils.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.HashSet;
+import java.util.Optional;
 
 @Controller
 @CrossOrigin(origins = "http://localhost:4200")
@@ -53,25 +57,39 @@ public class LoginController { //TODO:RAspodeliti uloge prilikom register: ROLE_
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-    
-    @RequestMapping(path = "/login", method = RequestMethod.POST)
-    public ResponseEntity<TokenDTO> login(@RequestBody UserDTO user) {
-        try {
-            // Kreiranje tokena za login, token sadrzi korisnicko ime i lozinku.
-            UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-                    user.getUsername(), user.getPassword());
-            // Autentifikacija korisnika na osnovu korisnickog imena i lozinke.
-            Authentication authentication = authenticationManager.authenticate(token);
-            // Dodavanje uspesne autentifikacije u security context.
-            SecurityContextHolder.getContext().setAuthentication(authentication);
 
-            // Ucitavanje podatka o korisniku i kreiranje jwt-a.
-            UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUsername());
-            String jwt = tokenUtils.generateToken(userDetails);
-            TokenDTO jwtDTO = new TokenDTO(jwt);
-            
-            System.out.println("Uspesan login");
-            return new ResponseEntity<TokenDTO>(jwtDTO, HttpStatus.OK);
+    @Autowired
+    private UserService userService;
+
+    @RequestMapping(path = "/login", method = RequestMethod.POST)
+    public ResponseEntity<?> login(@RequestBody UserDTO user) {
+        try {
+            // odavde krece logika za aktivan ili neaktivnog koristnika
+            Optional<User> user1 = userService.findByUsername(user.getUsername());
+            if (user1.isPresent()) {
+                if (user1.get().isActive()) {
+                    // Kreiranje tokena za login, token sadrzi korisnicko ime i lozinku.
+                    UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
+                            user.getUsername(), user.getPassword());
+                    // Autentifikacija korisnika na osnovu korisnickog imena i lozinke.
+                    Authentication authentication = authenticationManager.authenticate(token);
+                    // Dodavanje uspesne autentifikacije u security context.
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+
+                    // Ucitavanje podatka o korisniku i kreiranje jwt-a.
+                    UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUsername());
+                    String jwt = tokenUtils.generateToken(userDetails);
+                    TokenDTO jwtDTO = new TokenDTO(jwt);
+
+                    System.out.println("Uspesan login");
+                    return new ResponseEntity<TokenDTO>(jwtDTO, HttpStatus.OK);
+                } else {
+                    return ResponseEntity.badRequest().body(new MessageResponse("Your account is disabled, please refer to administrator."));
+                }
+            } else {
+                System.out.println("Neuspesan login");
+                return ResponseEntity.badRequest().body(new MessageResponse("No account with such a username."));
+            }
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Neuspesan login");

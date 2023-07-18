@@ -39,7 +39,7 @@ body{
     bottom: -80px;
 }
 form{
-    height: 480px;
+    height: 400px;
     width: 400px;
     background-color: rgba(55, 52, 52, 0.6);
     position: absolute;
@@ -129,4 +129,44 @@ button{
     50% {
       opacity: 0;
     }
+  }
+
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Providnost */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
+  
+  .notification {
+    position: relative;
+    background-color: white;
+    padding: 20px;
+    border-radius: 45px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .notification h2 {
+    margin-top: 0;
+  }
+  
+  .notification p {
+    margin-bottom: 0;
+  }
+  
+  .close {
+    position: absolute;
+    top: 0px;
+    right: 9px;
+    cursor: pointer;
+    font-size: 35px;
+    font-weight: bold;
   }

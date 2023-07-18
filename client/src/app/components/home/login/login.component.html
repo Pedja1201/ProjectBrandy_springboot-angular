@@ -15,6 +15,15 @@
         <div class="shape"></div>
         <div class="shape"></div>
     </div>
+
+    <div class="overlay" *ngIf="note">
+        <div class="notification">
+          <!-- <span class="close" (click)="confirmNote()">&#10006;</span> -->
+          <p style="font-size: 35px;">{{errorMessage}}</p>
+          <button (click)="confirmNote()" style="border-radius: 25px; background-color:rgb(156, 204, 249);">Confirm</button>
+        </div>
+    </div>
+
     <form (submit)="login()" [formGroup]="formLogin" novalidate>
         <h3>Login</h3>
 
@@ -24,7 +33,7 @@
         <label for="password">Password</label>
         <input formControlName="password" type="password" placeholder="Password" id="password" required>
         
-        <h2 *ngIf="isLoginFailed" class="blink_me"><p style=" padding-top: 20px; text-align: center;">Wrong username or password!</p></h2>
+        <!-- <h2 *ngIf="isLoginFailed" ><p style=" padding-top: 20px; text-align: center;">{{errorMessage}}</p></h2> -->
         
         <button type="submit" style="color: black;">Log In</button>
     </form>
