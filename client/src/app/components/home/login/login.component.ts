@@ -47,6 +47,7 @@ export class LoginComponent {
   }
 
   confirmNote(){
+    this.formLogin.reset()
     this.note = false
   }
 

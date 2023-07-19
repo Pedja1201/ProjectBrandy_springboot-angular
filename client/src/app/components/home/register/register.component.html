@@ -18,13 +18,13 @@
         <h3>Register</h3>
 
         <label for="username">Username</label>
-        <input type="text" placeholder="Username" id="username" formControlName="username" required>
+        <input type="text" placeholder="Username" id="username" formControlName="username" (input)="checkUsernameCustomer()" required>
 
         <label for="password">Password</label>
         <input type="password" placeholder="Password" id="password" formControlName="password" required>
 
         <label for="email">Email</label>
-        <input type="email" placeholder="Email" id="email" formControlName="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+        <input type="email" placeholder="Email" id="email" formControlName="email" (input)="checkEmailCustomer()" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
 
         <div style="text-align: center; padding-top: 15px;" [hidden]="!formRegistrationUser.controls['email'].errors?.['pattern']">
             Please enter correct format
@@ -36,11 +36,11 @@
         <label for="lastName">Surname</label>
         <input type="lastName" placeholder="lastName" id="lastName" formControlName="lastName" required>
 
-        <div class="alert alert-warning" *ngIf="isSignUpFailed" style="text-align: center; padding-top: 15px;">
-            Registration failed! <br />
+        <div *ngIf="poruka">
+            <p style="text-align: center; font-size: 30px">{{message}}</p>
         </div>
 
-        <button type="submit" style="color: black;">Register</button>
+        <button *ngIf="!poruka" type="submit" style="color: black;">Register</button>
     </form>
 </body>
 </html>

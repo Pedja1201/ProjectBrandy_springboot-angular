@@ -58,8 +58,12 @@ export class OrderComponent implements OnInit {
           temp += this.totalPriceAll
           this.totalPriceAll = 0
           this.totalPriceAll = temp
+          this.confirm = true
         }
-        this.confirm = false
+        else{
+          this.confirm = false
+        }
+        // this.confirm = false
       }
       this.orders = or
     }

@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/service/auth/auth.service';
 import { Location } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { CustomerService } from 'src/app/service/customer/customer.service';
 
 @Component({
   selector: 'app-register',
@@ -17,6 +18,8 @@ export class RegisterComponent {
   isSignUpFailed = false;
   errorMessage = '';
   hidePassword = true;
+  poruka = false;
+  message=''
 
   formRegistrationUser : FormGroup = new FormGroup({
     "id" : new FormControl(null),
@@ -27,7 +30,7 @@ export class RegisterComponent {
     "password" : new FormControl(null, [Validators.required])
   });
 
-  constructor(private authService: AuthService, private location: Location, private router: Router, private readonly ngxNotificationMsgService: NgxNotificationMsgService) { }
+  constructor(private customerService:CustomerService ,private authService: AuthService, private location: Location, private router: Router, private readonly ngxNotificationMsgService: NgxNotificationMsgService) { }
 
   ngOnInit(): void {
   }
@@ -55,6 +58,27 @@ export class RegisterComponent {
       );
     }
   }
+
+  checkUsernameCustomer(){
+    this.customerService.checkUsername(this.formRegistrationUser.value.username, this.formRegistrationUser.value.id).subscribe(data =>{
+      this.poruka = false
+    }, err => {
+      this.poruka = false
+      this.message = err.error.message;
+      this.poruka = true;
+    })
+}
+
+checkEmailCustomer(){
+    this.customerService.checkEmail(this.formRegistrationUser.value.email, this.formRegistrationUser.value.id).subscribe(data => {
+      this.poruka = false;
+    }, err => {
+      this.poruka = false
+      this.message = err.error.message;
+      this.poruka = true;
+    });
+
+}
 
   cancel(){
     this.formRegistrationUser.reset();
