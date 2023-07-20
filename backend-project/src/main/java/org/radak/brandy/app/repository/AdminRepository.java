@@ -20,4 +20,7 @@ public interface AdminRepository extends PagingAndSortingRepository<Admin, Long>
 
     @Query(value = "SELECT CASE WHEN COUNT(*) >= 1 THEN 'true' ELSE 'false' END FROM user WHERE user.email = :email", nativeQuery = true)
     Boolean existsByEmail(@Param("email") String email);
+
+    @Query(value = "SELECT CASE WHEN COUNT(*) >= 1 THEN 'true' ELSE 'false' END FROM user WHERE user.upin = :upin", nativeQuery = true)
+    Boolean existsByUpin(@Param("upin") String upin);
 }

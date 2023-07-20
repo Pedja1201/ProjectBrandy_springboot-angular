@@ -2,6 +2,10 @@
     <head>
         </head>
         <body>
+          <div class="search-container">
+            <input class="search-input" [(ngModel)]="name" type="text" (input)="search(name)" placeholder="Search...">
+            <button (click)="search(name)" class="search-button">Search</button>
+          </div>
 <br>
 <div class="container">
   <div class="card" *ngFor="let f of filtered" (click)="about(f)">

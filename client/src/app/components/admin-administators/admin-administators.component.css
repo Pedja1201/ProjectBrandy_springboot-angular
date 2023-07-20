@@ -1,0 +1,178 @@
+.card {
+    display: inline-block;
+    width: 300px;
+    margin: 10px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+  }
+  
+  .card img {
+    width: 100%;
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+
+  .button{
+    cursor: pointer; 
+    border-radius: 35px;
+    padding: 10px 10px; 
+    font-size: 30px; 
+    margin-left: 10px; 
+    margin-top: 10px; 
+    background-color: #3e98f9; 
+    color: white;
+    transition: background-color 0.3s ease-in-out;
+  }
+  .button:hover{
+    background-color: #0056b3;
+  }
+
+  .card .name {
+    font-size: 24px;
+    margin-top: 10px;
+  }
+  
+  .card .bio {
+    margin-top: 10px;
+  }
+  
+  .card .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #3e98f9;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 20px;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .card .btn:hover {
+    background-color: #0056b3;
+  }
+  
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Providnost */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .notification {
+    position: relative; /* Dodajte relativno pozicioniranje */
+    background-color: white;
+    padding: 20px;
+    border-radius: 35px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .notification h2 {
+    margin-top: 0;
+  }
+  
+  .notification p {
+    margin-bottom: 0;
+  }
+  
+  .close {
+    position: absolute;
+    top: 2px;
+    right: 12px;
+    cursor: pointer;
+    font-size: 45px;
+    font-weight: bold;
+  }
+  
+
+  .form-container {
+    width: 450px;
+    margin: 0 auto;
+}
+
+.form-container label {
+    font-size: 20px;
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+.form-container input, select {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 20px;
+    border: 2px solid #1a1a1a;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 20px;
+}
+
+
+
+
+#obavestenje {
+  opacity: 0;
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #f2f2f2;
+  padding: 20px;
+  width: 300px;
+  border-radius: 35px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+  transition: opacity 0.5s, top 0.5s;
+}
+
+#obavestenje.prikazi {
+  opacity: 1;
+  top: 50px;
+}
+
+#closeBtn {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  border: none;
+  background-color: transparent;
+  font-size: 45px;
+  cursor: pointer;
+}
+
+
+
+
+#status {
+  font-size: 24px;
+  margin-top: 100px;
+}
+
+
+
+.active{
+  display: inline-block;
+  padding: 5px 10px;
+  border: 1px solid black;
+  border-radius: 20px;
+  background-color: rgb(59, 182, 59);
+  color: white;
+}
+
+.inactive{
+  display: inline-block;
+  padding: 5px 10px;
+  border: 1px solid black;
+  border-radius: 20px;
+  background-color: rgb(194, 44, 44);
+  color: white;
+}

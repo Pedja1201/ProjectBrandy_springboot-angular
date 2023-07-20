@@ -5,6 +5,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+    <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">  -->
     <!--Stylesheet-->
     <style media="screen">
     </style>
@@ -14,8 +16,20 @@
         <div class="shape"></div>
         <div class="shape"></div>
     </div>
-    <form (submit)="saveUser()" [formGroup]="formRegistrationUser" novalidate>
-        <h3>Register</h3>
+
+    <div class="overlay" *ngIf="noteForAdmins">
+        <div class="notification">
+            <h2 style="font-size: 30px;">Please enter password for administrators.</h2>
+            <div style="display: flex; justify-content: center;" [formGroup]="passCheck">
+              <input (input)="checkPassword()" formControlName="pass" type="text" placeholder="Enter password" style="text-align: center; font-size: 25px; padding: 10px; border-radius: 45px; border: 1px solid black; width: 250px;" maxlength="4">
+            </div>
+            <p *ngIf="passCorrect" style="font-size: 30px; margin-bottom: 10px">Wrong password</p>
+          <button (click)="closeNote()" style="border-radius: 25px; background-color:rgb(156, 204, 249);">Close</button>
+        </div>
+    </div>
+
+    <form *ngIf="!showForm" (submit)="saveUser()" [formGroup]="formRegistrationUser" novalidate>
+        <h3>Register form</h3>
 
         <label for="username">Username</label>
         <input type="text" placeholder="Username" id="username" formControlName="username" (input)="checkUsernameCustomer()" required>
@@ -31,16 +45,22 @@
         </div>
 
         <label for="firstName">Name</label>
-        <input type="text" placeholder="firstName" id="text" formControlName="firstName" required>
+        <input type="text" placeholder="Name" id="text" formControlName="firstName" required>
 
         <label for="lastName">Surname</label>
-        <input type="lastName" placeholder="lastName" id="lastName" formControlName="lastName" required>
+        <input type="lastName" placeholder="Surname" id="lastName" formControlName="lastName" required>
 
         <div *ngIf="poruka">
             <p style="text-align: center; font-size: 30px">{{message}}</p>
         </div>
 
-        <button *ngIf="!poruka" type="submit" style="color: black;">Register</button>
+        <button *ngIf="!poruka" type="submit" style="color: black; margin-top: 60px;">Register</button>
+
+        <!-- <p (click)="adminForm()" style="text-align: center; cursor: pointer; margin-top: 35px;">&#10004; Register as admin</p> -->
+
     </form>
+
+
+    
 </body>
 </html>

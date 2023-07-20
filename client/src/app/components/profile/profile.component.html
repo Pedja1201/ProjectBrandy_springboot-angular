@@ -121,7 +121,7 @@ input[type=submit]:hover {
 
   <div *ngIf="upin">
   <label for="pword">UPIN</label>
-  <input type="text" formControlName="upin" id="pword" name="upin" style="border-radius: 30px;" placeholder="UPIN">
+  <input type="text" formControlName="upin" id="pword" name="upin" style="border-radius: 30px;" (input)="checkUpin()" placeholder="UPIN">
   </div>
 
   <div *ngIf="poruka">

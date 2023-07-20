@@ -20,12 +20,18 @@
         <div class="notification">
           <!-- <span class="close" (click)="confirmNote()">&#10006;</span> -->
           <p style="font-size: 35px;">{{errorMessage}}</p>
+          <div *ngIf="adminKontact">
+            <div *ngFor="let a of admins">
+                <p style="font-size: 25px;">Name: {{a.firstName}}</p>
+                <p style="font-size: 25px;">Email: {{a.email}}</p>
+            </div>
+            </div>
           <button (click)="confirmNote()" style="border-radius: 25px; background-color:rgb(156, 204, 249);">Confirm</button>
         </div>
     </div>
 
     <form (submit)="login()" [formGroup]="formLogin" novalidate>
-        <h3>Login</h3>
+        <h3>Login form</h3>
 
         <label for="username">Username</label>
         <input formControlName="username" type="text" placeholder="Username" id="username" required>

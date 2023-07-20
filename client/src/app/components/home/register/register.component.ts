@@ -7,6 +7,7 @@ import { Location } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CustomerService } from 'src/app/service/customer/customer.service';
+import { AdminService } from 'src/app/service/admin/admin.service';
 
 @Component({
   selector: 'app-register',
@@ -19,7 +20,12 @@ export class RegisterComponent {
   errorMessage = '';
   hidePassword = true;
   poruka = false;
-  message=''
+  message='';
+  noteForAdmins = false;
+  confirmForAmin = false;
+  showForm = false
+  adminPass = 3030;
+  passCorrect=false
 
   formRegistrationUser : FormGroup = new FormGroup({
     "id" : new FormControl(null),
@@ -27,12 +33,18 @@ export class RegisterComponent {
     "lastName" : new FormControl(null, [Validators.required]),
     "username" : new FormControl(null, [Validators.required]),
     "email" : new FormControl(null, [Validators.required, Validators.email]),
-    "password" : new FormControl(null, [Validators.required])
+    "password" : new FormControl(null, [Validators.required]),
+    "upin" : new FormControl(null)
   });
 
-  constructor(private customerService:CustomerService ,private authService: AuthService, private location: Location, private router: Router, private readonly ngxNotificationMsgService: NgxNotificationMsgService) { }
+  passCheck : FormGroup = new FormGroup({
+    "pass": new FormControl(null, [Validators.required]),
+  })
+
+  constructor(private adminService:AdminService ,private customerService:CustomerService ,private authService: AuthService, private location: Location, private router: Router, private readonly ngxNotificationMsgService: NgxNotificationMsgService) { }
 
   ngOnInit(): void {
+    
   }
 
   saveUser(): void {
@@ -59,6 +71,18 @@ export class RegisterComponent {
     }
   }
 
+  checkPassword(){
+    if(this.passCheck.valid){
+      if(this.adminPass == this.passCheck.value.pass){
+        this.showForm = true
+        this.passCorrect = false
+        this.noteForAdmins = false
+      }else{
+        this.passCorrect = true
+      }
+    }
+  }
+
   checkUsernameCustomer(){
     this.customerService.checkUsername(this.formRegistrationUser.value.username, this.formRegistrationUser.value.id).subscribe(data =>{
       this.poruka = false
@@ -67,9 +91,9 @@ export class RegisterComponent {
       this.message = err.error.message;
       this.poruka = true;
     })
-}
+  }
 
-checkEmailCustomer(){
+  checkEmailCustomer(){
     this.customerService.checkEmail(this.formRegistrationUser.value.email, this.formRegistrationUser.value.id).subscribe(data => {
       this.poruka = false;
     }, err => {
@@ -78,7 +102,53 @@ checkEmailCustomer(){
       this.poruka = true;
     });
 
-}
+  }
+
+  checkUsernameAdmin(){
+    this.adminService.checkUsername(this.formRegistrationUser.value.username, this.formRegistrationUser.value.id).subscribe(data =>{
+      this.poruka = false
+    }, err => {
+      this.poruka = false
+      this.message = err.error.message;
+      this.poruka = true;
+    })
+  }
+
+  checkEmailAdmin(){
+    this.adminService.checkEmail(this.formRegistrationUser.value.email, this.formRegistrationUser.value.id).subscribe(data => {
+      this.poruka = false;
+    }, err => {
+      this.poruka = false
+      this.message = err.error.message;
+      this.poruka = true;
+    });
+
+  }
+
+  checkUpin(){
+    this.adminService.checkUpin(this.formRegistrationUser.value.upin, this.formRegistrationUser.value.id).subscribe(data => {
+      this.poruka = false;
+    }, err => {
+      this.poruka = false
+      this.message = err.error.message;
+      this.poruka = true;
+    });
+
+  }
+
+  adminForm(){
+    this.noteForAdmins = true
+  }
+
+  confirmForAdmin(){
+    this.noteForAdmins = true
+  }
+
+  closeNote(){
+    this.noteForAdmins = false
+    this.passCorrect = false
+    this.passCheck.reset()
+  }
 
   cancel(){
     this.formRegistrationUser.reset();
@@ -86,3 +156,4 @@ checkEmailCustomer(){
   }
 
 }
+

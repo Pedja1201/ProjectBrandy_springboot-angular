@@ -172,6 +172,17 @@ export class ProfileComponent implements OnInit, AfterViewInit{
     }
   }
 
+  checkUpin(){
+    this.adminservice.checkUpin(this.form.value.upin, this.form.value.id).subscribe(data => {
+      this.poruka = false;
+    }, err => {
+      this.poruka = false
+      this.message = err.error.message;
+      this.poruka = true;
+    });
+
+  }
+
   changePassword(){
     this.password = true
     this.form.controls['password'].setValue('')

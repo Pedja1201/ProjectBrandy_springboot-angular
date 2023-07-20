@@ -2,9 +2,13 @@ package org.radak.brandy.app.controller;
 
 
 import org.radak.brandy.app.dto.AdminDTO;
+import org.radak.brandy.app.dto.CustomerDTO;
 import org.radak.brandy.app.excepetion.MessageResponse;
 import org.radak.brandy.app.model.Admin;
+import org.radak.brandy.app.model.Customer;
+import org.radak.brandy.app.model.UserPermission;
 import org.radak.brandy.app.service.AdminService;
+import org.radak.brandy.app.service.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +19,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -27,6 +33,9 @@ public class AdminController {
 
     @Autowired
     private PasswordEncoder encoder;
+
+    @Autowired
+    private PermissionService permissionService;
 
     @RequestMapping(path = "", method = RequestMethod.GET)
     @Secured({"ROLE_ADMIN"})
@@ -43,6 +52,22 @@ public class AdminController {
         return new ResponseEntity<Page<AdminDTO>>(administratori, HttpStatus.OK);
     }
 
+    //gets all admins but without pagination
+    @RequestMapping(path = "/allAdmins", method = RequestMethod.GET)
+    // @Secured({"ROLE_ADMIN"})
+    public ResponseEntity<Iterable<AdminDTO>> getAllAdmins() {
+        Iterable<Admin> admins = adminService.findAll();
+        Iterable<AdminDTO> adminDTOS = new ArrayList<>();
+        for (Admin admin : admins) {
+            AdminDTO administratorDTO = new AdminDTO(admin.getId(),admin.getUsername(), admin.getPassword(),
+                    admin.isActive(), admin.getFirstName(), admin.getLastName(), admin.getEmail(), admin.getUpin());
+            ((ArrayList<AdminDTO>) adminDTOS).add(administratorDTO);
+        }
+        System.out.println("Admins found");
+        return new ResponseEntity<>(adminDTOS, HttpStatus.OK);
+
+    }
+
     @RequestMapping(path = "/{username}", method = RequestMethod.GET)
     //@Secured({"ROLE_ADMIN"})
     public ResponseEntity<AdminDTO> getByUsername(@PathVariable("username") String username) {
@@ -56,13 +81,20 @@ public class AdminController {
         return new ResponseEntity<AdminDTO>(HttpStatus.NOT_FOUND);
     }
 
+    //modified for password encoder and roles
     @RequestMapping(path = "", method = RequestMethod.POST)
-    @Secured({"ROLE_ADMIN"})
+//    @Secured({"ROLE_ADMIN"})
     public ResponseEntity<AdminDTO> create(@RequestBody Admin administrator) {
         try {
+            administrator.setPassword(encoder.encode(administrator.getPassword()));
             adminService.save(administrator);
-            AdminDTO administratorDTO = new AdminDTO(administrator.getId(),administrator.getUsername(),administrator.getPassword(),
-                    true,administrator.getFirstName(), administrator.getLastName(), administrator.getEmail(), administrator.getUpin());
+            administrator.setUserPermissions(new HashSet<UserPermission>());
+            administrator.getUserPermissions()
+                    .add(new UserPermission(null, administrator, permissionService.findOne(1l).get()));
+            adminService.save(administrator);
+            AdminDTO administratorDTO = new AdminDTO(administrator.getId(),
+                    administrator.getUsername(), administrator.getPassword(),true,
+                    administrator.getFirstName(), administrator.getLastName(), administrator.getEmail(), administrator.getUpin());
             return new ResponseEntity<AdminDTO>(administratorDTO, HttpStatus.CREATED);
         } catch (Exception e) {
             e.printStackTrace();
@@ -97,7 +129,7 @@ public class AdminController {
     }
 
     @RequestMapping(path = "/{administratorId}", method = RequestMethod.DELETE)
-    @Secured({"ROLE_ADMIN"})
+    //@Secured({"ROLE_ADMIN"})
     public ResponseEntity<Admin> delete(@PathVariable("administratorId") Long administratorId) {
         if (adminService.findOne(administratorId).isPresent()) {
             adminService.delete(administratorId);
@@ -107,7 +139,6 @@ public class AdminController {
     }
 
     @GetMapping("/checkEmail/{userId}/{mail}")
-    //@PreAuthorize("hasRole('ADMINISTRATOR')")
     public ResponseEntity<?> checkEmail(@PathVariable("userId") String userId, @PathVariable("mail") String mail) {
         if (adminService.existsByEmail(mail) == true) {
             if(!userId.equals("null")) {
@@ -121,7 +152,6 @@ public class AdminController {
     }
 
     @GetMapping("/checkUsername/{userId}/{username}")
-    //@PreAuthorize("hasRole('ADMINISTRATOR')")
     public ResponseEntity<?> checkUsername(@PathVariable("userId") String userId, @PathVariable("username") String username) {
         if (adminService.existsByUsername(username) == true) {
             if(!userId.equals("null")) {
@@ -132,6 +162,20 @@ public class AdminController {
             }
         }
         return ResponseEntity.ok(new MessageResponse("Username is free!"));
+    }
+
+    //checks if parsed upin of administator already exists in database(used by another admin)
+    @GetMapping("/checkupin/{userId}/{upin}")
+    public ResponseEntity<?> checkUpin(@PathVariable("userId") String userId, @PathVariable("upin") String upin) {
+        if (adminService.existsByUpin(upin) == true) {
+            if(!userId.equals("null")) {
+                Optional<Admin> admin = adminService.findOne(Long.parseLong(userId));
+                if(!upin.equals(admin.get().getUsername())) { return ResponseEntity.badRequest().body(new MessageResponse("Upin is already taken!")); }
+            } else {
+                return ResponseEntity.badRequest().body(new MessageResponse("Upin is already taken!"));
+            }
+        }
+        return ResponseEntity.ok(new MessageResponse("Upin is free!"));
     }
 
 }

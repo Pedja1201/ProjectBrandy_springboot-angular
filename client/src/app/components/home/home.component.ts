@@ -16,6 +16,8 @@ export class HomeComponent {
 
   brandyPage: BrandyPage<Brandy> = new BrandyPage<Brandy>();
   filtered: Brandy [] = [];
+  name:string='';
+  searched:any=[];
 
   constructor(private router: Router, private brandy: BrandyServiceService, private tokenStorageService: TokenStorageService){}
 
@@ -38,6 +40,20 @@ export class HomeComponent {
 
   about(brandy : Brandy){
     this.router.navigate(['/aboutBrandy', {objDetails: JSON.stringify(brandy)}], { queryParams:  brandy , skipLocationChange: true});
+  }
+
+  search(name:string){
+    console.log(name)
+    this.brandy.getAll().subscribe(x=>{
+      for(let f of x.content){
+        if(f.name == name){
+          this.filtered=[]
+          this.filtered.push(f)
+        }else if(name.length < 1){
+          this.loadBrandyList()
+        }
+      }
+    })
   }
 
 }

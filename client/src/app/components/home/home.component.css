@@ -104,3 +104,37 @@
 .roundBottles {
   background-image: url('https://drive.google.com/uc?export=download&id=1GxyIrIWymaiNjyLTndB5K8Cj_OfPN_oM');
 }
+
+
+
+.search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.search-input {
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 30px;
+  font-size: 16px;
+  outline: none;
+  width: 300px;
+}
+
+.search-button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 30px;
+  margin-left: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  outline: none;
+}
+
+.search-button:hover {
+  background-color: #45a049;
+}

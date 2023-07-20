@@ -11,12 +11,24 @@ export class AdminService {
 
   constructor(private http: HttpClient) { }
 
+  getAll(){
+    return this.http.get<Admin[]>(ADMIN_URL + "allAdmins")
+  }
+
   getOne(username : string) {
     return this.http.get<Admin>(ADMIN_URL + username);
   }
 
+  create(user: Admin) {
+    return this.http.post(ADMIN_URL, user);
+  }
+
   update(id : number, user : Admin) {
     return this.http.put(ADMIN_URL + id, user);
+  }
+
+  delete(id: number) {
+    return this.http.delete(ADMIN_URL + id);
   }
 
   checkEmail(mail: string, id : string) {
@@ -27,4 +39,7 @@ export class AdminService {
     return this.http.get(ADMIN_URL + "checkUsername/" + id + "/" + username);
   }
 
+  checkUpin(upin: string, id : string) {
+    return this.http.get(ADMIN_URL + "checkupin/" + id + "/" + upin);
+  }
 }
