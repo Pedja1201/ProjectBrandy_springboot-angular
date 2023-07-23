@@ -48,6 +48,10 @@ public class BrandyService {
         return brandyRepository.findByPrice(min, max);
     }
 
+    public Iterable<Brandy> search(String name) {
+        return brandyRepository.searcByName(name);
+    }
+
     public Brandy save(Brandy brandy) {
         return brandyRepository.save(brandy);
     }
@@ -63,6 +67,8 @@ public class BrandyService {
     public Optional<Brandy> findBrandyName(String name) {
         return brandyRepository.findBrandyName(name);
     }
+
+
 
     public boolean postaviPopust(Long id, double sale) {
         Optional<Brandy> brandy = brandyRepository.findById(id);

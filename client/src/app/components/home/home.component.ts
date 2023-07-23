@@ -1,8 +1,5 @@
-import { JsonPipe } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ApiResponseBrandy } from 'src/app/model/apiResponseBrandy';
 import { Brandy, BrandyPage } from 'src/app/model/brandy';
 import { BrandyServiceService } from 'src/app/service/brandies/brandy-service.service';
 import { TokenStorageService } from 'src/app/service/token-storage/token-storage.service';
@@ -18,6 +15,12 @@ export class HomeComponent {
   filtered: Brandy [] = [];
   name:string='';
   searched:any=[];
+  suggestions: string[] = [
+    'Prva sugestija',
+    'Druga sugestija',
+    'Treća sugestija',
+    // Dodajte više sugestija ako želite
+  ];
 
   constructor(private router: Router, private brandy: BrandyServiceService, private tokenStorageService: TokenStorageService){}
 
@@ -42,18 +45,23 @@ export class HomeComponent {
     this.router.navigate(['/aboutBrandy', {objDetails: JSON.stringify(brandy)}], { queryParams:  brandy , skipLocationChange: true});
   }
 
-  search(name:string){
-    console.log(name)
-    this.brandy.getAll().subscribe(x=>{
-      for(let f of x.content){
-        if(f.name == name){
-          this.filtered=[]
-          this.filtered.push(f)
-        }else if(name.length < 1){
-          this.loadBrandyList()
+  search(name: string){
+    if(name.length > 0){
+      this.brandy.searchBrandy(name).subscribe((x : Brandy [])=>{
+        if(x.length < 1){
+          this.loadBrandyList();
+        }else{
+          this.filtered = []
+          this.filtered = x
         }
-      }
-    })
+      })
+    }else{
+      this.loadBrandyList()
+    }
   }
 
+  clearInput() {
+    this.name = '';
+    this.loadBrandyList()
+  }
 }

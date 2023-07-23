@@ -1,6 +1,8 @@
 package org.radak.brandy.app.controller;
 
 import org.radak.brandy.app.dto.BrandyDTO;
+import org.radak.brandy.app.dto.CustomerDTO;
+import org.radak.brandy.app.excepetion.MessageResponse;
 import org.radak.brandy.app.model.Brandy;
 import org.radak.brandy.app.service.BrandyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,8 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -116,4 +120,21 @@ public class BrandyController {
         }
         return new ResponseEntity<BrandyDTO>(HttpStatus.NOT_FOUND);
     }
+
+    //search brandy by name
+    @GetMapping("/{name}/brandySearch")
+    //@Secured({"ROLE_ADMIN"})
+    public ResponseEntity<?> search(@PathVariable("name") String name) {
+        Iterable<Brandy> brandy = brandyService.search(name);
+        Iterable<BrandyDTO> brandyDTOs = new ArrayList<>();
+        for(Brandy b:brandy){
+            BrandyDTO brandyDTO = new BrandyDTO(b.getId(),b.getName(),b.getType(),
+                    b.getPrice(),b.getYear(), b.getStrength(),
+                    b.isQuantity(), b.getUrl());
+            ((ArrayList<BrandyDTO>) brandyDTOs).add(brandyDTO);
+        }
+        System.out.println("search working");
+        return new ResponseEntity<>(brandyDTOs, HttpStatus.OK);
+    }
+
 }

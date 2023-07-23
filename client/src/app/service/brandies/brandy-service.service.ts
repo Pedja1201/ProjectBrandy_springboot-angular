@@ -23,6 +23,10 @@ export class BrandyServiceService {
     return this.http.get<Brandy>(this.API_URL + "/" + name + "/brandy");
   }
 
+  searchBrandy(name : String) {
+    return this.http.get<Brandy[]>(this.API_URL + "/" + name + "/brandySearch");
+  }
+
   create(brandy: Brandy) {
     return this.http.post(this.API_URL, brandy);
   }

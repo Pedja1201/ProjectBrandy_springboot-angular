@@ -19,4 +19,9 @@ public interface BrandyRepository extends PagingAndSortingRepository<Brandy, Lon
 
     @Query(value = "SELECT brandy.* FROM brandy WHERE brandy.name = :name", nativeQuery = true)
     Optional<Brandy> findBrandyName(@Param("name") String name);
+
+    @Query(value = "SELECT * FROM brandy "
+            + "WHERE UPPER(brandy.name) like CONCAT('%',UPPER(:name),'%')", nativeQuery = true)
+    Iterable<Brandy> searcByName(@Param("name") String name);
+
 }
