@@ -7,7 +7,9 @@ import org.radak.brandy.app.model.Brandy;
 import org.radak.brandy.app.service.BrandyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -30,7 +33,10 @@ public class BrandyController {
 //    @Secured({"ROLE_ADMIN", "ROLE_CUSTOMER"})
     public ResponseEntity<Page<BrandyDTO>> getAll(@RequestParam(name = "min", required = false) Double min,
                                                   @RequestParam(name = "max", required = false) Double max,
-                                                  Pageable pageable) {
+                                                  Pageable pageable
+//                                                  @RequestParam(name = "pageNumber", required = false, defaultValue = "0") Integer pageNumber,
+//                                                  @RequestParam(name = "pageSize", required = false, defaultValue = "5") Integer pageSize
+                                                  ) {
         if (min == null) {
             min = -Double.MAX_VALUE;
         }
@@ -38,6 +44,7 @@ public class BrandyController {
         if (max == null) {
             max = Double.MAX_VALUE;
         }
+//        Pageable pageable = PageRequest.of(pageNumber, pageSize);
         Page<Brandy> brandy = brandyService.findAll(pageable);
         Page<BrandyDTO> brandies = brandy.map(new Function<Brandy, BrandyDTO>() {
             public BrandyDTO apply(Brandy brandy) {
@@ -122,19 +129,80 @@ public class BrandyController {
     }
 
     //search brandy by name
-    @GetMapping("/{name}/brandySearch")
+    @GetMapping("/brandySearch")
+//    @RequestMapping(path = "/{name}/brandySearch", method = RequestMethod.GET)
     //@Secured({"ROLE_ADMIN"})
-    public ResponseEntity<?> search(@PathVariable("name") String name) {
-        Iterable<Brandy> brandy = brandyService.search(name);
-        Iterable<BrandyDTO> brandyDTOs = new ArrayList<>();
-        for(Brandy b:brandy){
-            BrandyDTO brandyDTO = new BrandyDTO(b.getId(),b.getName(),b.getType(),
-                    b.getPrice(),b.getYear(), b.getStrength(),
-                    b.isQuantity(), b.getUrl());
-            ((ArrayList<BrandyDTO>) brandyDTOs).add(brandyDTO);
+    public ResponseEntity<?> search(@RequestParam(name = "name", required = false) String name,
+                                    @RequestParam(name = "minPrice", required = false) Integer minPrice,
+                                    @RequestParam(name = "maxPrice", required = false) Integer maxPrice,
+                                    @RequestParam(name = "pageNumber", required = false, defaultValue = "0") Integer pageNumber,
+                                    @RequestParam(name = "pageSize", required = false, defaultValue = "5") Integer pageSize) {
+
+        if(minPrice == null || maxPrice == null){
+            Iterable<Brandy> b = brandyService.findAll();
+            List<Brandy> brandyList = new ArrayList<>();
+            Iterator<Brandy> iterator = b.iterator();
+            while (iterator.hasNext()){
+                brandyList.add(iterator.next());
+            }
+            Double max = 0.0;
+            Double min = brandyList.get(0).getPrice();
+            for(Brandy r : brandyList){
+                if (r.getPrice() > max){
+                    max = r.getPrice();
+                }
+                if (r.getPrice() < min){
+                    min = r.getPrice();
+                }
+            }
+
+            if (pageSize == null){
+                Integer totalBrandy = brandyList.size();
+                System.out.println("Total branies in list: " + totalBrandy);
+                Page<Brandy> brandy = brandyService.search(name, min.intValue(), max.intValue(), pageNumber, totalBrandy);
+                Page<BrandyDTO> brandies = brandy.map(new Function<Brandy, BrandyDTO>() {
+                    public BrandyDTO apply(Brandy brandy) {
+                        BrandyDTO brandyDTO = new BrandyDTO(brandy.getId(), brandy.getName(), brandy.getType(),
+                                brandy.getPrice(), brandy.getYear(),brandy.getStrength(), brandy.isQuantity(),
+                                brandy.getUrl());
+                        // Conversion logic
+                        return brandyDTO;
+                    }
+                });
+                System.out.println(min);
+                System.out.println(max);
+                return new ResponseEntity<Page<BrandyDTO>>(brandies, HttpStatus.OK);
+            }else {
+
+
+                Page<Brandy> brandy = brandyService.search(name, min.intValue(), max.intValue(), pageNumber, pageSize);
+                Page<BrandyDTO> brandies = brandy.map(new Function<Brandy, BrandyDTO>() {
+                    public BrandyDTO apply(Brandy brandy) {
+                        BrandyDTO brandyDTO = new BrandyDTO(brandy.getId(), brandy.getName(), brandy.getType(),
+                                brandy.getPrice(), brandy.getYear(), brandy.getStrength(), brandy.isQuantity(),
+                                brandy.getUrl());
+                        // Conversion logic
+                        return brandyDTO;
+                    }
+                });
+                System.out.println(min);
+                System.out.println(max);
+                return new ResponseEntity<Page<BrandyDTO>>(brandies, HttpStatus.OK);
+            }
+        }else{
+            Page<Brandy> brandy = brandyService.search(name, minPrice, maxPrice, pageNumber, pageSize);
+            Page<BrandyDTO> brandies = brandy.map(new Function<Brandy, BrandyDTO>() {
+                public BrandyDTO apply(Brandy brandy) {
+                    BrandyDTO brandyDTO = new BrandyDTO(brandy.getId(), brandy.getName(), brandy.getType(),
+                            brandy.getPrice(), brandy.getYear(),brandy.getStrength(), brandy.isQuantity(),
+                            brandy.getUrl());
+                    // Conversion logic
+                    return brandyDTO;
+                }
+            });
+            return new ResponseEntity<Page<BrandyDTO>>(brandies, HttpStatus.OK);
         }
-        System.out.println("search working");
-        return new ResponseEntity<>(brandyDTOs, HttpStatus.OK);
     }
+
 
 }

@@ -4,6 +4,7 @@ import org.radak.brandy.app.model.Brandy;
 import org.radak.brandy.app.repository.BrandyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -48,8 +49,9 @@ public class BrandyService {
         return brandyRepository.findByPrice(min, max);
     }
 
-    public Iterable<Brandy> search(String name) {
-        return brandyRepository.searcByName(name);
+    public Page<Brandy> search(String name, int minPrice, int maxPrice, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return brandyRepository.searchByName(name, minPrice, maxPrice, pageable);
     }
 
     public Brandy save(Brandy brandy) {

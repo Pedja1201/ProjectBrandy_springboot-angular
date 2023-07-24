@@ -106,6 +106,16 @@
 }
 
 
+.search-input1 {
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 30px;
+  font-size: 15px;
+  outline: none;
+  width: 150px;
+  margin-left: 20px;
+}
+
 
 .search-container {
   display: flex;
@@ -138,6 +148,4 @@
 .search-button:hover {
   background-color: #45a049;
 }
-
-
 

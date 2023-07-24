@@ -23,9 +23,32 @@ export class BrandyServiceService {
     return this.http.get<Brandy>(this.API_URL + "/" + name + "/brandy");
   }
 
-  searchBrandy(name : String) {
-    return this.http.get<Brandy[]>(this.API_URL + "/" + name + "/brandySearch");
+  searchBrandy(name?: string, minPrice?: number, maxPrice?: number, pageNumber?: number, pageSize?: number) {
+    let params = new HttpParams();
+  
+    if (name !== undefined) {
+      params = params.set('name', name);
+    }
+  
+    if (minPrice !== undefined) {
+      params = params.set('minPrice', minPrice.toString());
+    }
+  
+    if (maxPrice !== undefined) {
+      params = params.set('maxPrice', maxPrice.toString());
+    }
+  
+    if (pageNumber !== undefined) {
+      params = params.set('pageNumber', pageNumber.toString());
+    }
+  
+    if (pageSize !== undefined) {
+      params = params.set('pageSize', pageSize.toString());
+    }
+  
+    return this.http.get<BrandyPage<Brandy>>(this.API_URL + "/brandySearch", { params });
   }
+  
 
   create(brandy: Brandy) {
     return this.http.post(this.API_URL, brandy);

@@ -2,6 +2,8 @@ package org.radak.brandy.app.repository;
 
 import org.radak.brandy.app.model.Brandy;
 import org.radak.brandy.app.model.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
@@ -21,7 +23,10 @@ public interface BrandyRepository extends PagingAndSortingRepository<Brandy, Lon
     Optional<Brandy> findBrandyName(@Param("name") String name);
 
     @Query(value = "SELECT * FROM brandy "
-            + "WHERE UPPER(brandy.name) like CONCAT('%',UPPER(:name),'%')", nativeQuery = true)
-    Iterable<Brandy> searcByName(@Param("name") String name);
+            + "WHERE (:name IS NULL OR UPPER(brandy.name) LIKE CONCAT('%', UPPER(:name), '%')) "
+            + "AND (:minPrice IS NULL OR brandy.price >= :minPrice) "
+            + "AND (:maxPrice IS NULL OR brandy.price <= :maxPrice)",
+            nativeQuery = true)
+    Page<Brandy> searchByName(@Param("name") String name, @Param("minPrice") int minPrice, @Param("maxPrice") int maxPrice, Pageable pageable);
 
 }

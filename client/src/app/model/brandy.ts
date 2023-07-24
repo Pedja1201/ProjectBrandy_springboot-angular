@@ -1,8 +1,10 @@
 export class BrandyPage<Brandy> {
     content: Brandy[];
+    totalPages:number;
   
     constructor(){
-      this.content=[]
+      this.content=[];
+      this.totalPages=0;
     }
     }
     export class Brandy {

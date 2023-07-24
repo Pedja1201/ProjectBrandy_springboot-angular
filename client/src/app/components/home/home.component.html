@@ -1,16 +1,25 @@
 <html>
     <head>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
         </head>
         <body>
           <div class="search-container">
-            <input class="search-input" [(ngModel)]="name" type="text" (input)="search(name)" placeholder="Search...">
+            <button *ngIf="previous" (click)="previousPage(name)" style="margin-right: 200px; font-size: 20px;" class="search-button">Previous</button>
+            <input class="search-input" style="font-size: 20px;" [(ngModel)]="name" type="text" (input)="search(name, page)" placeholder="Search...">
             <button *ngIf="name.length > 0 readonly" (click)="clearInput()" class="search-button">Clear</button>
+            <button *ngIf="next" (click)="nextPage(name)" style="margin-left: 200px; font-size: 20px;" class="search-button">Next</button>
+          </div>
+          <div style="margin-left: 20px;">
+            <h2 style="color: white; margin-left: 30px;">Filter by price</h2>
+            <!-- <p style="color: white;">{{minPrice}}</p><p style="color: white;">{{maxPrice}}</p> -->
+            <input type="number" style="margin-right: 10px; border-radius: 15px; width: 85px; font-size: 20px;" (input)="loadBrandyList(page)" [(ngModel)]="minPrice">
+            <input type="number" style="margin-left: 10px; border-radius: 15px; width: 85px; font-size: 20px;" (input)="loadBrandyList(page)"  [(ngModel)]="maxPrice">
           </div>
 
 <br>
 <div class="container">
-  <div class="card" *ngFor="let f of filtered" (click)="about(f)">
+  <div class="card" *ngFor="let f of brandyPage?.content" (click)="about(f)">
     <img src="{{f.url}}" style="width:100%">
     <h1 *ngIf="f.quantity" style="color: white;">{{f.name}} <span class="green-circle"></span></h1>
     <h1 *ngIf="!f.quantity" style="color: white;">{{f.name}} <span class="red-circle"></span></h1>
