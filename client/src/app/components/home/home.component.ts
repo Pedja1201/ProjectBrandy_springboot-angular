@@ -20,6 +20,8 @@ export class HomeComponent {
   minPrice!:number;
   maxPrice!:number;
   totalPagesOfB = 0;
+  passedPricesMin!:number;
+  passedPricesMax!:number;
 
   constructor(private router: Router, private brandy: BrandyServiceService, private tokenStorageService: TokenStorageService){
     this.page = 0
@@ -31,7 +33,7 @@ export class HomeComponent {
   }
 
   loadBrandyList(pageNumber:number): void {
-    this.brandy.searchBrandy(this.name, this.minPrice, this.maxPrice, pageNumber, undefined).subscribe(
+    this.brandy.searchBrandy(this.name, this.passedPricesMin, this.passedPricesMax, pageNumber, undefined).subscribe(
       brandy => {
         this.brandyPage = brandy
         this.totalPagesOfB = this.brandyPage.totalPages - 1;
@@ -106,7 +108,7 @@ export class HomeComponent {
   search(name: string, page:number){
     if(name.length > 0){
       this.page = 0;
-      this.brandy.searchBrandy(name, this.minPrice, this.maxPrice, page, 5).subscribe(
+      this.brandy.searchBrandy(name, this.passedPricesMin, this.passedPricesMax, page, 5).subscribe(
         x =>{
           this.brandyPage = x
           console.log(this.brandyPage)
@@ -119,5 +121,9 @@ export class HomeComponent {
   clearInput() {
     this.name = '';
     this.loadBrandyList(this.page);
+  }
+
+  resetPriceFilter(){
+    window.location.reload()
   }
 }

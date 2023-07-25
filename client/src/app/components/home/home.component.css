@@ -61,7 +61,7 @@
   display: inline-block;
   width: 25px;
   height: 25px;
-  background-color: green;
+  background-color: #008000;
   border-radius: 50%;
   margin-left: 10px;
 }
@@ -148,4 +148,64 @@
 .search-button:hover {
   background-color: #45a049;
 }
+
+
+
+
+
+
+.price-filter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px;
+}
+
+label {
+  margin-right: 10px;
+  /* font-weight: bold; */
+  color: white;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 250px;
+  height: 5px;
+  border-radius: 5px;
+  background-color: #ddd;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #4CAF50;
+  cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border: 0;
+  border-radius: 50%;
+  background-color: #4CAF50;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  background-color: #45a049;
+}
+
+input[type="range"]::-moz-range-thumb:hover {
+  background-color: #45a049;
+}
+
+.min-price,
+.max-price {
+  margin: 0 10px;
+  font-weight: bold;
+}
+
 
