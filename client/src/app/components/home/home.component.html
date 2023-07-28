@@ -22,9 +22,9 @@
             <input style="color: white;" type="range" id="price-range" name="price" min="{{minPrice}}" max="{{maxPrice}}" (input)="loadBrandyList(page)" [(ngModel)]="passedPricesMin">
             <input style="color: white;" type="range" id="price-range" name="price" min="{{minPrice}}" max="{{maxPrice}}" (input)="loadBrandyList(page)" [(ngModel)]="passedPricesMax">
 
-            <span class="min-price" style="color: white; font-size: 25px; border-radius: 25px; border: 1px solid black; background-color: black;">${{passedPricesMin}}</span>
-            <span class="max-price" style="color: white; font-size: 25px; border-radius: 25px; border: 1px solid black; background-color: black;">${{passedPricesMax}}</span>
-            <button style="margin-left: 25px; border-radius: 25px; font-size: 25px; background-color: #45a049; color: white; cursor: pointer; padding: 5px 5px;" (click)="resetPriceFilter()">Reset filter</button>
+            <span class="min-price" style="color: white; font-size: 25px; border-radius: 25px; border: 1px solid black; background-color: black;" *ngIf="passedPricesMin != null">RSD {{passedPricesMin}}</span>
+            <span class="max-price" style="color: white; font-size: 25px; border-radius: 25px; border: 1px solid black; background-color: black;" *ngIf="passedPricesMax != null">RSD {{passedPricesMax}}</span>
+            <button style="margin-left: 25px; border-radius: 25px; font-size: 25px; background-color: #45a049; color: white; cursor: pointer; padding: 5px 5px;" (click)="resetPriceFilter()" *ngIf="passedPricesMin != null || passedPricesMax != null">Reset filter</button>
           </div>   
           
 <br>

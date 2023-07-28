@@ -29,8 +29,8 @@ export class AdminBrandyComponent implements OnInit{
     "price" : new FormControl(null, [Validators.required, Validators.pattern("^[0-9]+$")]),
     "year" : new FormControl(null, [Validators.required, Validators.pattern("^[0-9]+$")]),
     "strength" : new FormControl(null, [Validators.required]),
-    "quantity" : new FormControl(null),
-    "url" : new FormControl(null)
+    "quantity" : new FormControl(null, [Validators.required]),
+    "url" : new FormControl(null, [Validators.required])
   });
 
   constructor(private b:BrandyServiceService, private o:OrderService) { }
@@ -68,10 +68,19 @@ export class AdminBrandyComponent implements OnInit{
         this.note()
         this.buttons = false;
         this.getAll();
-        if(this.form.value.quantity=true){
+        if(this.form.value.quantity==true){
           this.o.getOrderByBrandyId(this.form.value.id).subscribe((orders:Order[])=>{
             for(let r of orders){
               r.confirm = true;
+              this.o.update(r.id, r).subscribe(x=>{
+                console.log("Updated orders list!")
+              })
+            }
+          })
+        }else if(this.form.value.quantity==false){
+          this.o.getOrderByBrandyId(this.form.value.id).subscribe((orders:Order[])=>{
+            for(let r of orders){
+              r.confirm = false;
               this.o.update(r.id, r).subscribe(x=>{
                 console.log("Updated orders list!")
               })

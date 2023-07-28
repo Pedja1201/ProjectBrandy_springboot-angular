@@ -24,7 +24,7 @@ export class BrandyPage<Brandy> {
           this.price=0,
           this.year= 0,
           this.strength=''
-          this.quantity= false
+          this.quantity= true
           this.url=''
         }
     }

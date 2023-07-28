@@ -49,8 +49,7 @@ export class AdminAdministatorsComponent implements OnInit{
       const user1 = this.tokenStorageService.getUser();
       let username = user1.sub
 
-      this.administators = x.filter(a => !a.username.includes(username));
-
+      this.administators = x.filter(a => a.username != username);
     })
   }
 

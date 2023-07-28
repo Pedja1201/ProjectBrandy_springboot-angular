@@ -24,10 +24,11 @@ export class HomeComponent {
   passedPricesMax!:number;
 
   constructor(private router: Router, private brandy: BrandyServiceService, private tokenStorageService: TokenStorageService){
-    this.page = 0
+    //this.page = 0
   }
 
   ngOnInit(): void {
+    this.page = 0
     this.loadBrandyList(this.page);
     this.getAll();
   }
@@ -76,25 +77,30 @@ export class HomeComponent {
   }
 
   nextPage(name: string){
-    if(name.length > 0){
-      this.page += 1;
-      console.log(this.page)
-      this.search(name!, this.page!)
+    if(name.length >= 1){
+      if(this.totalPagesOfB -1 != this.page){
+        this.page += 1
+      this.search(this.name, this.page)
+      }
     }else{
       if(this.totalPagesOfB != this.page){
         this.page += 1;
         this.loadBrandyList(this.page)
+        console.log(this.page)
       }else{
-        console.log("No pages")
+        console.log("No next pages")
       }
     }
   }
 
   previousPage(name: string) {
-      if(name.length > 0) {
-          this.search(name, this.page - 0);
-      } else {
-        if(this.page > 0){
+      if(name.length >= 1) {
+        if(this.totalPagesOfB != this.page){
+          this.page -= 1
+          this.search(this.name, this.page)
+        }
+      }else {
+        if(this.page >= 1){
           this.page -= 1;
           this.loadBrandyList(this.page);
         }
@@ -107,10 +113,11 @@ export class HomeComponent {
 
   search(name: string, page:number){
     if(name.length > 0){
-      this.page = 0;
-      this.brandy.searchBrandy(name, this.passedPricesMin, this.passedPricesMax, page, 5).subscribe(
+      //this.page = 0;
+      this.brandy.searchBrandy(name, this.passedPricesMin, this.passedPricesMax, page, undefined).subscribe(
         x =>{
           this.brandyPage = x
+          this.totalPagesOfB=x.totalPages
           console.log(this.brandyPage)
       })
     }else{
@@ -119,6 +126,7 @@ export class HomeComponent {
   }
 
   clearInput() {
+    this.page = 0
     this.name = '';
     this.loadBrandyList(this.page);
   }

@@ -35,6 +35,7 @@ export class ProfileComponent implements OnInit, AfterViewInit{
     "username" : new FormControl(null, [Validators.required]),
     "email" : new FormControl(null, [Validators.required, Validators.email]),
     "password" : new FormControl(null, Validators.nullValidator),
+    "active" : new FormControl(true),
     "upin" : new FormControl(null, Validators.nullValidator)
   });
 
