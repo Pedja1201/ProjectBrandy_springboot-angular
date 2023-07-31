@@ -23,7 +23,10 @@ export class OrderComponent implements OnInit {
   process = false;
   confirm = true
 
-  constructor(private b:BrandyServiceService,private tokenStorageService: TokenStorageService, private router: Router, private us: UserServiceService, private order: OrderService,){ }
+  constructor(private b:BrandyServiceService,private tokenStorageService: TokenStorageService, private router: Router, private us: UserServiceService, private order: OrderService)
+  {
+    this.totalPriceAll = 0
+  }
 
   ngOnInit(){
     const user1 = this.tokenStorageService.getUser();
@@ -54,16 +57,15 @@ export class OrderComponent implements OnInit {
       for(let o of or){
         if(o.confirm == true){
           o.total = Number(o.quantity) * o.brandy.price
-          this.totalPriceAll = o.total
-          temp += this.totalPriceAll
-          this.totalPriceAll = 0
-          this.totalPriceAll = temp
+          this.totalPriceAll += o.total
+          // temp += this.totalPriceAll
+          // this.totalPriceAll = 0
+          // this.totalPriceAll = temp
           this.confirm = true
         }
         else{
           this.confirm = false
         }
-        // this.confirm = false
       }
       this.orders = or
     }

@@ -42,7 +42,6 @@ export class LoginComponent {
         
         this.tokenStorage.saveUser(data);
         
-        console.log("Uspesan login")
         this.reloadPage();
       },
       err => {

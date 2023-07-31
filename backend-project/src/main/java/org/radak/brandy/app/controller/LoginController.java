@@ -93,7 +93,7 @@ public class LoginController { //TODO:RAspodeliti uloge prilikom register: ROLE_
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Neuspesan login");
-            return new ResponseEntity<TokenDTO>(HttpStatus.UNAUTHORIZED);
+            return ResponseEntity.badRequest().body(new MessageResponse("Wrong password."));
         }
     }
 
