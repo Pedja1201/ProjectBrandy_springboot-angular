@@ -1,7 +1,7 @@
 package org.radak.brandy.app.controller;
 
 
-import org.radak.brandy.app.aspect.Logged;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.radak.brandy.app.aspect.LoggedOrder;
 import org.radak.brandy.app.dto.BrandyDTO;
 import org.radak.brandy.app.dto.CustomerDTO;
@@ -14,10 +14,10 @@ import org.radak.brandy.app.service.OrderService;
 import org.radak.brandy.app.service.PdfService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,9 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Function;
 
 @Controller
@@ -44,7 +42,11 @@ public class OrderController {
 
     @RequestMapping(path = "", method = RequestMethod.GET)
 //    @Secured({"ROLE_ADMIN", "ROLE_CUSTOMER"})
-    public ResponseEntity<Page<OrderDTO>> getAll(Pageable pageable) {
+    public ResponseEntity<Page<OrderDTO>> getAll(@RequestParam(name = "pageNumber", required = false, defaultValue = "0") Integer pageNumber,
+                                                 @RequestParam(name = "pageSize", required = false, defaultValue = "3") Integer pageSize,
+                                                 Pageable pageable) {
+
+        pageable = PageRequest.of(pageNumber, pageSize);
         Page<OrderShop> order = orderService.findAll(pageable);
         Page<OrderDTO> orders = order.map(new Function<OrderShop, OrderDTO>() {
             public OrderDTO apply(OrderShop order) {
@@ -214,44 +216,66 @@ public class OrderController {
         }
     }
 
-    @RequestMapping(path = "/{id}/orders", method = RequestMethod.GET)
-    public ResponseEntity<List<OrderDTO>> getOrdersByUserId(@PathVariable("id") Long id) {
-        List<OrderShop> orders = orderService.findOrderByUserId(id);
-        if (!orders.isEmpty()) {
-            List<OrderDTO> orderDTOs = new ArrayList<>();
-            for (OrderShop order : orders) {
-                OrderDTO orderDTO = new OrderDTO(
-                        order.getId(),
-                        order.getQuantity(),
-                        order.getDateOfPurchase(),
-                        order.isConfirm(),
-                        new CustomerDTO(
-                                order.getCustomer().getId(),
-                                order.getCustomer().getUsername(),
-                                order.getCustomer().getPassword(),
-                                order.getCustomer().isActive(),
-                                order.getCustomer().getFirstName(),
-                                order.getCustomer().getLastName(),
-                                order.getCustomer().getEmail()
-                        ),
-                        new BrandyDTO(
-                                order.getBrandy().getId(),
-                                order.getBrandy().getName(),
-                                order.getBrandy().getType(),
-                                order.getBrandy().getPrice(),
-                                order.getBrandy().getYear(),
-                                order.getBrandy().getStrength(),
-                                order.getBrandy().isQuantity(),
-                                order.getBrandy().getUrl()
-                        )
-                );
-                orderDTOs.add(orderDTO);
+    @GetMapping("/ordersOfUser")
+    public ResponseEntity<Page<OrderDTO>> getOrdersByUserId(@RequestParam(name = "id") Long id,
+                                                            @RequestParam(name = "pageNumber", required = false, defaultValue = "0") Integer pageNumber,
+                                                            @RequestParam(name = "pageSize", required = false, defaultValue = "3") Integer pageSize) {
+        Page<OrderShop> order = orderService.findOrderByUserId(id, pageNumber, pageSize);
+
+        Page<OrderDTO> orders = order.map(orderShop -> {
+            CustomerDTO customerDTO = new CustomerDTO(
+                    orderShop.getCustomer().getId(),
+                    orderShop.getCustomer().getUsername(),
+                    orderShop.getCustomer().getPassword(),
+                    orderShop.getCustomer().isActive(),
+                    orderShop.getCustomer().getFirstName(),
+                    orderShop.getCustomer().getLastName(),
+                    orderShop.getCustomer().getEmail()
+            );
+
+            BrandyDTO brandyDTO = new BrandyDTO(
+                    orderShop.getBrandy().getId(),
+                    orderShop.getBrandy().getName(),
+                    orderShop.getBrandy().getType(),
+                    orderShop.getBrandy().getPrice(),
+                    orderShop.getBrandy().getYear(),
+                    orderShop.getBrandy().getStrength(),
+                    orderShop.getBrandy().isQuantity(),
+                    orderShop.getBrandy().getUrl()
+            );
+
+            return new OrderDTO(
+                    orderShop.getId(),
+                    orderShop.getQuantity(),
+                    orderShop.getDateOfPurchase(),
+                    orderShop.isConfirm(),
+                    customerDTO,
+                    brandyDTO
+            );
+        });
+
+        return new ResponseEntity<>(orders, HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "/{id}/AllpricesByUserId", method = RequestMethod.GET)
+    public ResponseEntity<?> getPricesByUserId(@PathVariable("id") Long id) {
+        List<OrderShop> orders = orderService.getPricesByUserId(id);
+        if(!orders.isEmpty()){
+            Integer totalOrders = orders.size();
+            Double total = 0.0;
+            for(OrderShop o : orders){
+                if(o.isConfirm()) {
+                    Double temp = 0.0;
+                    temp = o.getQuantity() * o.getBrandy().getPrice();
+                    total += temp;
+                }
             }
-            System.out.println("Orders founded!");
-            return new ResponseEntity<>(orderDTOs, HttpStatus.OK);
+            Map<String, Number> keys = new HashMap<>();
+            keys.put("totalOrder", totalOrders);
+            keys.put("total", total);
+            return new ResponseEntity<>(keys, HttpStatus.OK);
         }
-        System.out.println("User has no orders!");
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @RequestMapping(path = "/{id}/orders/brandyId", method = RequestMethod.GET)

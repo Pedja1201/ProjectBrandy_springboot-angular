@@ -4,24 +4,19 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
     </head>
-    <body >
-
-        <div class="overlay" *ngIf="process">
-            <div class="notification">
-              <span class="close">&times;</span>
-              <h2 style="font-size: 25px;">Please wait, your order is in processing.</h2>
-              <!-- <p style="font-size: 20px;">{{message}}</p> -->
-            </div>
-        </div>
+    <body>
+            
+        <button *ngIf="previous" class="previous-button" (click)="previousPage()">Previous</button>
+        <button *ngIf="next" class="next-button" (click)="nextPage()">Next</button>
 
         <div class="cart_section">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-10 offset-lg-1">
                         <div class="cart_container">
-                            <div class="cart_title">Shopping Cart<small> ({{count}} item in your cart) </small></div>
+                            <div class="cart_title">Shopping Cart<small> ({{count1}} item in your cart) </small></div>
                             <div class="cart_items">
-                                <ul class="cart_list" *ngFor="let o of orders">
+                                <ul class="cart_list" *ngFor="let o of orders?.content">
                                     <li class="cart_item clearfix">
                                         <div class="cart_item_image"><img src="{{o.brandy.url}}" alt=""></div>
                                         <div class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
@@ -50,7 +45,7 @@
                                                 <div class="cart_item_text">{{o.total}}</div>
                                             </div>
                                             <div>
-                                                <button class="cancel_order_button" *ngIf="o.confirm" (click)="cancelOrder(o)">Cancel order</button>
+                                                <button class="cancel_order_button" *ngIf="o.confirm" (click)="cancelOrder(o.id)">Cancel order</button>
                                             </div>
                                         </div>
                                         
@@ -66,7 +61,7 @@
                                 </div>
                             </div>
                             <div *ngIf="confirm" class="cart_buttons">
-                                <button type="button" class="button cart_button_checkout" *ngIf="confirm">Proceed</button> 
+                                <button type="button" class="button cart_button_checkout">Proceed</button> 
                             </div>
                             <!-- <div class="cart_buttons"> 
                                 <button type="button" [routerLink]="['/home']" class="button cart_button_clear">Continue Shopping</button>

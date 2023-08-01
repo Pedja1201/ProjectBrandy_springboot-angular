@@ -10,20 +10,22 @@ import { TokenStorageService } from 'src/app/service/token-storage/token-storage
   styleUrls: ['./admin-administators.component.css']
 })
 export class AdminAdministatorsComponent implements OnInit{
-  administators:Admin[]=[]
-  process = false
-  password = false
+  administators:Admin[]=[];
+  process = false;
+  password = false;
   custId!:number;
-  confirmNote = true
-  deleteNote = false
-  no = false
-  username!:string
-  create = false
-  mess=''
-  messageForNoteTitle=''
-  messageBody=''
+  confirmNote = true;
+  deleteNote = false;
+  no = false;
+  username!:string;
+  create = false;
+  mess='';
+  messageForNoteTitle='';
+  messageBody='';
   poruka = false;
-  message=''
+  message='';
+  totalPagesAll = 0;
+  page = 0;
 
   form : FormGroup = new FormGroup({
     "id" : new FormControl(null),
@@ -43,14 +45,30 @@ export class AdminAdministatorsComponent implements OnInit{
   }
 
   getAll(){
-    this.adminService.getAll().subscribe(x=>{
-      this.administators = x;
-
+    this.adminService.getAll(this.page, 6).subscribe(x=>{
+      //this.administators = x.content;
+      this.totalPagesAll = x.totalPages;
       const user1 = this.tokenStorageService.getUser();
-      let username = user1.sub
+      let username = user1.sub;
 
-      this.administators = x.filter(a => a.username != username);
+      this.administators = x.content.filter(a => a.username != username);
     })
+  }
+
+  nextPage(){
+    if(this.totalPagesAll - 1 != this.page){
+      this.page++
+      this.getAll();
+    }
+  }
+
+  previousPage(){
+    if(this.page != 0){
+        this.page--;
+        this.getAll()
+    }else if(this.page == 0){
+        console.log("No more previous pages")
+    }
   }
 
   createUserNote(){

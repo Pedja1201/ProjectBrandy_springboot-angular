@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Customer } from 'src/app/model/customer';
+import { Customer, CustomerPage } from 'src/app/model/customer';
 
 const CUSTOMER_URL = 'http://localhost:8080/api/customers/';
 
@@ -11,8 +11,18 @@ export class CustomerService {
 
   constructor(private http: HttpClient) { }
 
-  getAll(){
-    return this.http.get<Customer[]>(CUSTOMER_URL + "allCustomers")
+  getAll(pageNumber?:number, pageSize?:number){
+    let params = new HttpParams();
+
+    if (pageNumber !== undefined) {
+      params = params.set('pageNumber', pageNumber.toString());
+    }
+  
+    if (pageSize !== undefined) {
+      params = params.set('pageSize', pageSize.toString());
+    }
+
+    return this.http.get<CustomerPage<Customer>>(CUSTOMER_URL, { params })
   }
 
   getOne(username : string) {

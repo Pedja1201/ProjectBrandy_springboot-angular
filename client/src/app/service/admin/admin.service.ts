@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Admin } from 'src/app/model/admin';
+import { Admin, AdminPage } from 'src/app/model/admin';
 
 const ADMIN_URL = 'http://localhost:8080/api/admins/';
 
@@ -11,8 +11,18 @@ export class AdminService {
 
   constructor(private http: HttpClient) { }
 
-  getAll(){
-    return this.http.get<Admin[]>(ADMIN_URL + "allAdmins")
+  getAll(pageNumber?:number, pageSize?:number){
+    let params = new HttpParams();
+
+    if (pageNumber !== undefined) {
+      params = params.set('pageNumber', pageNumber.toString());
+    }
+  
+    if (pageSize !== undefined) {
+      params = params.set('pageSize', pageSize.toString());
+    }
+    
+    return this.http.get<AdminPage<Admin>>(ADMIN_URL, { params })
   }
 
   getOne(username : string) {

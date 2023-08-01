@@ -61,8 +61,8 @@ export class AboutBrandyComponent implements OnInit{
 
     this.us.getOne(this.username).subscribe((user:User) => {
       this.user = user
-      this.order.getOrderByUserId(user.id).subscribe((orders:Order[]) => {
-        console.log("Orders of user: ", orders)
+      this.order.getOrderByUserId(user.id).subscribe(orders => {
+        console.log("Orders of user: ", orders.content)
       })
      })
     

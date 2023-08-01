@@ -1,5 +1,9 @@
 <html>
     <button (click)="openDialogCreate()" *ngIf="buttons" class="button">Create new</button>
+    <div class="search-container">
+        <button *ngIf="buttons" (click)="previousPage()" style="margin-right: 800px; margin-bottom: 10px; font-size: 20px;" class="search-button">Previous</button>
+        <button *ngIf="buttons" (click)="nextPage()" style="margin-right: 100px; margin-bottom: 10px; font-size: 20px;" class="search-button">Next</button>
+    </div>
     <body>
 
         <div id="obavestenje" class="notification">

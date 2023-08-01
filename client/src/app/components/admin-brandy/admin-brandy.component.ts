@@ -21,6 +21,8 @@ export class AdminBrandyComponent implements OnInit{
   updateForm=false
   messageForNoteTitle = ''
   messageBody = ''
+  totalPagesAll = 0;
+  page = 0;
 
   form : FormGroup = new FormGroup({
     "id" : new FormControl(null),
@@ -40,11 +42,28 @@ export class AdminBrandyComponent implements OnInit{
   }
 
   getAll(){
-    this.b.getAll().subscribe(
+    this.b.getAll(this.page, 5).subscribe(
       brandy => {
-        this.brandyPage = brandy
-        this.filtered = this.brandyPage.content
+        this.brandyPage = brandy;
+        this.filtered = this.brandyPage.content;
+        this.totalPagesAll = brandy.totalPages;
       });
+  }
+
+  nextPage(){
+    if(this.totalPagesAll - 1 != this.page){
+      this.page++
+      this.getAll();
+    }
+  }
+
+  previousPage(){
+    if(this.page != 0){
+        this.page--;
+        this.getAll()
+    }else if(this.page == 0){
+        console.log("No more previous pages")
+    }
   }
 
   create(){

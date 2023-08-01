@@ -33,10 +33,10 @@ public class BrandyController {
 //    @Secured({"ROLE_ADMIN", "ROLE_CUSTOMER"})
     public ResponseEntity<Page<BrandyDTO>> getAll(@RequestParam(name = "min", required = false) Double min,
                                                   @RequestParam(name = "max", required = false) Double max,
+                                                  @RequestParam(name = "pageNumber", required = false, defaultValue = "0") Integer pageNumber,
+                                                  @RequestParam(name = "pageSize", required = false, defaultValue = "5") Integer pageSize,
                                                   Pageable pageable
-//                                                  @RequestParam(name = "pageNumber", required = false, defaultValue = "0") Integer pageNumber,
-//                                                  @RequestParam(name = "pageSize", required = false, defaultValue = "5") Integer pageSize
-                                                  ) {
+    ) {
         if (min == null) {
             min = -Double.MAX_VALUE;
         }
@@ -44,7 +44,7 @@ public class BrandyController {
         if (max == null) {
             max = Double.MAX_VALUE;
         }
-//        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        pageable = PageRequest.of(pageNumber, pageSize);
         Page<Brandy> brandy = brandyService.findAll(pageable);
         Page<BrandyDTO> brandies = brandy.map(new Function<Brandy, BrandyDTO>() {
             public BrandyDTO apply(Brandy brandy) {
@@ -158,7 +158,6 @@ public class BrandyController {
 
             if (pageSize == null){
                 Integer totalBrandy = brandyList.size();
-                System.out.println("Total branies in list: " + totalBrandy);
                 Page<Brandy> brandy = brandyService.search(name, min.intValue(), max.intValue(), pageNumber, totalBrandy);
                 Page<BrandyDTO> brandies = brandy.map(new Function<Brandy, BrandyDTO>() {
                     public BrandyDTO apply(Brandy brandy) {
@@ -169,8 +168,6 @@ public class BrandyController {
                         return brandyDTO;
                     }
                 });
-                System.out.println(min);
-                System.out.println(max);
                 return new ResponseEntity<Page<BrandyDTO>>(brandies, HttpStatus.OK);
             }else {
 
@@ -185,8 +182,6 @@ public class BrandyController {
                         return brandyDTO;
                     }
                 });
-                System.out.println(min);
-                System.out.println(max);
                 return new ResponseEntity<Page<BrandyDTO>>(brandies, HttpStatus.OK);
             }
         }else{

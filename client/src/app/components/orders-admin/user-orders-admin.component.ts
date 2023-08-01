@@ -17,6 +17,8 @@ export class UserOrdersAdminComponent implements OnInit{
   order = true
   process = false
   physicalDelete = false
+  totalPagesAll=0
+  page = 0
 
   constructor(private o:OrderService, private brandyService:BrandyServiceService, private router:Router) {}
 
@@ -25,8 +27,9 @@ export class UserOrdersAdminComponent implements OnInit{
   }
 
   getAll(){
-    this.o.getAll().subscribe(x=>{
-      this.total(x)
+    this.o.getAll(this.page, 3).subscribe(x=>{
+      this.totalPagesAll = x.totalPages;
+      this.total(x.content)
     })
   }
 
@@ -68,4 +71,21 @@ export class UserOrdersAdminComponent implements OnInit{
       this.router.navigate(['/aboutBrandy', {objDetails: JSON.stringify(x)}], { queryParams:  x , skipLocationChange: true});
     })
   }
+
+  nextPage(){
+    if(this.totalPagesAll - 1 != this.page){
+      this.page++
+      this.getAll();
+    }
+  }
+
+  previousPage(){
+    if(this.page != 0){
+        this.page--;
+        this.getAll()
+    }else if(this.page == 0){
+        console.log("No more previous pages")
+    }
+  }
+
 }

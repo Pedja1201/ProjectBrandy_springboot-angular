@@ -12,7 +12,7 @@ import { TokenStorageService } from 'src/app/service/token-storage/token-storage
   styleUrls: ['./users-admin.component.css']
 })
 export class UsersAdminComponent implements OnInit{
-  customers:Customer[]=[]
+  customers:any[]=[]
   process = false
   password = false
   custId!:number;
@@ -26,6 +26,8 @@ export class UsersAdminComponent implements OnInit{
   messageBody=''
   poruka = false;
   message=''
+  page = 0
+  totalPagesAll=0
 
   form : FormGroup = new FormGroup({
     "id" : new FormControl(null),
@@ -44,12 +46,30 @@ export class UsersAdminComponent implements OnInit{
   }
 
   getAll(){
-    this.customerService.getAll().subscribe(x=>{
-      this.customers = x
+    this.customerService.getAll(this.page, 5).subscribe(x=>{
+      this.customers = x.content;
+      this.totalPagesAll=x.totalPages;
+
       if(this.customers.length == 0){
         this.no = true
       }
     })
+  }
+
+  nextPage(){
+    if(this.totalPagesAll - 1 != this.page){
+      this.page++
+      this.getAll();
+    }
+  }
+
+  previousPage(){
+    if(this.page != 0){
+        this.page--;
+        this.getAll()
+    }else if(this.page == 0){
+        console.log("No more previous pages")
+    }
   }
 
   createUserNote(){
@@ -90,8 +110,8 @@ export class UsersAdminComponent implements OnInit{
           this.customerService.update(this.form.value.id, this.form.value).subscribe(x=>{
             this.getAll()
             if(this.form.value.active = true){
-              this.orderService.getOrderByUserId(this.form.value.id).subscribe((o:Order[])=>{
-                for(let r of o){
+              this.orderService.getOrderByUserId(this.form.value.id).subscribe(o=>{
+                for(let r of o.content){
                   if(r.brandy.quantity == false){
                   r.confirm = false
                   this.orderService.update(r.id, r).subscribe(x=>{
@@ -135,8 +155,8 @@ export class UsersAdminComponent implements OnInit{
       user.active = false
       this.customerService.update(user.id, user).subscribe(x=>{
         this.getAll()
-        this.orderService.getOrderByUserId(user.id).subscribe((o:Order[])=>{
-          for(let r of o){
+        this.orderService.getOrderByUserId(user.id).subscribe(o=>{
+          for(let r of o.content){
             // if(r.brandy.quantity == false){
             r.confirm = false
             this.orderService.update(r.id, r).subscribe(x=>{

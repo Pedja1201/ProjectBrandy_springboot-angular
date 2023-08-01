@@ -11,8 +11,18 @@ export class BrandyServiceService {
 
   constructor(private http: HttpClient) { }
 
-  getAll(){
-    return this.http.get<BrandyPage<Brandy>>(this.API_URL)
+  getAll(pageNumber?: number, pageSize?: number){
+    let params = new HttpParams();
+
+    if (pageNumber !== undefined) {
+      params = params.set('pageNumber', pageNumber.toString());
+    }
+  
+    if (pageSize !== undefined) {
+      params = params.set('pageSize', pageSize.toString());
+    }
+
+    return this.http.get<BrandyPage<Brandy>>(this.API_URL, { params })
   }
 
   getOne(id : number) {

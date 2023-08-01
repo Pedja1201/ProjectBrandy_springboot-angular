@@ -31,7 +31,7 @@ export class LoginComponent {
       this.roles = this.tokenStorage.getUserToken().roles;
     }
     this.adminService.getAll().subscribe(x=>{
-      this.admins = x
+      this.admins = x.content
     })
   }
 

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { Brandy } from 'src/app/model/brandy';
-import { Order } from 'src/app/model/order';
+import { Order, OrderPage } from 'src/app/model/order';
 import { User } from 'src/app/model/user';
 import { BrandyServiceService } from 'src/app/service/brandies/brandy-service.service';
 import { OrderService } from 'src/app/service/order/order.service';
@@ -16,12 +17,17 @@ import { UserServiceService } from 'src/app/service/user/user-service.service';
 export class OrderComponent implements OnInit {
   username!: string;
   user!: User;
-  orders: Order []=[]
+  orders: OrderPage<Order> = new OrderPage<Order>();
   count!: number;
+  count1!: number;
   totalPriceAll!: number;
   showProceed = false;
   process = false;
-  confirm = true
+  confirm = false
+  page = 0
+  totalPages = 0
+  next=true
+  previous=true
 
   constructor(private b:BrandyServiceService,private tokenStorageService: TokenStorageService, private router: Router, private us: UserServiceService, private order: OrderService)
   {
@@ -35,61 +41,71 @@ export class OrderComponent implements OnInit {
     this.us.getOne(this.username).subscribe((user:User) => {
       this.user = user
       this.allOrders(user.id)
-     })
+    })
   }
 
   allOrders(id: number) {
-    this.order.getOrderByUserId(id).subscribe((orders: Order[]) => {
-      if (orders && orders.length > 0) {
-        this.count = orders.length;
-        this.total(orders);
+    this.order.getOrderByUserId(id, this.page, 3).subscribe(orders => {
+      if (orders && orders.content.length > 0) {
+        this.count = orders.content.length;
+        this.total(orders.content);
+        this.totalPages = orders.totalPages;
+        this.order.getTotalPriceByUserId(id).subscribe(o=>{
+          this.totalPriceAll = o.total;
+          this.count1 = o.totalOrder;
+        })
       } else {
         this.count = 0;
-        this.orders = []
       }
     });
   }
+
+  nextPage(){
+    if(this.totalPages - 1 != this.page){
+      this.page++;
+      this.allOrders(this.user.id)
+    }
+  }
+
+  previousPage(){
+    if(this.page != 0){
+      this.page--;
+      this.allOrders(this.user.id)
+    }else if(this.page == 0){
+      console.log("No more previous pages")
+    }
+  }
   
   total(or: Order[]){
-    let temp = 0;
+    this.totalPriceAll = 0
     if(this.count > 0){
       this.showProceed = true
       for(let o of or){
         if(o.confirm == true){
-          o.total = Number(o.quantity) * o.brandy.price
-          this.totalPriceAll += o.total
-          // temp += this.totalPriceAll
-          // this.totalPriceAll = 0
-          // this.totalPriceAll = temp
           this.confirm = true
-        }
-        else{
-          this.confirm = false
+          o.total = Number(o.quantity) * o.brandy.price
         }
       }
-      this.orders = or
+      this.orders.content = or
     }
   }
 
-  cancelOrder(order:Order){
-      order.confirm = false
-      this.order.update(order.id, order).subscribe(x=>{
-        this.allOrders(this.user.id);
-        window.location.reload();
-      })
-  }
-
-  // cancelOrder(id: number){
-  //   this.order.delete(id).subscribe(x=>{
-  //     this.allOrders(this.user.id);
-  //       window.location.reload()
-  //   })
+  // cancelOrder(order:Order){
+  //     order.confirm = false
+  //     this.order.update(order.id, order).subscribe(x=>{
+  //       this.allOrders(this.user.id);
+  //     })
   // }
+
+  cancelOrder(id: number){
+    this.order.delete(id).subscribe(x=>{
+      this.allOrders(this.user.id);
+    })
+  }
 
   about(name: any){
     let n = String(name)
     this.b.getBrandyByName(n).subscribe(x=>{
-      //console.log(x)
       this.router.navigate(['/aboutBrandy', {objDetails: JSON.stringify(x)}], { queryParams:  x , skipLocationChange: true});
     })
   }

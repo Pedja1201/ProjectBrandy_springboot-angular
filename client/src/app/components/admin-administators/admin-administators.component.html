@@ -1,7 +1,10 @@
 <html>
     <button (click)="createUserNote()" *ngIf="confirmNote" class="button">Create new</button>
+    <div class="search-container">
+        <button *ngIf="confirmNote" (click)="previousPage()" style="margin-right: 800px; margin-bottom: 10px; font-size: 20px;" class="search-button">Previous</button>
+        <button *ngIf="confirmNote" (click)="nextPage()" style="margin-right: 100px; margin-bottom: 10px; font-size: 20px;" class="search-button">Next</button>
+    </div>
     <body>
-
 
         <div id="obavestenje" class="skriveno">
             <button (click)="closeNote()" id="closeBtn">&times;</button>

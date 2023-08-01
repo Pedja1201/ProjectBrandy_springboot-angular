@@ -7,6 +7,11 @@
     </div>
 </div>
 
+<div class="search-container">
+  <button (click)="previousPage()" style="margin-right: 800px; font-size: 20px;" class="search-button">Previous</button>
+  <button (click)="nextPage()" style="margin-right: 100px; font-size: 20px;" class="search-button">Next</button>
+</div>
+
 <div class="order-list-container" *ngIf="order">
     <h2 style="color: black; text-align: center; font-size: 30px;">Orders list</h2>
     <ul *ngFor="let o of orders">

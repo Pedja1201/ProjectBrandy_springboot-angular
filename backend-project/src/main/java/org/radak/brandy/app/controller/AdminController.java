@@ -11,6 +11,7 @@ import org.radak.brandy.app.service.AdminService;
 import org.radak.brandy.app.service.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,8 +39,11 @@ public class AdminController {
     private PermissionService permissionService;
 
     @RequestMapping(path = "", method = RequestMethod.GET)
-    @Secured({"ROLE_ADMIN"})
-    public ResponseEntity<Page<AdminDTO>> getAll(Pageable pageable) {
+//    @Secured({"ROLE_ADMIN"})
+    public ResponseEntity<Page<AdminDTO>> getAll(@RequestParam(name = "pageNumber", required = false, defaultValue = "0") Integer pageNumber,
+                                                 @RequestParam(name = "pageSize", required = false, defaultValue = "5") Integer pageSize,
+                                                 Pageable pageable) {
+        pageable = PageRequest.of(pageNumber, pageSize);
         Page<Admin> administrator = adminService.findAll(pageable);
         Page<AdminDTO> administratori = administrator.map(new Function<Admin, AdminDTO>() {
             public AdminDTO apply(Admin administrator) {

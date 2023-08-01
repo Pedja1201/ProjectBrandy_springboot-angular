@@ -28,3 +28,4 @@ export class BrandyPage<Brandy> {
           this.url=''
         }
     }
+    

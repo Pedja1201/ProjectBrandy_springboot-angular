@@ -38,8 +38,8 @@ export class AppComponent implements OnInit{
         this.admin = true
       }
       this.us.getOne(this.username).subscribe((user:User) => {
-        this.order.getOrderByUserId(user.id).subscribe((orders:Order[]) => {
-          if(orders.length > 0){
+        this.order.getOrderByUserId(user.id).subscribe(orders => {
+          if(orders.content.length > 0){
             this.cart = true
           }
         })

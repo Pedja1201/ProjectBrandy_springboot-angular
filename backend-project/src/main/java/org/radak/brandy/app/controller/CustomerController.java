@@ -9,6 +9,7 @@ import org.radak.brandy.app.service.PdfService;
 import org.radak.brandy.app.service.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,7 +44,10 @@ public class CustomerController {
 
     @RequestMapping(path = "", method = RequestMethod.GET)
 //    @Secured({"ROLE_ADMIN"})
-    public ResponseEntity<Page<CustomerDTO>> getAll(Pageable pageable) {
+    public ResponseEntity<Page<CustomerDTO>> getAll(@RequestParam(name = "pageNumber", required = false, defaultValue = "0") Integer pageNumber,
+                                                    @RequestParam(name = "pageSize", required = false, defaultValue = "5") Integer pageSize,
+                                                    Pageable pageable) {
+        pageable = PageRequest.of(pageNumber, pageSize);
         Page<Customer> customer = customerService.findAll(pageable);
         Page<CustomerDTO> customers = customer.map(new Function<Customer, CustomerDTO>() {
             public CustomerDTO apply(Customer customer) {

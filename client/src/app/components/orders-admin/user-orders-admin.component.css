@@ -106,3 +106,35 @@
     padding: 10px; 
     background-color: rgb(123, 161, 255);
   }
+
+
+
+
+
+
+
+
+
+
+  .search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+
+  .search-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 30px;
+    margin-left: 10px;
+    cursor: pointer;
+    outline: none;
+  }
+  
+  .search-button:hover {
+    background-color: #45a049;
+    border: 1px solid white;
+  }
