@@ -45,7 +45,7 @@ public class CustomerController {
     @RequestMapping(path = "", method = RequestMethod.GET)
 //    @Secured({"ROLE_ADMIN"})
     public ResponseEntity<Page<CustomerDTO>> getAll(@RequestParam(name = "pageNumber", required = false, defaultValue = "0") Integer pageNumber,
-                                                    @RequestParam(name = "pageSize", required = false, defaultValue = "5") Integer pageSize,
+                                                    @RequestParam(name = "pageSize", required = false, defaultValue = "100") Integer pageSize,
                                                     Pageable pageable) {
         pageable = PageRequest.of(pageNumber, pageSize);
         Page<Customer> customer = customerService.findAll(pageable);
@@ -58,24 +58,6 @@ public class CustomerController {
             }
         });
         return new ResponseEntity<Page<CustomerDTO>>(customers, HttpStatus.OK);
-    }
-
-    //gets all customers but without pagination
-    @RequestMapping(path = "/allCustomers", method = RequestMethod.GET)
-// @Secured({"ROLE_ADMIN"})
-    public ResponseEntity<Iterable<CustomerDTO>> getAllCustomers() {
-        Iterable<Customer> customers = customerService.findAll();
-        Iterable<CustomerDTO> customerDTOs = new ArrayList<>();
-            for (Customer customer : customers) {
-                CustomerDTO customerDTO = new CustomerDTO(customer.getId(),
-                        customer.getUsername(), customer.getPassword(),customer.isActive(),
-                        customer.getFirstName(), customer.getLastName(),
-                        customer.getEmail());
-                ((ArrayList<CustomerDTO>) customerDTOs).add(customerDTO);
-            }
-            System.out.println("Customers found");
-            return new ResponseEntity<>(customerDTOs, HttpStatus.OK);
-
     }
 
     @RequestMapping(path = "/{username}", method = RequestMethod.GET)

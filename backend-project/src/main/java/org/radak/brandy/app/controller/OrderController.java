@@ -43,7 +43,7 @@ public class OrderController {
     @RequestMapping(path = "", method = RequestMethod.GET)
 //    @Secured({"ROLE_ADMIN", "ROLE_CUSTOMER"})
     public ResponseEntity<Page<OrderDTO>> getAll(@RequestParam(name = "pageNumber", required = false, defaultValue = "0") Integer pageNumber,
-                                                 @RequestParam(name = "pageSize", required = false, defaultValue = "3") Integer pageSize,
+                                                 @RequestParam(name = "pageSize", required = false, defaultValue = "100") Integer pageSize,
                                                  Pageable pageable) {
 
         pageable = PageRequest.of(pageNumber, pageSize);
@@ -66,47 +66,6 @@ public class OrderController {
         });
         return new ResponseEntity<Page<OrderDTO>>(orders, HttpStatus.OK);
     }
-
-    @RequestMapping(path = "/allorders" ,method = RequestMethod.GET)
-    public ResponseEntity<List<OrderDTO>> getAllOrders() {
-        Iterable<OrderShop> orders = orderService.findAll();
-        Iterable<OrderDTO> orderDTOs = new ArrayList<>();
-
-        for (OrderShop order : orders) {
-            OrderDTO orderDTO = new OrderDTO();
-            orderDTO.setId(order.getId());
-            orderDTO.setQuantity(order.getQuantity());
-            orderDTO.setDateOfPurchase(order.getDateOfPurchase());
-            orderDTO.setConfirm(order.isConfirm());
-
-            Customer customer = order.getCustomer();
-            CustomerDTO customerDTO = new CustomerDTO();
-            customerDTO.setId(customer.getId());
-            customerDTO.setUsername(customer.getUsername());
-            customerDTO.setPassword(customer.getPassword());
-            customerDTO.setFirstName(customer.getFirstName());
-            customerDTO.setLastName(customer.getLastName());
-            customerDTO.setEmail(customer.getEmail());
-            orderDTO.setCustomer(customerDTO);
-
-            Brandy brandy = order.getBrandy();
-            BrandyDTO brandyDTO = new BrandyDTO();
-            brandyDTO.setId(brandy.getId());
-            brandyDTO.setName(brandy.getName());
-            brandyDTO.setType(brandy.getType());
-            brandyDTO.setPrice(brandy.getPrice());
-            brandyDTO.setYear(brandy.getYear());
-            brandyDTO.setStrength(brandy.getStrength());
-            brandyDTO.setQuantity(brandy.isQuantity());
-            brandyDTO.setUrl(brandy.getUrl());
-            orderDTO.setBrandy(brandyDTO);
-
-            ((ArrayList<OrderDTO>) orderDTOs).add(orderDTO);
-        }
-
-        return ResponseEntity.ok((List<OrderDTO>) orderDTOs);
-    }
-
 
     @RequestMapping(path = "/{orderId}/getOne", method = RequestMethod.GET)
 //    @Secured({"ROLE_ADMIN", "ROLE_CUSTOMER"})

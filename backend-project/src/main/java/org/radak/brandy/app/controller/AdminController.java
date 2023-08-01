@@ -41,7 +41,7 @@ public class AdminController {
     @RequestMapping(path = "", method = RequestMethod.GET)
 //    @Secured({"ROLE_ADMIN"})
     public ResponseEntity<Page<AdminDTO>> getAll(@RequestParam(name = "pageNumber", required = false, defaultValue = "0") Integer pageNumber,
-                                                 @RequestParam(name = "pageSize", required = false, defaultValue = "5") Integer pageSize,
+                                                 @RequestParam(name = "pageSize", required = false, defaultValue = "100") Integer pageSize,
                                                  Pageable pageable) {
         pageable = PageRequest.of(pageNumber, pageSize);
         Page<Admin> administrator = adminService.findAll(pageable);
@@ -54,22 +54,6 @@ public class AdminController {
             }
         });
         return new ResponseEntity<Page<AdminDTO>>(administratori, HttpStatus.OK);
-    }
-
-    //gets all admins but without pagination
-    @RequestMapping(path = "/allAdmins", method = RequestMethod.GET)
-    // @Secured({"ROLE_ADMIN"})
-    public ResponseEntity<Iterable<AdminDTO>> getAllAdmins() {
-        Iterable<Admin> admins = adminService.findAll();
-        Iterable<AdminDTO> adminDTOS = new ArrayList<>();
-        for (Admin admin : admins) {
-            AdminDTO administratorDTO = new AdminDTO(admin.getId(),admin.getUsername(), admin.getPassword(),
-                    admin.isActive(), admin.getFirstName(), admin.getLastName(), admin.getEmail(), admin.getUpin());
-            ((ArrayList<AdminDTO>) adminDTOS).add(administratorDTO);
-        }
-        System.out.println("Admins found");
-        return new ResponseEntity<>(adminDTOS, HttpStatus.OK);
-
     }
 
     @RequestMapping(path = "/{username}", method = RequestMethod.GET)

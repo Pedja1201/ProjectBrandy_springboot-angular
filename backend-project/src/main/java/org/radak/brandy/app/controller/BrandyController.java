@@ -34,7 +34,7 @@ public class BrandyController {
     public ResponseEntity<Page<BrandyDTO>> getAll(@RequestParam(name = "min", required = false) Double min,
                                                   @RequestParam(name = "max", required = false) Double max,
                                                   @RequestParam(name = "pageNumber", required = false, defaultValue = "0") Integer pageNumber,
-                                                  @RequestParam(name = "pageSize", required = false, defaultValue = "5") Integer pageSize,
+                                                  @RequestParam(name = "pageSize", required = false, defaultValue = "100") Integer pageSize,
                                                   Pageable pageable
     ) {
         if (min == null) {
