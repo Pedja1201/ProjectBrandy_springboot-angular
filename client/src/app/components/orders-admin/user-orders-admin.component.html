@@ -13,7 +13,12 @@
 </div>
 
 <div class="order-list-container" *ngIf="order">
-    <h2 style="color: black; text-align: center; font-size: 30px;">Orders list</h2>
+ 
+  <div class="container">
+    <h2 class="title">Orders list</h2>
+    <button (click)="exportPDF()" class="search-button">Export PDF</button>
+  </div>
+  
     <ul *ngFor="let o of orders">
       <li>
         <div class="order-item">

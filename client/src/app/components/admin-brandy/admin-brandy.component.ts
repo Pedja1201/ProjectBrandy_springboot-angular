@@ -90,10 +90,17 @@ export class AdminBrandyComponent implements OnInit{
         if(this.form.value.quantity==true){
           this.o.getOrderByBrandyId(this.form.value.id).subscribe((orders:Order[])=>{
             for(let r of orders){
-              r.confirm = true;
-              this.o.update(r.id, r).subscribe(x=>{
+              if(r.customer.active == false){
+                r.confirm = false;
+                this.o.update(r.id, r).subscribe(x=>{
                 console.log("Updated orders list!")
               })
+              }else if(r.customer.active == true){
+                r.confirm = true;
+                this.o.update(r.id, r).subscribe(x=>{
+                console.log("Updated orders list!")
+              })
+              }
             }
           })
         }else if(this.form.value.quantity==false){

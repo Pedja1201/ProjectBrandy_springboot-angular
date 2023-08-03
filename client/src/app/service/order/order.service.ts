@@ -13,6 +13,10 @@ export class OrderService {
 
   constructor(private http: HttpClient) { }
 
+  getReport():any {
+    return this.http.get(ORDER_URL + "/export", {responseType:'blob'});
+  }
+
   getAll(pageNumber?:number, pageSize?:number){
     let params = new HttpParams();
 

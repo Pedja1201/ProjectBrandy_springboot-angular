@@ -55,6 +55,7 @@ import { AdminAdministatorsComponent } from './components/admin-administators/ad
   imports: [
     AppRoutingModule,
     BrowserModule,
+    HttpClientModule, 
     RouterModule,
     FormsModule,
     HttpClientModule,

@@ -5,6 +5,7 @@ import { Brandy } from 'src/app/model/brandy';
 import { Order } from 'src/app/model/order';
 import { BrandyServiceService } from 'src/app/service/brandies/brandy-service.service';
 import { OrderService } from 'src/app/service/order/order.service';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-user-orders-admin',
@@ -32,6 +33,16 @@ export class UserOrdersAdminComponent implements OnInit{
       this.total(x.content)
     })
   }
+
+  exportPDF() {
+		this.o.getReport().subscribe((response: any) => {
+			let blob:any = new Blob([response], { type: 'text/pdf; charset=utf-8' });
+			const url = window.URL.createObjectURL(blob);
+			//window.open(url);
+			saveAs(blob, 'Orders report.pdf');
+			}), (error: any) => console.log('Error downloading the file'),
+			() => console.info('File downloaded successfully');
+	}
 
   total(or: Order[]){
     if(or.length < 1){
