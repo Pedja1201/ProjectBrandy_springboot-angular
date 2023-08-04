@@ -27,7 +27,8 @@ public class StockController {
         ArrayList<StockDTO> stocks = new ArrayList<StockDTO>();
 
         for (Stock stock : stockService.findAll()) {
-            stocks.add(new StockDTO(stock.getId(),stock.getQuantity(),stock.isAvailability(),
+            stocks.add(new StockDTO(stock.getId(),stock.getName(),stock.getPalce(),
+                    stock.getQuantity(),stock.isAvailability(),
                     new BrandyDTO(stock.getProduct().getId(),stock.getProduct().getName(),
                             stock.getProduct().getType(), stock.getProduct().getPrice(),
                             stock.getProduct().getYear(), stock.getProduct().getStrength(),
@@ -41,7 +42,8 @@ public class StockController {
     public ResponseEntity<StockDTO> getOne(@PathVariable("stockId") Long stockId) {
         Optional<Stock> stock = stockService.findOne(stockId);
         if (stock.isPresent()) {
-            StockDTO stockDTO = new StockDTO(stock.get().getId(),stock.get().getQuantity(),stock.get().isAvailability(),
+            StockDTO stockDTO = new StockDTO(stock.get().getId(),stock.get().getName(),stock.get().getPalce(),
+                    stock.get().getQuantity(),stock.get().isAvailability(),
                     new BrandyDTO(stock.get().getProduct().getId(),stock.get().getProduct().getName(),
                             stock.get().getProduct().getType(), stock.get().getProduct().getPrice(),
                             stock.get().getProduct().getYear(), stock.get().getProduct().getStrength(),
@@ -56,7 +58,8 @@ public class StockController {
     public ResponseEntity<StockDTO> create(@RequestBody Stock stock) {
         try {
             stockService.save(stock);
-            StockDTO stockDTO = new StockDTO(stock.getId(),stock.getQuantity(), stock.isAvailability(),
+            StockDTO stockDTO = new StockDTO(stock.getId(), stock.getName(),stock.getPalce(),
+                    stock.getQuantity(), stock.isAvailability(),
                     new BrandyDTO(stock.getProduct().getId(),stock.getProduct().getName(),
                             stock.getProduct().getType(), stock.getProduct().getPrice(),
                             stock.getProduct().getYear(), stock.getProduct().getStrength(),
@@ -83,7 +86,7 @@ public class StockController {
     }
 
     @RequestMapping(path = "/{stockId}", method = RequestMethod.DELETE)
-    public ResponseEntity<Stock> deleteKupovina(@PathVariable("stockId") Long stockId) {
+    public ResponseEntity<Stock> delete(@PathVariable("stockId") Long stockId) {
         if (stockService.findOne(stockId).isPresent()) {
             stockService.delete(stockId);
             return new ResponseEntity<Stock>(HttpStatus.OK);
