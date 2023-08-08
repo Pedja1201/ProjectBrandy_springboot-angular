@@ -1,5 +1,9 @@
 <html>
     <button (click)="createUserNote()" *ngIf="confirmNote" class="button">Create new</button>
+    <div style="margin-top: 1px;">
+
+    </div>
+    <p style="color: white; font-size: 35px; border: 1px solid white; border-radius: 35px; display: inline; padding: 10px 10px; margin-left: 830px; background-color: #4CAF50;" >Customer board</p>
     <div class="search-container">
         <button *ngIf="confirmNote" (click)="previousPage()" style="margin-right: 800px; margin-bottom: 10px; font-size: 20px;" class="search-button">Previous</button>
         <button *ngIf="confirmNote" (click)="nextPage()" style="margin-right: 100px; margin-bottom: 10px; font-size: 20px;" class="search-button">Next</button>

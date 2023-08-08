@@ -1,5 +1,6 @@
 package org.radak.brandy.app.service;
 
+import org.hibernate.criterion.Order;
 import org.radak.brandy.app.model.Customer;
 import org.radak.brandy.app.model.OrderShop;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import org.w3c.tidy.Tidy;
 import org.xhtmlrenderer.pdf.ITextRenderer;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Service
@@ -88,8 +91,14 @@ public class PdfService {
     }
     private Context getContextOrdersListPdf() {
         Iterable<OrderShop> orderShopsList = this.orderService.findAll();
+        List<OrderShop> orders = new ArrayList<>();
+        for(OrderShop o : orderShopsList){
+            if(o.isConfirm()){
+                orders.add(o);
+            }
+        }
         Context context = new Context();
-        context.setVariable("orders", orderShopsList);
+        context.setVariable("orders", orders);
         return context;
     }
     private String loadAndFillTemplate(Context context) {

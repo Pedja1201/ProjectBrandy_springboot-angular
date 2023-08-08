@@ -100,6 +100,7 @@ export class AdminAdministatorsComponent implements OnInit{
   deleteUser(id:number){
     this.adminService.delete(id).subscribe(x=>{
       this.deleteNote = false;
+      this.page = 0
       this.getAll()
     })
   }

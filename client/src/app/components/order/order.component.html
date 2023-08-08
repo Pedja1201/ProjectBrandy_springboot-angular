@@ -8,7 +8,7 @@
             
         <button *ngIf="previous" class="previous-button" (click)="previousPage()">Previous</button>
         <button *ngIf="next" class="next-button" (click)="nextPage()">Next</button>
-
+    
         <div class="cart_section">
             <div class="container-fluid">
                 <div class="row">
@@ -40,19 +40,19 @@
                                                 <div class="cart_item_title">Available</div>
                                                 <div class="cart_item_text">{{o.confirm ? 'Yes' : 'No' }}</div>
                                             </div>
-                                            <div class="cart_item_total cart_info_col">
+                                            <div class="cart_item_total cart_info_col" *ngIf="o.confirm">
                                                 <div class="cart_item_title">Total</div>
                                                 <div class="cart_item_text">{{o.total}}</div>
                                             </div>
                                             <div>
-                                                <button class="cancel_order_button" *ngIf="o.confirm" (click)="cancelOrder(o.id)">Cancel order</button>
+                                                <button class="cancel_order_button"  (click)="cancelOrder(o.id)">Cancel order</button>
                                             </div>
                                         </div>
                                         
                                     </li>
-                                    
+                               
                                 </ul>
-                                
+                            
                             </div>
                             <div class="order_total">
                                 <div class="order_total_content text-md-right">
