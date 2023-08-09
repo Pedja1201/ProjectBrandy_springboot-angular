@@ -22,7 +22,11 @@
                                         <div class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
                                             <div class="cart_item_name cart_info_col">
                                                 <div class="cart_item_title">Name</div>
-                                                <div class="cart_item_text" style="cursor: pointer;" (click)="about(o.brandy.name)" title="Show details">{{o.brandy.name}}</div>
+                                                <div class="cart_item_text" style="cursor: pointer;" (click)="about(o.brandy.id)" title="Show details">{{o.brandy.name}}</div>
+                                            </div>
+                                            <div class="cart_item_quantity cart_info_col">
+                                                <div class="cart_item_title">Brandy type</div>
+                                                <div class="cart_item_text">{{o.brandy.type}}</div>
                                             </div>
                                             <div class="cart_item_quantity cart_info_col">
                                                 <div class="cart_item_title">Date of purchase</div>

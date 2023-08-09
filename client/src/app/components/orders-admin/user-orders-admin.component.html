@@ -32,7 +32,10 @@
           <div class="order-value">{{o.quantity}}</div>
           
           <div class="order-label">Brandy Name:</div>
-          <div class="order-value brandy" (click)="getBrandyByName(o.brandy.name)">{{o.brandy.name}}</div>
+          <div class="order-value brandy" (click)="getBrandyByName(o.brandy.id)">{{o.brandy.name}}</div>
+
+          <div class="order-label">Brandy Type:</div>
+          <div class="order-value brandy">{{o.brandy.type}}</div>
           
           <div class="order-label">Brandy Quantity:</div>
           <div class="order-value">{{o.brandy.quantity ? 'Yes' : 'No' }}</div>
@@ -54,8 +57,8 @@
 
           <div class="order-label">Available:</div>
           <div class="order-value">{{o.confirm ? 'Yes' : 'No' }}</div>
-        
-          <div>
+          
+          <div style="margin-top: 10px;">
             <!-- <button (click)="deleteLogical(o)" *ngIf="o.confirm" style="margin-right: 20px;" class="dugme">Delete</button> -->
             <button (click)="delete(o.id)" *ngIf="!o.confirm" class="dugme">Delete</button>
           </div>

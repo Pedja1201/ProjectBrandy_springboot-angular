@@ -76,8 +76,8 @@ export class UserOrdersAdminComponent implements OnInit{
     this.process = false
   }
 
-  getBrandyByName(name:String){
-    this.brandyService.getBrandyByName(name).subscribe((x:Brandy)=>{
+  getBrandyByName(id:number){
+    this.brandyService.getOne(id).subscribe((x:Brandy)=>{
       console.log(x)
       this.router.navigate(['/aboutBrandy', {objDetails: JSON.stringify(x)}], { queryParams:  x , skipLocationChange: true});
     })

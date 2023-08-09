@@ -103,9 +103,9 @@ export class OrderComponent implements OnInit {
     })
   }
 
-  about(name: any){
-    let n = String(name)
-    this.b.getBrandyByName(n).subscribe(x=>{
+  about(id: number){
+    let n = Number(id)
+    this.b.getOne(n).subscribe(x=>{
       this.router.navigate(['/aboutBrandy', {objDetails: JSON.stringify(x)}], { queryParams:  x , skipLocationChange: true});
     })
   }

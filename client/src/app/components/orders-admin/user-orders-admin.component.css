@@ -31,9 +31,8 @@
     padding: 10px;
     border-radius: 5px;
     display: grid;
-    grid-template-columns: repeat(4, auto);
+    grid-template-columns: repeat(6, auto);
     grid-gap: 10px;
-    
   }
   
   .order-label {

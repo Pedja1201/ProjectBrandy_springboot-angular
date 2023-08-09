@@ -65,7 +65,7 @@
         </td>
         <td th:text="${order.getCustomer().getUsername() + ', ' + order.getCustomer().getEmail()}">
         </td>
-        <td th:text="${order.getBrandy().getId() +', '+ order.getBrandy().getName() +', '+ order.getBrandy().getPrice()}">
+        <td th:text="${order.getBrandy().getId() +', '+ order.getBrandy().getName() +', '+ order.getBrandy().getType() +', '+ order.getBrandy().getPrice()}">
         </td>
         <td th:text="${order.getQuantity()*order.getBrandy().getPrice()}">
         </td>
