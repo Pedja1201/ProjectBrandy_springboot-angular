@@ -1,8 +1,0 @@
-<mat-list>
-    <mat-list-item>ID: {{order["id"]}}</mat-list-item>
-    <mat-list-item>Date Of Purchase: {{order["dateOfPurchase"]}}</mat-list-item>
-    <mat-list-item>Quantity: {{order["quantity"]}}</mat-list-item>
-    <mat-list-item>Brandy: <span *ngIf="order['brandy']">{{order["brandy"]["name"]}}</span></mat-list-item>
-    <mat-list-item>Custoemr: <span *ngIf="order['customer']">{{order["customer"]["email"]}}</span></mat-list-item>
-</mat-list>
-<button mat-raised-button color="primary"  (click)="back()">Back</button>
