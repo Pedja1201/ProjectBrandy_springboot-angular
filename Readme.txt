@@ -1,0 +1,5 @@
+Srpski:
+U ovom projektu nalazi se moja aplikacija na kojoj sam radio kao diplomski rad. Takodje zelim da naglasim da mi je koriscenje i ovih tehnologija jedna od omiljenijih. Dakle, web aplikacija je zasnovana na prodaji i prezentovanju domacih pica, odnosno rakije. Na serveru koristio sam Java springboot okruzenje. Entiteti se automatski kreiraju u  Mysql bazi podataka. Takodje imam i MongoDB za skladistenje log podataka. Na klijentu je razvijena Angular tehnologija u TypeScript-u.
+
+Slovenski:
+Ta projekt vsebuje mojo aplikacijo, ki sem jo delal kot diplomsko delo. Prav tako želim poudariti, da je uporaba teh tehnologij ena mojih najljubših. Zato spletna aplikacija temelji na prodaji in predstavitvi domačih pic, torej žganja. Na strežniku sem uporabil okolje Java springboot. Entitete se samodejno ustvarijo v zbirki podatkov Mysql. Imam tudi MongoDB za shranjevanje dnevniških podatkov. Tehnologija Angular je bila razvita na odjemalcu v TypeScriptu.
